@@ -6,19 +6,24 @@ export const metadata: Metadata = { title: "Hero options", robots: { index: fals
 
 const options = [
   {
-    href: "/lab/heroes/object",
-    name: "A. Object",
-    text: "The yield curve as a sculpted object on a clean stage, lit like a product shot. Nearly two years of weekly gilt curves form a solid surface that rises on load, turns slowly and leans towards the cursor. The latest close is its gold front edge.",
+    href: "/lab/heroes/dark-ribbon",
+    name: "Dark ribbon",
+    text: "Your pick: the gilt-curve ribbon on the night ground, glowing where the curves overlap.",
   },
   {
-    href: "/lab/heroes/constellation",
-    name: "B. Constellation",
-    text: "The same two years as thousands of points of light on night blue, a slowly turning cloud with the latest close picked out in gold. The dark option.",
+    href: "/lab/heroes/torch",
+    name: "Torch",
+    text: "The first essay is hidden beneath the page. Your cursor is a light that reveals the writing as you move; on phones the light drifts on its own.",
   },
   {
-    href: "/lab/heroes/slice",
-    name: "C. Slice",
-    text: "A plane of slowly flowing colour fills the lower right of the page, and its top edge is today's yield curve, drawn in gold. Faint lines above show where the edge was in the weeks before. The cursor lights the colour.",
+    href: "/lab/heroes/lens",
+    name: "Lens",
+    text: "A huge headline with a piece of glass over it. The lens follows your cursor and magnifies the words, with a faint colour fringe at the rim.",
+  },
+  {
+    href: "/lab/heroes/questions",
+    name: "Questions",
+    text: "Lead with curiosity: the questions your projects set out to answer drift across the page in large type. Hover one to stop it and open the project.",
   },
 ];
 
@@ -28,7 +33,7 @@ export default function HeroOptions() {
       <Container className="py-20">
         <h1 className="text-h2">Hero options</h1>
         <p className="mt-3 max-w-[60ch] text-lead text-slate">
-          Three directions, each built from real Bank of England data. Open each one full screen.
+          Open each one full screen and move your cursor around.
         </p>
         <ul className="mt-12 grid gap-4 md:grid-cols-2">
           {options.map((o) => (

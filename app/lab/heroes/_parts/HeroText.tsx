@@ -1,6 +1,6 @@
 import { Button } from "@/components/Button";
 import { cx } from "@/lib/cx";
-import surface from "@/public/data/gilt-surface.json";
+import gilts from "@/public/data/gilt-curves.json";
 
 // Shared copy for the hero options, from 04-content.md (headline option B).
 
@@ -56,5 +56,4 @@ const date = (iso: string) =>
     timeZone: "UTC",
   });
 
-export const latestClose = date(surface.asOf);
-export const firstWeek = date(surface.curves[0].date);
+export const latestClose = date(gilts.asOf);

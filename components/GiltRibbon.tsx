@@ -76,10 +76,16 @@ function rampColour(stops: number[][], age: number, alpha: number) {
   return `rgb(${r} ${g} ${b} / ${alpha.toFixed(3)})`;
 }
 
-function buildStrands(blend: number): Strand[] {
+function buildStrands(blend: number, night: boolean): Strand[] {
   const style = getComputedStyle(document.documentElement);
   const token = (name: string) => hexToRgb(style.getPropertyValue(name));
-  const stops = ["--ribbon-back", "--ribbon-iris", "--ribbon-mid", "--ribbon-front"].map(token);
+  // On light, the sheet darkens towards the front. On night it brightens towards the front,
+  // and strands add together where they overlap, so the dense parts glow.
+  const stops = (
+    night
+      ? ["--ribbon-front", "--ribbon-iris", "--signal-soft", "--night-text"]
+      : ["--ribbon-back", "--ribbon-iris", "--ribbon-mid", "--ribbon-front"]
+  ).map(token);
   const gold = style.getPropertyValue("--gilt").trim();
 
   const logs = gilts.maturities.map(Math.log);
@@ -98,8 +104,8 @@ function buildStrands(blend: number): Strand[] {
     strands.push({
       age,
       yields: days[day].map((y, i) => y + (days[day + 1][i] - y) * t),
-      colour: rampColour(stops, age, 0.12 + 0.34 * age),
-      wash: rampColour(stops, age, 0.035),
+      colour: rampColour(stops, age, night ? 0.08 + 0.3 * age : 0.12 + 0.34 * age),
+      wash: rampColour(stops, age, night ? 0.03 : 0.035),
       width: 0.9 + 0.5 * age,
     });
   }
@@ -109,9 +115,11 @@ function buildStrands(blend: number): Strand[] {
 
 export function GiltRibbon({
   layout = "side",
+  tone = "light",
   className,
 }: {
   layout?: RibbonLayout;
+  tone?: "light" | "night";
   className?: string;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -124,7 +132,8 @@ export function GiltRibbon({
     if (!canvas || !ctx) return;
 
     const coarse = window.matchMedia("(pointer: coarse)").matches;
-    const strands = buildStrands(coarse ? 1 : 4);
+    const night = tone === "night";
+    const strands = buildStrands(coarse ? 1 : 4, night);
     const all = gilts.curves.flatMap((c) => c.yields);
     const yMin = Math.min(...all);
     const yMax = Math.max(...all);
@@ -163,6 +172,7 @@ export function GiltRibbon({
       lastFrame = now;
 
       ctx!.clearRect(0, 0, width, height);
+      ctx!.globalCompositeOperation = night ? "lighter" : "source-over";
       // On phones the sheet runs across the top, behind the text, whichever layout is chosen.
       const narrow = width < 1024;
       const c = composition(layout, narrow);
@@ -218,6 +228,8 @@ export function GiltRibbon({
         ctx!.lineWidth = strand.width;
         ctx!.stroke();
       }
+
+      ctx!.globalCompositeOperation = "source-over";
 
       // Fade the field out where the text sits (left for "side", top for "horizon").
       if (c.clear) {
@@ -280,7 +292,7 @@ export function GiltRibbon({
       document.removeEventListener("visibilitychange", onVisibility);
       window.removeEventListener("pointermove", onPointerMove);
     };
-  }, [reduced, layout]);
+  }, [reduced, layout, tone]);
 
   return <canvas ref={canvasRef} aria-hidden className={className} />;
 }

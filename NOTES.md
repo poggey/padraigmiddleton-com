@@ -102,3 +102,13 @@ Padraig chose a light hero and asked for the ribbon to be prototyped before cont
 - **New data:** `scripts/gilt_surface.py` writes `public/data/gilt-surface.json`, every fifth trading day since January 2025 (67 curves, 7.6 KB, 2.1 KB compressed).
 - **New shared code:** `lib/webgl.ts` (shaders, matrices, colour tokens), `lib/surface.ts` (surface grid, smooth across maturity and time, optional averaging) and `lib/useCanvasLoop.ts` (render loop, pause off screen, reduced motion, eased cursor). Nav gained a `tone="night"` option.
 - **Not yet measured:** frame rate on real devices. Headless Chrome renders WebGL in software, so its numbers would mislead. Measure on a phone and a laptop in Phase 5.
+
+## Hero options, third round (1 November 2026)
+
+- **Padraig's feedback on round two:** a wider range, but every option was still "the data, drawn differently". He liked the darkness of Constellation and said the ribbon was the best idea, so the dark ribbon is now an option. He asked for ideas that do not involve market data, thinking well outside the box. Object, Constellation and Slice, and their WebGL code and surface data, were removed (in git history).
+- **Round three, at `/lab/heroes`:**
+  - **Dark ribbon:** `GiltRibbon` with `tone="night"`. Lighter colour ramp (deep blue to near-white at the front) drawn with additive "lighter" compositing, so dense parts of the sheet glow. 25% opacity on phones so it doesn't fight the headline.
+  - **Torch:** the first essay's text (from `lib/essayText.ts`, Padraig's words exactly) fills the page, nearly invisible. A radial CSS mask follows the cursor and reveals it; after 2.5 s without movement, and on phones, the light drifts by itself. A soft shade keeps the headline column clean. A glow around the headline was tried and rejected: it made the letters look fuzzy.
+  - **Lens:** a glass loupe follows the cursor over the 88px headline. Inside is a 1.6× copy of the same text, positioned so the point under the centre lines up, with a red and blue fringe at the rim (`--fringe-warm` and `--fringe-cool`). Pure DOM, so the text stays crisp. Kept inside the headline's box; it drifts when idle.
+  - **Questions:** the questions from the project case studies in 04-content.md (APEX, The Slate, Portfolio Optimiser, Portfolio Risk Dashboard), in large type on rows that drift in alternating directions at different speeds (CSS `marquee` keyframes). Hover or focus stops a row and turns it blue; each row links to its project. Screen readers get each question once.
+- **Build note:** `essayText` reads from a fixed folder (`build-kit/content/posts`). A variable path made Turbopack trace the whole project into the server bundle.

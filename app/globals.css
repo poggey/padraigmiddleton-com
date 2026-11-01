@@ -43,6 +43,13 @@
   --ribbon-iris: #7a6cf0;
   --ribbon-back: #8fa8ff;
 
+  /* Light on glass, for the lens hero */
+  --glass-rim: rgb(255 255 255 / 0.28);
+  --glass-shine: rgb(255 255 255 / 0.1);
+  --glass-shadow: rgb(0 0 0 / 0.45);
+  --fringe-warm: rgb(255 120 160 / 0.5);
+  --fringe-cool: rgb(110 170 255 / 0.5);
+
   /* Type sizes: fluid from the mobile value at 390px to the desktop value at 1440px */
   --size-display: clamp(3rem, 2.0714rem + 3.8095vw, 5.5rem);
   --size-title: clamp(2.5rem, 1.9429rem + 2.2857vw, 4rem);
@@ -280,6 +287,13 @@
 @utility night-band {
   background: radial-gradient(60% 50% at 70% 0%, var(--night-glow), transparent 70%), var(--night);
   color: var(--night-text);
+}
+
+/* Moves a row of duplicated content left by half its width, so it loops without a seam. */
+@keyframes marquee {
+  to {
+    translate: -50% 0;
+  }
 }
 
 /* The nav bar's glass: same material, but a bottom hairline instead of a floating border and shadow. */
