@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { MotionConfig } from "motion/react";
 import { Switch } from "@/components/Switch";
 
@@ -21,7 +22,15 @@ export function LabShell({ children }: { children: React.ReactNode }) {
     <MotionConfig reducedMotion={reduced ? "always" : "user"}>
       <div className="sticky top-0 z-50 glass-bar">
         <div className="mx-auto box-content flex h-14 max-w-page items-center justify-between gap-4 px-(--gutter)">
-          <p className="text-ui font-semibold">Design lab</p>
+          <p className="flex items-center gap-6 text-ui font-semibold">
+            Design lab
+            <Link
+              href="/lab/heroes"
+              className="text-small font-medium text-signal underline underline-offset-4"
+            >
+              Hero options
+            </Link>
+          </p>
           <Switch checked={reduced} onChange={setReduced} label="Simulate reduced motion" />
         </div>
       </div>

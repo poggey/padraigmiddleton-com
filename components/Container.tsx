@@ -9,6 +9,14 @@ export function Container({
   children: React.ReactNode;
 }) {
   return (
-    <div className={cx("mx-auto max-w-page px-(--gutter) box-content", className)}>{children}</div>
+    // Full width up to 1200px plus the gutters, so it never overflows inside flex or grid layouts.
+    <div
+      className={cx(
+        "mx-auto w-full max-w-[calc(var(--container)+2*var(--gutter))] px-(--gutter)",
+        className,
+      )}
+    >
+      {children}
+    </div>
   );
 }

@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { useReducedMotionConfig } from "motion/react";
 import gilts from "@/public/data/gilt-curves.json";
+import { smoothCurve } from "@/lib/curves";
 
 /**
  * The hero ribbon: the last 60 days of UK gilt yield curves, drawn as one flowing sheet.
@@ -20,29 +21,45 @@ const LOG_MAX = Math.log(gilts.maturities[gilts.maturities.length - 1]);
 
 type Strand = { age: number; yields: number[]; colour: string; wash: string; width: number };
 
-// Monotone cubic interpolation (Fritsch–Carlson): a smooth curve that never overshoots the data.
-function smoothCurve(xs: number[], ys: number[], at: number[]) {
-  const n = xs.length;
-  const slope = xs.slice(1).map((x, i) => (ys[i + 1] - ys[i]) / (x - xs[i]));
-  const tangent = xs.map((_, i) => {
-    if (i === 0) return slope[0];
-    if (i === n - 1) return slope[n - 2];
-    return slope[i - 1] * slope[i] <= 0 ? 0 : (slope[i - 1] + slope[i]) / 2;
-  });
-  return at.map((x) => {
-    let i = 0;
-    while (i < n - 2 && x > xs[i + 1]) i++;
-    const h = xs[i + 1] - xs[i];
-    const t = (x - xs[i]) / h;
-    const t2 = t * t;
-    const t3 = t2 * t;
-    return (
-      (2 * t3 - 3 * t2 + 1) * ys[i] +
-      (t3 - 2 * t2 + t) * h * tangent[i] +
-      (-2 * t3 + 3 * t2) * ys[i + 1] +
-      (t3 - t2) * h * tangent[i + 1]
-    );
-  });
+export type RibbonLayout = "side" | "horizon";
+
+/**
+ * Where the sheet sits, as fractions of the canvas. "side" sweeps up the right-hand side
+ * beside the headline; "horizon" runs edge to edge across the bottom like a landscape.
+ * `clear` is the area faded out so text always sits on a clean ground.
+ */
+function composition(layout: RibbonLayout, narrow: boolean) {
+  if (narrow) {
+    return {
+      originX: -0.15,
+      spanX: 1.4,
+      baseY: 0.5,
+      rise: 0.22,
+      depthX: 0.12,
+      depthY: 0.3,
+      clear: null,
+    };
+  }
+  if (layout === "horizon") {
+    return {
+      originX: -0.08,
+      spanX: 1.16,
+      baseY: 1.02,
+      rise: 0.3,
+      depthX: 0.05,
+      depthY: 0.34,
+      clear: { axis: "y" as const, from: 0.3, to: 0.52 },
+    };
+  }
+  return {
+    originX: 0.3,
+    spanX: 0.84,
+    baseY: 0.94,
+    rise: 0.48,
+    depthX: 0.08,
+    depthY: 0.5,
+    clear: { axis: "x" as const, from: 0.38, to: 0.62 },
+  };
 }
 
 function hexToRgb(hex: string) {
@@ -90,7 +107,13 @@ function buildStrands(blend: number): Strand[] {
   return strands;
 }
 
-export function GiltRibbon({ className }: { className?: string }) {
+export function GiltRibbon({
+  layout = "side",
+  className,
+}: {
+  layout?: RibbonLayout;
+  className?: string;
+}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   // Follows the visitor setting, and the /lab simulation switch via MotionConfig.
   const reduced = useReducedMotionConfig() ?? false;
@@ -140,15 +163,15 @@ export function GiltRibbon({ className }: { className?: string }) {
       lastFrame = now;
 
       ctx!.clearRect(0, 0, width, height);
-      // Composition: the sheet sweeps up from the lower middle to the top right, behind the
-      // cards, clear of the headline column. On phones it sits across the top, behind the text.
+      // On phones the sheet runs across the top, behind the text, whichever layout is chosen.
       const narrow = width < 1024;
-      const originX = width * (narrow ? -0.15 : 0.3);
-      const spanX = width * (narrow ? 1.4 : 0.84);
-      const baseY = height * (narrow ? 0.5 : 0.94);
-      const rise = height * (narrow ? 0.22 : 0.48);
-      const depthX = width * (narrow ? 0.12 : 0.08);
-      const depthY = height * (narrow ? 0.3 : 0.5);
+      const c = composition(layout, narrow);
+      const originX = width * c.originX;
+      const spanX = width * c.spanX;
+      const baseY = height * c.baseY;
+      const rise = height * c.rise;
+      const depthX = width * c.depthX;
+      const depthY = height * c.depthY;
       const ripple = reduced ? 0 : height * 0.02;
 
       for (let s = 0; s < strands.length; s++) {
@@ -196,15 +219,21 @@ export function GiltRibbon({ className }: { className?: string }) {
         ctx!.stroke();
       }
 
-      // Fade the field out on the left so the headline always sits on a clean ground.
-      if (!narrow) {
-        const fadeEnd = width * 0.62;
-        const fade = ctx!.createLinearGradient(width * 0.38, 0, fadeEnd, 0);
+      // Fade the field out where the text sits (left for "side", top for "horizon").
+      if (c.clear) {
+        const size = c.clear.axis === "x" ? width : height;
+        const from = size * c.clear.from;
+        const to = size * c.clear.to;
+        const fade =
+          c.clear.axis === "x"
+            ? ctx!.createLinearGradient(from, 0, to, 0)
+            : ctx!.createLinearGradient(0, from, 0, to);
         fade.addColorStop(0, "rgb(0 0 0 / 1)");
         fade.addColorStop(1, "rgb(0 0 0 / 0)");
         ctx!.globalCompositeOperation = "destination-out";
         ctx!.fillStyle = fade;
-        ctx!.fillRect(0, 0, fadeEnd, height);
+        if (c.clear.axis === "x") ctx!.fillRect(0, 0, to, height);
+        else ctx!.fillRect(0, 0, width, to);
         ctx!.globalCompositeOperation = "source-over";
       }
 
@@ -251,7 +280,7 @@ export function GiltRibbon({ className }: { className?: string }) {
       document.removeEventListener("visibilitychange", onVisibility);
       window.removeEventListener("pointermove", onPointerMove);
     };
-  }, [reduced]);
+  }, [reduced, layout]);
 
   return <canvas ref={canvasRef} aria-hidden className={className} />;
 }

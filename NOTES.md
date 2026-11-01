@@ -82,3 +82,12 @@ Padraig chose a light hero and asked for the ribbon to be prototyped before cont
 - **Caption** says "the latest close, 29 October 2026, is in gold" rather than "today's", because the Bank's data lags by a day or more.
 - **Not yet built:** the hover tooltip on the gold curve, card tilt and the settle-in on load (Phase 5), and a replacement for the third hero card.
 - **Dev server gotcha.** A long-running `next dev` served a stale `globals.css` after edits (new tokens missing). Restart it if styles look out of date. Screenshots now use a production build so they can't be affected.
+
+## Hero options (1 November 2026)
+
+- Padraig approved: 2D canvas for the ribbon (not WebGL), `openpyxl` for the data script, the new violet `--ribbon-iris`, and Stirling as a hero card (now moot).
+- **Hero cards removed.** Padraig did not like the floating cards in the hero. The key-figure and prediction cards are out of the hero; the hero is headline, subline, buttons and one graphic.
+- **Four options built for Padraig to choose from**, at `/lab/heroes`: ribbon (sheet up the right), horizon (sheet edge to edge across the lower half), scrub (one large real curve that replays 60 days and can be dragged through) and on the record (the live prediction as the headline with a gold countdown).
+- `GiltRibbon` takes a `layout` ("side" or "horizon"). The curve maths is shared in `lib/curves.ts`.
+- **Container bug fixed.** `box-content` plus `w-full` overflowed inside flex layouts on phones. Container is now `w-full` with a max width that includes the gutters.
+- Weakness noted for "on the record": the gold bar is empty until the prediction's made date has passed, and it stays near empty for weeks after launch.

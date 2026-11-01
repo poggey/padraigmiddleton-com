@@ -1,0 +1,62 @@
+/* The timeline under the scrub chart: a native range input, restyled. */
+.range {
+  appearance: none;
+  width: 100%;
+  height: 44px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.range::-webkit-slider-runnable-track {
+  height: 2px;
+  background: var(--line-strong);
+  border-radius: 999px;
+}
+
+.range::-moz-range-track {
+  height: 2px;
+  background: var(--line-strong);
+  border-radius: 999px;
+}
+
+.range::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  margin-top: -8px;
+  border-radius: 999px;
+  background: var(--paper);
+  box-shadow:
+    var(--e2),
+    inset 0 0 0 2px var(--signal);
+  transition: scale var(--dur-press) var(--ease-out);
+}
+
+.range::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--paper);
+  box-shadow:
+    var(--e2),
+    inset 0 0 0 2px var(--signal);
+}
+
+.range:active::-webkit-slider-thumb {
+  scale: 1.15;
+}
+
+.range:focus-visible {
+  outline: none;
+}
+
+.range:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.range:focus-visible::-moz-range-thumb {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}

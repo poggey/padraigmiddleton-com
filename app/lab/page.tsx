@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { LabShell } from "./LabShell";
 import { Colours } from "./_sections/Colours";
-import { HeroPreview } from "./_sections/HeroPreview";
 import { TypeScale } from "./_sections/TypeScale";
 import { Spacing } from "./_sections/Spacing";
 import { Buttons } from "./_sections/Buttons";
@@ -22,7 +21,6 @@ export default function LabPage() {
   return (
     <LabShell>
       <main>
-        <HeroPreview />
         <Colours />
         <TypeScale />
         <Spacing />
