@@ -14,13 +14,24 @@ const links = [
  * The navigation bar. Transparent at the top of the page, glass once scrolled.
  * Phase 4 adds the scroll listener and the mobile menu sheet.
  */
-export function Nav({ scrolled = false, current }: { scrolled?: boolean; current?: string }) {
+export function Nav({
+  scrolled = false,
+  current,
+  tone = "light",
+}: {
+  scrolled?: boolean;
+  current?: string;
+  /** "night" for pages that open on a dark hero. */
+  tone?: "light" | "night";
+}) {
+  const night = tone === "night";
   return (
     <header
       className={cx(
         "transition-[background-color,box-shadow] duration-(--dur-hover) ease-out",
         scrolled ? "glass-bar" : "bg-transparent",
       )}
+      data-tone={night ? "night" : undefined}
     >
       <Container className="flex h-16 items-center justify-between gap-4">
         <Link
@@ -42,7 +53,13 @@ export function Nav({ scrolled = false, current }: { scrolled?: boolean; current
                       className={cx(
                         "relative inline-flex h-11 items-center rounded-pill px-3 text-small font-medium",
                         "transition-colors duration-(--dur-hover) ease-out",
-                        active ? "text-ink" : "text-slate is-hover:text-ink",
+                        night
+                          ? active
+                            ? "text-night-text"
+                            : "text-night-muted is-hover:text-night-text"
+                          : active
+                            ? "text-ink"
+                            : "text-slate is-hover:text-ink",
                       )}
                     >
                       {link.label}
@@ -58,14 +75,17 @@ export function Nav({ scrolled = false, current }: { scrolled?: boolean; current
               })}
             </ul>
           </nav>
-          <Button href="/cv.pdf" size="sm" className="md:ml-2">
+          <Button href="/cv.pdf" size="sm" tone={tone} className="md:ml-2">
             Download CV
           </Button>
           <button
             type="button"
             aria-label="Menu"
             aria-expanded={false}
-            className="inline-flex size-11 items-center justify-center rounded-pill text-ink md:hidden"
+            className={cx(
+              "inline-flex size-11 items-center justify-center rounded-pill md:hidden",
+              night ? "text-night-text" : "text-ink",
+            )}
           >
             <svg aria-hidden width="20" height="20" viewBox="0 0 20 20" fill="none">
               <path

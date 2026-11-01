@@ -1,7 +1,10 @@
 import { Button } from "@/components/Button";
-import gilts from "@/public/data/gilt-curves.json";
+import { cx } from "@/lib/cx";
+import surface from "@/public/data/gilt-surface.json";
 
 // Shared copy for the hero options, from 04-content.md (headline option B).
+
+type Tone = "light" | "night";
 
 export function Headline({
   className,
@@ -11,44 +14,47 @@ export function Headline({
   size?: "display" | "title";
 }) {
   return (
-    <h1 className={`${size === "display" ? "text-display" : "text-title"} ${className ?? ""}`}>
+    <h1 className={cx(size === "display" ? "text-display" : "text-title", className)}>
       Economics and markets, argued in writing and tested in code.
     </h1>
   );
 }
 
-export function Subline({ className }: { className?: string }) {
+export function Subline({ className, tone = "light" }: { className?: string; tone?: Tone }) {
   return (
-    <p className={`max-w-[34ch] text-lead text-slate ${className ?? ""}`}>
+    <p
+      className={cx(
+        "max-w-[34ch] text-lead",
+        tone === "light" ? "text-slate" : "text-night-muted",
+        className,
+      )}
+    >
       Second-year Economics and Finance student at Queen Mary University of London. Looking for
       Summer 2027 internships.
     </p>
   );
 }
 
-export function Actions({ className }: { className?: string }) {
+export function Actions({ className, tone = "light" }: { className?: string; tone?: Tone }) {
   return (
-    <div className={`flex flex-wrap gap-3 ${className ?? ""}`}>
-      <Button href="/writing/the-bill-britain-keeps-signing">Read the latest essay</Button>
-      <Button variant="secondary" href="/projects">
+    <div className={cx("flex flex-wrap gap-3", className)}>
+      <Button tone={tone} href="/writing/the-bill-britain-keeps-signing">
+        Read the latest essay
+      </Button>
+      <Button tone={tone} variant="secondary" href="/projects">
         See the projects
       </Button>
     </div>
   );
 }
 
-const latest = new Date(gilts.asOf).toLocaleDateString("en-GB", {
-  day: "numeric",
-  month: "long",
-  year: "numeric",
-  timeZone: "UTC",
-});
+const date = (iso: string) =>
+  new Date(iso).toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  });
 
-export function CurveCaption({ className }: { className?: string }) {
-  return (
-    <p className={`max-w-[60ch] text-small text-muted ${className ?? ""}`}>
-      UK government bond yield curves, 6 months to 30 years, over the last 60 trading days. The
-      latest close, {latest}, is in gold. Source: Bank of England.
-    </p>
-  );
-}
+export const latestClose = date(surface.asOf);
+export const firstWeek = date(surface.curves[0].date);

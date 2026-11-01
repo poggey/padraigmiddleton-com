@@ -91,3 +91,14 @@ Padraig chose a light hero and asked for the ribbon to be prototyped before cont
 - `GiltRibbon` takes a `layout` ("side" or "horizon"). The curve maths is shared in `lib/curves.ts`.
 - **Container bug fixed.** `box-content` plus `w-full` overflowed inside flex layouts on phones. Container is now `w-full` with a max width that includes the gutters.
 - Weakness noted for "on the record": the gold bar is empty until the prediction's made date has passed, and it stays near empty for weeks after launch.
+
+## Hero options, second round (1 November 2026)
+
+- **Padraig's feedback on round one:** ribbon and horizon were the same idea, and scrub and on the record were "a chart in the hero" and not interesting. The test to apply: would the lead designer at Stripe, Apple or Supabase, or a designer building their own portfolio, ship this? All four were removed (they stay in git history).
+- **Round two, at `/lab/heroes`:**
+  - **A. Object:** an Apple-style product shot. Weekly gilt curves since January 2025 form a lit, solid 3D surface with walls, a soft floor shadow and the latest close as a gold front edge. It rises from flat on load, turns slowly and leans to the cursor. Each week is averaged with its neighbours to remove a comb of spikes on the 30-year side; the latest curve stays exact, and the caption says so.
+  - **B. Constellation:** the same surface as about 14,000 additive points of light on night blue, rendered with WebGL point sprites. Low yields violet, high near-white, latest week gold. The dark option.
+  - **C. Slice:** a full-bleed WebGL shader of flowing colour (domain-warped noise in ink, deep blue, signal, violet and periwinkle). Its top edge is the latest yield curve in gold, with the eight previous weeks as faint lines above, and the cursor lights the colour. Gold filaments inside the colour turned muddy and were replaced with very faint white threads.
+- **New data:** `scripts/gilt_surface.py` writes `public/data/gilt-surface.json`, every fifth trading day since January 2025 (67 curves, 7.6 KB, 2.1 KB compressed).
+- **New shared code:** `lib/webgl.ts` (shaders, matrices, colour tokens), `lib/surface.ts` (surface grid, smooth across maturity and time, optional averaging) and `lib/useCanvasLoop.ts` (render loop, pause off screen, reduced motion, eased cursor). Nav gained a `tone="night"` option.
+- **Not yet measured:** frame rate on real devices. Headless Chrome renders WebGL in software, so its numbers would mislead. Measure on a phone and a laptop in Phase 5.
