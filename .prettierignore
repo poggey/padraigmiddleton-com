@@ -7,3 +7,4 @@ package-lock.json
 screenshots/
 test-results/
 playwright-report/
+public/data/
