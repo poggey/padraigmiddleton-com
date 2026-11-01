@@ -1,0 +1,9 @@
+build-kit/
+Posts/
+files/
+content/
+package-lock.json
+.next/
+screenshots/
+test-results/
+playwright-report/

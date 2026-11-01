@@ -1,0 +1,256 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens: the only place colours, type, radii, shadows and motion are defined.
+ * Source: build-kit/docs/02-design-system.md. Components use the Tailwind utilities
+ * generated from the @theme block below, or these variables directly in CSS.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* Colour */
+  --porcelain: #f3f5f8;
+  --paper: #ffffff;
+  --ink: #14213a;
+  --slate: #4a5568;
+  --muted: #5f6878;
+  --line: #dde2ea;
+  --line-strong: #c3cad6;
+  --night: #0b1424;
+  --night-raised: #14203a;
+  --night-text: #e8ecf4;
+  --night-muted: #a6b0c3;
+  --signal: #2d5be3;
+  --signal-soft: #8fa8ff;
+  --gilt: #c9a227;
+  --gilt-deep: #7a5d0a;
+
+  /* Type sizes: fluid from the mobile value at 390px to the desktop value at 1440px */
+  --size-display: clamp(3rem, 2.0714rem + 3.8095vw, 5.5rem);
+  --size-title: clamp(2.5rem, 1.9429rem + 2.2857vw, 4rem);
+  --size-h2: clamp(2rem, 1.7214rem + 1.1429vw, 2.75rem);
+  --size-h3: clamp(1.375rem, 1.2821rem + 0.381vw, 1.625rem);
+  --size-lead: clamp(1.125rem, 1.0554rem + 0.2857vw, 1.3125rem);
+  --size-ui: 1rem;
+  --size-small: 0.875rem;
+  --size-stat: clamp(2.5rem, 2.1286rem + 1.5238vw, 3.5rem);
+  --size-essay-body: clamp(1.125rem, 1.0786rem + 0.1905vw, 1.25rem);
+  --size-essay-dek: clamp(1.3125rem, 1.2429rem + 0.2857vw, 1.5rem);
+  --size-pull: clamp(1.625rem, 1.4857rem + 0.5714vw, 2rem);
+
+  /* Line heights: mobile values, switched to desktop values from 768px */
+  --leading-display: 1;
+  --leading-title: 1.05;
+  --leading-h2: 1.1;
+  --leading-h3: 1.25;
+  --leading-lead: 1.5;
+  --leading-ui: 1.5;
+  --leading-small: 1.45;
+  --leading-stat: 1;
+  --leading-essay-body: 1.7;
+  --leading-essay-dek: 1.45;
+  --leading-pull: 1.3;
+
+  /* Layout */
+  --container: 1200px;
+  --gutter: 20px;
+  --section-y: 80px;
+  --measure-essay: 680px;
+  --sidenote-width: 240px;
+  --figure-wide: 960px;
+
+  /* Elevation: shadows tinted with --ink */
+  --e0: 0 0 0 1px var(--line);
+  --e1: 0 1px 2px rgb(20 33 58 / 0.05), 0 0 0 1px rgb(20 33 58 / 0.06);
+  --e2: 0 14px 32px -14px rgb(20 33 58 / 0.22), 0 0 0 1px rgb(20 33 58 / 0.07);
+  --e3: 0 32px 64px -24px rgb(20 33 58 / 0.38), inset 0 1px 0 rgb(255 255 255 / 0.7);
+
+  /* Glass */
+  --glass-bg: rgb(255 255 255 / 0.62);
+  --glass-bg-fallback: rgb(255 255 255 / 0.94);
+  --glass-border: rgb(255 255 255 / 0.7);
+  --glass-filter: blur(20px) saturate(170%);
+
+  /* Motion */
+  --dur-press: 120ms;
+  --dur-hover: 200ms;
+  --dur-ui: 320ms;
+  --dur-reveal: 600ms;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --leading-display: 0.96;
+    --leading-title: 1;
+    --leading-h2: 1.05;
+    --leading-h3: 1.2;
+    --leading-essay-body: 1.75;
+    --gutter: 32px;
+    --section-y: 128px;
+  }
+}
+
+/* Reduced motion: transitions become instant. data-motion="reduce" lets /lab simulate it. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-press: 0ms;
+    --dur-hover: 0ms;
+    --dur-ui: 0ms;
+    --dur-reveal: 0ms;
+  }
+}
+:root[data-motion="reduce"] {
+  --dur-press: 0ms;
+  --dur-hover: 0ms;
+  --dur-ui: 0ms;
+  --dur-reveal: 0ms;
+}
+
+/*
+ * Tailwind theme. Defaults are cleared so only design-system values exist:
+ * bg-paper, text-ink, rounded-card, shadow-e2, text-display, font-serif, ease-out …
+ * Spacing keeps Tailwind's 4px base unit, so p-6 is 24px.
+ */
+@theme inline {
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-porcelain: var(--porcelain);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-slate: var(--slate);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-night: var(--night);
+  --color-night-raised: var(--night-raised);
+  --color-night-text: var(--night-text);
+  --color-night-muted: var(--night-muted);
+  --color-signal: var(--signal);
+  --color-signal-soft: var(--signal-soft);
+  --color-gilt: var(--gilt);
+  --color-gilt-deep: var(--gilt-deep);
+
+  --font-*: initial;
+  --font-sans: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-source-serif), ui-serif, Georgia, serif;
+
+  --text-*: initial;
+  --text-display: var(--size-display);
+  --text-display--line-height: var(--leading-display);
+  --text-display--letter-spacing: -0.035em;
+  --text-display--font-weight: 600;
+  --text-title: var(--size-title);
+  --text-title--line-height: var(--leading-title);
+  --text-title--letter-spacing: -0.03em;
+  --text-title--font-weight: 600;
+  --text-h2: var(--size-h2);
+  --text-h2--line-height: var(--leading-h2);
+  --text-h2--letter-spacing: -0.025em;
+  --text-h2--font-weight: 600;
+  --text-h3: var(--size-h3);
+  --text-h3--line-height: var(--leading-h3);
+  --text-h3--letter-spacing: -0.015em;
+  --text-h3--font-weight: 600;
+  --text-lead: var(--size-lead);
+  --text-lead--line-height: var(--leading-lead);
+  --text-lead--letter-spacing: -0.005em;
+  --text-ui: var(--size-ui);
+  --text-ui--line-height: var(--leading-ui);
+  --text-small: var(--size-small);
+  --text-small--line-height: var(--leading-small);
+  --text-small--font-weight: 500;
+  --text-stat: var(--size-stat);
+  --text-stat--line-height: var(--leading-stat);
+  --text-stat--letter-spacing: -0.04em;
+  --text-stat--font-weight: 600;
+  --text-essay-body: var(--size-essay-body);
+  --text-essay-body--line-height: var(--leading-essay-body);
+  --text-essay-dek: var(--size-essay-dek);
+  --text-essay-dek--line-height: var(--leading-essay-dek);
+  --text-pull: var(--size-pull);
+  --text-pull--line-height: var(--leading-pull);
+  --text-pull--letter-spacing: -0.01em;
+
+  --shadow-*: initial;
+  --shadow-e0: var(--e0);
+  --shadow-e1: var(--e1);
+  --shadow-e2: var(--e2);
+  --shadow-e3: var(--e3);
+
+  --breakpoint-*: initial;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1440px;
+
+  --container-page: var(--container);
+  --container-essay: var(--measure-essay);
+  --container-figure: var(--figure-wide);
+}
+
+/* Radii and easing share Tailwind's names, so they are defined here once and always emitted. */
+@theme static {
+  --radius-*: initial;
+  --radius-pill: 999px; /* buttons, chips, tabs, toggles */
+  --radius-inline: 12px; /* inputs, tooltips, small panels, sidenotes */
+  --radius-card: 20px; /* standard cards */
+  --radius-feature: 28px; /* large project tiles */
+  --radius-panel: 36px; /* section-scale panels */
+
+  --ease-*: initial;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* Glass: nav bar, hero floating cards, chips over graphics, command menu. Nowhere else. */
+@utility glass {
+  background: var(--glass-bg-fallback);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--e3);
+
+  @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    background: var(--glass-bg);
+    -webkit-backdrop-filter: var(--glass-filter);
+    backdrop-filter: var(--glass-filter);
+  }
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background: var(--porcelain);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: var(--size-ui);
+    line-height: var(--leading-ui);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  p,
+  li,
+  figcaption {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--signal);
+    color: var(--paper);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--signal);
+    outline-offset: 2px;
+  }
+}

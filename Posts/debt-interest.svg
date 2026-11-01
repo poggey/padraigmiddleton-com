@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400" role="img" aria-labelledby="t d" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+<title id="t">Debt interest as a share of GDP, 2019-20 to 2031-32</title>
+<desc id="d">Line chart of central government debt interest, net of the APF, as a percentage of GDP. It falls from 1.7% in 2019-20 to 1.2% in 2020-21, jumps to a peak of 4.2% in 2022-23, eases to 3.5% in 2025-26, and is forecast by the OBR to rise again to 4.2% by 2031-32.</desc>
+<style>
+.surface{fill:#fcfcfb}.ink{fill:#0b0b0b}.ink2{fill:#52514e}.muted{fill:#898781}
+.grid{stroke:#e1e0d9}.base{stroke:#c3c2b7}.band{fill:#f0efec}
+.line{stroke:#2a78d6}.dot{fill:#2a78d6;stroke:#fcfcfb}.wash{fill:#2a78d6;fill-opacity:.1}
+@media (prefers-color-scheme: dark){
+.surface{fill:#1a1a19}.ink{fill:#f0efec}.ink2{fill:#c3c2b7}
+.grid{stroke:#2c2c2a}.base{stroke:#383835}.band{fill:#232322}
+.line{stroke:#3987e5}.dot{fill:#3987e5;stroke:#1a1a19}.wash{fill:#3987e5}}
+text{font-variant-numeric:tabular-nums}
+</style>
+<rect class="surface" width="600" height="400"/>
+<text class="ink" x="16" y="32" font-size="17" font-weight="600">Debt interest as a share of GDP, 2019-20 to 2031-32</text>
+<text class="ink2" x="16" y="54" font-size="13">Central government debt interest, net of APF, % of GDP</text>
+<rect class="band" x="323.5" y="84" width="248.5" height="252"/>
+<text class="ink2" x="331.5" y="98" font-size="12">OBR forecast</text>
+<line class="base" x1="40" x2="572" y1="336.0" y2="336.0" stroke-width="1"/>
+<text class="muted" x="34" y="340.0" font-size="12" text-anchor="end">0%</text>
+<line class="grid" x1="40" x2="572" y1="289.6" y2="289.6" stroke-width="1"/>
+<text class="muted" x="34" y="293.6" font-size="12" text-anchor="end">1%</text>
+<line class="grid" x1="40" x2="572" y1="243.2" y2="243.2" stroke-width="1"/>
+<text class="muted" x="34" y="247.2" font-size="12" text-anchor="end">2%</text>
+<line class="grid" x1="40" x2="572" y1="196.8" y2="196.8" stroke-width="1"/>
+<text class="muted" x="34" y="200.8" font-size="12" text-anchor="end">3%</text>
+<line class="grid" x1="40" x2="572" y1="150.4" y2="150.4" stroke-width="1"/>
+<text class="muted" x="34" y="154.4" font-size="12" text-anchor="end">4%</text>
+<line class="grid" x1="40" x2="572" y1="104.0" y2="104.0" stroke-width="1"/>
+<text class="muted" x="34" y="108.0" font-size="12" text-anchor="end">5%</text>
+<text class="muted" x="44.0" y="356" font-size="12" text-anchor="middle">2019-20</text>
+<text class="muted" x="130.0" y="356" font-size="12" text-anchor="middle">2021-22</text>
+<text class="muted" x="216.0" y="356" font-size="12" text-anchor="middle">2023-24</text>
+<text class="muted" x="302.0" y="356" font-size="12" text-anchor="middle">2025-26</text>
+<text class="muted" x="388.0" y="356" font-size="12" text-anchor="middle">2027-28</text>
+<text class="muted" x="474.0" y="356" font-size="12" text-anchor="middle">2029-30</text>
+<text class="muted" x="560.0" y="356" font-size="12" text-anchor="middle">2031-32</text>
+<polygon class="wash" points="44.0,336 44.0,256.3 87.0,281.8 130.0,230.1 173.0,139.4 216.0,157.1 259.0,168.9 302.0,171.6 345.0,155.3 388.0,147.1 431.0,147.1 474.0,143.0 517.0,147.1 560.0,140.8 560.0,336"/>
+<polyline class="line" points="44.0,256.3 87.0,281.8 130.0,230.1 173.0,139.4 216.0,157.1 259.0,168.9 302.0,171.6 345.0,155.3 388.0,147.1 431.0,147.1 474.0,143.0 517.0,147.1 560.0,140.8" fill="none" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle class="dot" cx="44.0" cy="256.3" r="4.5" stroke-width="2"><title>2019-20: 1.7% of GDP</title></circle>
+<text class="ink" x="40.0" y="244.3" font-size="13" font-weight="600" text-anchor="start">1.7%</text>
+<circle class="dot" cx="173.0" cy="139.4" r="4.5" stroke-width="2"><title>2022-23: 4.2% of GDP</title></circle>
+<text class="ink" x="173.0" y="127.4" font-size="13" font-weight="600" text-anchor="middle">4.2%</text>
+<circle class="dot" cx="302.0" cy="171.6" r="4.5" stroke-width="2"><title>2025-26: 3.5% of GDP</title></circle>
+<text class="ink" x="302.0" y="191.6" font-size="13" font-weight="600" text-anchor="middle">3.5%</text>
+<circle class="dot" cx="560.0" cy="140.8" r="4.5" stroke-width="2"><title>2031-32: 4.2% of GDP</title></circle>
+<text class="ink" x="564.0" y="128.8" font-size="13" font-weight="600" text-anchor="end">4.2%</text>
+<text class="muted" x="16" y="384" font-size="11">Source: OBR, Economic and fiscal outlook, October 2026, Chart 5.7. 2026-27 onwards are forecasts.</text>
+</svg>

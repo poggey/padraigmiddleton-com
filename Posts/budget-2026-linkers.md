@@ -1,0 +1,38 @@
+---
+title: "The bill Britain keeps signing"
+date: 2026-11-03
+summary: "Commentators called it a nothing-budget. The biggest number in it was never announced, and it goes back to 1981."
+tags: [uk-economy, gilts, budget]
+prediction: "Linkers make up less than 9.3% of planned gilt sales in the 2027-28 remit"
+prediction_check: 2027-04-30
+draft: False
+---
+
+I've heard commentators complaining that the recent budget was a nothing-budget. And they would be right: lots of small changes, whether good or bad. But I think the narrative should be focusing on something that wasn't even announced. Instead we should be focusing on a bill the UK has been signing since 1981, and the main reason the government's fiscal headroom shrank.
+
+Not tax adjustments, not spending tweaks, but a special kind of debt.
+
+Index-linked gilts, or linkers, are bonds whose coupon and principal both rise with RPI (the Retail Prices Index, one measure of inflation). It's in their name: linkers tie both the interest payments and the maturity payment directly to inflation. Linkers make up 25.2% of the UK government's debt portfolio, higher than any other G7 country, giving the UK an unusually high exposure to its own inflation rate.[^dmo] And not just higher but much higher: roughly twice the share of the next most exposed G7 country.[^capx]
+
+Debt interest has risen from £39bn in 2019-20 to £109bn in 2025-26, and it's now forecast to reach £160bn by 2031-32. As a share of GDP, that's a rise from 1.7% to 4.2%, back to its 2022-23 peak. Before a single Budget measure was counted, this year's bill was already £15bn higher than the OBR forecast in March, driven mostly by inflation raising the cost of linkers.[^obr]
+
+![Debt interest as a share of GDP, 2019-20 to 2031-32](./debt-interest.svg)
+
+In 1981, when linkers were first introduced, they made a lot of sense. Investors lending long-term to the government demanded a large premium in case ministers inflated that debt away. Linkers removed that risk, allowing the Treasury to borrow at a lower real rate. They were also a credibility signal: by issuing them, the government told markets "we'll control inflation, and if we don't, we'll pay." In this way they were a great saver for the Treasury, lowering its real borrowing rate compared to conventional gilts. They also had natural buyers: defined-benefit pension schemes with inflation-linked promises.
+
+However, in 2026 those buyers are fading. Most defined-benefit pension schemes have closed, moved into surplus or been bought out by insurers. Now the marginal buyer has alternatives and demands a fairer price.[^capx] Worse still, linkers hit the Treasury exactly when public finances are under strain. During an inflation shock, spending is rising and growth is falling, and that's exactly when linkers raise their interest payments. It's a kind of insurance whose bill arrives exactly when the insurer can least afford it. This is the real issue, rather than the instrument itself.
+
+The latest revisions to the RPI forecast alone add £12bn to spending in 2026-27. And the exposure doesn't go away: a 1 point rise in RPI and CPIH in every year would add £9bn to the deficit in 2029-30 via linkers alone. With only around £15bn of fiscal headroom, the markets watch any revisions incredibly closely.[^obr]
+
+But it's not that simple. Linkers have paid off in the past. For example, linkers that had matured by March 2026 saved around £86.9bn against conventional gilts.[^dmo] And still, linkers are cheaper as long as RPI averages no more than 3% throughout their lifetime.[^capx] So one bad year does not decide the verdict by any means. The OBR also expects inflation to fall to 2% from 2028, which would ease pressure if it holds.[^obr]
+
+So the problem isn't linkers themselves, but the scale. The Treasury seems to agree, with linkers making up just 9.3% of planned gilt sales for 2026-27.[^dmo] But cutting new issuance doesn't touch the stock that's been built up over four decades, and that stock is what showed up in this budget. The more interesting change is coming in 2030, when RPI will be aligned with CPIH, a measure that typically runs 0.5 to 1 point lower.[^rpi] That quietly cuts the cost of every linker still outstanding. I think this is the real fix, and it's telling that it arrived through a technical statistical reform agreed back in 2020 rather than a headline Budget policy. Just like the problem itself.
+
+Where could I be wrong? If inflation returns to target as forecast and stays there, linkers go back to being cheap, and this becomes an argument about tail risk rather than cost. That's a fair position, but a buffer of around £15bn doesn't leave much room for tail risks.
+
+My prediction: linkers will make up less than 9.3% of planned gilt sales in the 2027-28 remit. I'll check back when it's published next spring.
+
+[^obr]: Office for Budget Responsibility, [Economic and fiscal outlook, October 2026](https://obr.uk/efo/economic-and-fiscal-outlook-october-2026/), chapter 5.
+[^capx]: CapX, ["Are linkers a good deal for taxpayers?"](https://capx.co/are-linkers-a-good-deal-for-taxpayers) (2026).
+[^dmo]: UK Debt Management Office, [Debt Management Report 2026-27](https://assets.publishing.service.gov.uk/media/69a6c580b9bd90e63a2521f2/Debt_Management_Report-2026-27.pdf).
+[^rpi]: HM Treasury and UK Statistics Authority, [A Response to the Consultation on the Reform to Retail Prices Index Methodology](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/938008/RPI_Response_FINAL_VERSION_.pdf) (25 November 2020).
