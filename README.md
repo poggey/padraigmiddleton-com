@@ -16,6 +16,7 @@ npm run dev          # http://localhost:3000
 | `npm run dev`         | Development server                                        |
 | `npm run build`       | Production build (static pages)                           |
 | `npm run start`       | Serve the production build                                |
+| `npm test`            | Unit tests (content loaders, schemas, MDX)                |
 | `npm run lint`        | ESLint                                                    |
 | `npm run typecheck`   | Generates route types, then runs TypeScript               |
 | `npm run format`      | Prettier over the codebase                                |
@@ -52,3 +53,18 @@ python3 scripts/gilt_curves.py
 ```
 
 The script merges the Bank's current-month file into the committed history and keeps the latest 60 days. It refuses to overwrite the file if the data looks wrong.
+
+## Content
+
+Everything on the site comes from `content/`, checked against the schemas in `lib/content/schemas.ts` when the site builds. A missing or malformed field fails the build with the file name and the field.
+
+| File                       | What it holds                                          |
+| -------------------------- | ------------------------------------------------------ |
+| `content/posts/*.mdx`      | Essays. The file name is the URL.                      |
+| `content/projects/*.mdx`   | Project case studies. `slug` must match the file name. |
+| `content/predictions.json` | The Ledger. Never edit a `claim` after publishing.     |
+| `content/experience.json`  | Roles and education                                    |
+| `content/site.json`        | Contact details, homepage copy, About, skills          |
+| `content/charts/*.json`    | Data for essay charts                                  |
+
+Footnotes (`[^id]` and `[^id]: source` on one line) become numbered sidenotes. Reading time is worked out at 230 words a minute. The RSS feed, sitemap and robots.txt are generated at build.

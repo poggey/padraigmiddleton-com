@@ -7,7 +7,7 @@ import path from "node:path";
  * only traces the essays, not the whole project.
  */
 export function essayParagraphs(file: string) {
-  const source = readFileSync(path.join(process.cwd(), "build-kit/content/posts", file), "utf8");
+  const source = readFileSync(path.join(process.cwd(), "content/posts", file), "utf8");
   return source
     .replace(/^---[\s\S]*?---/, "")
     .split(/\n\s*\n/)

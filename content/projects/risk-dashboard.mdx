@@ -1,0 +1,32 @@
+---
+title: "Portfolio Risk Dashboard"
+slug: "risk-dashboard"
+kind: "Risk analytics"
+oneLine: "Measures and stress-tests the risk of any portfolio: VaR, CVaR, Sharpe, Sortino, beta and drawdowns."
+group: "markets"
+status: "live"
+year: 2026
+stack: ["Python", "Streamlit", "Plotly"]
+links:
+  live: "https://risk-dashboard-padraig.streamlit.app"
+  repo: "https://github.com/poggey/risk-dashboard"
+graphic: "risk-drawdown"
+size: "feature"
+order: 1
+---
+
+## The question
+
+Once you’ve built a portfolio, how do you measure its risk, and how do you test it against a crisis?
+
+## What it does
+
+Three tabs. A risk dashboard (annualised return and volatility, Sharpe, Sortino, maximum drawdown, 95% VaR and CVaR, beta, rolling Sharpe, correlation heatmap). A “Sleep Test” that scores a portfolio against how much loss the investor says they can tolerate. A stress test that shocks factor exposures (market, rates, volatility) rather than single assets, with V, U and L-shaped crisis paths modelled on 2020, 2008 and Japan in the 1990s.
+
+## Why factor shocks
+
+“What if this stock falls 40%” ignores how assets move together. Shocking the underlying factors gives a more honest picture of a portfolio in a crisis.
+
+## Limitations
+
+Historical data only, volatility used as a proxy for duration, linear recovery paths, no correlation spikes in crises, no transaction costs.

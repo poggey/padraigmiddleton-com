@@ -1,0 +1,82 @@
+{
+  "roles": [
+    {
+      "id": "zaltek",
+      "organisation": "Zaltek Digital",
+      "role": "Junior Associate (part-time)",
+      "location": "Newcastle",
+      "dates": "June 2022 to present",
+      "bullets": [
+        "Designed a council website template in Figma, now used by 650+ UK local councils, and led the migration of content onto it, including training colleagues and answering their questions.",
+        "Managed the company accounts and produced monthly profit-by-project reports for the founders from time-tracking data.",
+        "Designed a digital tool for an NHS supply chain service in Figma, applying the UK Government Design Principles.",
+        "Built automated email marketing workflows in n8n that generate qualified sales contacts."
+      ]
+    },
+    {
+      "id": "raymond-james",
+      "organisation": "Raymond James",
+      "role": "Wealth Management (work experience)",
+      "location": "Newcastle",
+      "dates": "August 2026, one week, self-arranged",
+      "bullets": [
+        "Built a Shariah-compliant model portfolio, matched to an existing mandate on risk first and then on exposure, using sukuk in place of conventional bonds.",
+        "Compared holdings in client portfolios against a fund pitched by its manager, and wrote a recommendation.",
+        "Used BlackRock Portfolio 360 to analyse the portfolios I built."
+      ]
+    },
+    {
+      "id": "parkdean",
+      "organisation": "Parkdean Resorts",
+      "role": "Customer Sales Support Advisor",
+      "location": "Newcastle",
+      "dates": "June to September 2026",
+      "bullets": [
+        "Consistently ranked in the top three of around 25 advisors on the daily revenue leaderboard. TODO(Padraig): confirm around 25 or around 30 so it matches the CV.",
+        "Beat all eight other summer hires on conversion rate and total sales value."
+      ]
+    },
+    {
+      "id": "icd-energy",
+      "organisation": "ICD Energy",
+      "role": "Internship",
+      "location": "Newcastle",
+      "dates": "September 2024, two weeks",
+      "bullets": ["Compiled 1,000+ records from several sources into a single Excel workbook for the team."]
+    },
+    {
+      "id": "uk-parliament",
+      "organisation": "UK Parliament, House of Lords",
+      "role": "Work experience",
+      "location": "London",
+      "dates": "July 2023",
+      "bullets": [
+        "Researched UK productivity for peers.",
+        "Co-wrote and fact-checked a speech delivered by a Labour peer, to a tight deadline."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "id": "qmul",
+      "institution": "Queen Mary University of London",
+      "qualification": "BSc (Econ) Economics and Finance",
+      "dates": "September 2025 to June 2028",
+      "points": [
+        "Year 1 average 85% (First Class).",
+        "Mathematical Methods 94%, Microeconomics 91%, Statistical Methods 88%.",
+        "Current modules: Econometrics, Financial Statements and Analysis, Games and Strategies, Asset Pricing.",
+        "Finance Trading Programme, including Bloomberg terminal training."
+      ]
+    },
+    {
+      "id": "st-marys",
+      "institution": "St Mary’s Catholic School, Newcastle",
+      "dates": "2018 to 2025",
+      "points": [
+        "A-levels: Mathematics A*, Further Mathematics A, Economics A, English Language B.",
+        "GCSEs: seven grade 9s and three grade 8s, including 9s in Maths and English."
+      ]
+    }
+  ]
+}

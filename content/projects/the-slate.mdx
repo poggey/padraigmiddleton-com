@@ -1,0 +1,38 @@
+---
+title: "The Slate"
+slug: "the-slate"
+kind: "Data essay"
+oneLine: "A24’s films analysed as if they were an investment portfolio."
+group: "data"
+status: "in-progress"
+year: 2026
+stack: ["Python", "pandas", "statsmodels", "TMDB and OMDb APIs"]
+links:
+  repo: "https://github.com/poggey/the-slate"
+keyResult:
+  figure: "+60%"
+  label: "roughly the boost to a film’s revenue multiple from ten extra Metascore points"
+graphic: "slate-returns"
+size: "feature"
+order: 3
+---
+
+## The question
+
+Is a film studio’s slate more like a balanced portfolio or a venture fund?
+
+## Data
+
+118 films tracked, a core sample of 58, collected from public APIs and cleaned by hand.
+
+## Finding 1, returns are extremely skewed
+
+$1.62bn deployed for a net loss of about $37m. The mean return was +191% but the median was −10%, only 43% of films were profitable, and five films made about 65% of all the profit. It behaves like a venture fund.
+
+## Finding 2, acclaim pays
+
+Ten Metascore points are associated with roughly a 60% higher revenue multiple (p = 0.008), and the result held across all 13 sensitivity runs.
+
+## Limitations
+
+Costs for marketing and distribution are modelled, not reported; the sample is one studio.

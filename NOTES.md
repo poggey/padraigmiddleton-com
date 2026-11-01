@@ -118,3 +118,15 @@ Padraig chose a light hero and asked for the ribbon to be prototyped before cont
 - **Chosen: the dark ribbon.** Night ground with the blue glow, and the gilt ribbon in its night tone up the right-hand side. No hero cards. Kit docs 02, 03 and 05 updated.
 - **Torch** is planned for the homepage contact panel (Phase 6), as a quiet discovery rather than a feature. Padraig: "don't force it if it doesn't work". Drop it if it competes with the email link.
 - **Not chosen:** Lens and Questions. Their components remain in `components/` until Phase 6. Questions could still work as the projects band intro; delete whatever is unused by Phase 10.
+
+## Phase 3: content layer (1 November 2026)
+
+- **MDX** is compiled on the server with `@mdx-js/mdx` (`lib/mdx/render.tsx`), with frontmatter read by `gray-matter`. Not `@next/mdx`: it does not read frontmatter, and with Turbopack it cannot take our own remark or rehype plugins as functions. Plugins: `remark-gfm` (footnotes) and `rehypeKeepRanges` (word joiners in number ranges, in every piece of text).
+- **Validation:** zod schemas in `lib/content/schemas.ts`. `validateContent()` runs from `app/sitemap.ts`, so every build checks everything. A deliberately broken file was tested: the build stops with "Invalid content in content/projects/apex.mdx … at title".
+- **Cross-checks:** each essay's `predictionId` exists; each prediction points to a real essay; each prediction's claim appears word for word in its essay (case-insensitive), so claims can't drift from what was published.
+- **Footnotes** become sidenote data (`lib/content/footnotes.ts`), numbered in the order first cited. Definitions must be single-line, and orphan references or sources throw.
+- **Project files** use the 04-content.md text exactly. Changes: curly quotes and apostrophes, "Label: text" split into a heading and a paragraph with the first letter capitalised, "Ledoit–Wolf" with an en dash. Stirling's "live (updated daily)" is `status: live` plus `statusNote`.
+- **Prediction 001** has a `judging` field: the rule decided at Padraig's request in Phase 0. It will be public on the Ledger.
+- **Not placed:** "this was Padraig's first ever coding project" (Portfolio Optimiser), written in the third person in 04, needs his own wording if wanted. The project "Graphic:" descriptions are build specs for Phase 7, not copy.
+- **Tooling:** `@types/node` moved to 24.x (Vitest 5 needs 22 or later), and `engines.node` is now `>=22`. Unit tests live next to the code (`lib/**/*.test.ts`); Playwright keeps `tests/`. The Vitest config is `.mts` to avoid Vite's CommonJS warning.
+- **RSS is hand-written** (`app/rss.xml/route.ts`), about 30 lines, rather than adding a package. The site URL comes from `NEXT_PUBLIC_SITE_URL`, falling back to the suggested domain.

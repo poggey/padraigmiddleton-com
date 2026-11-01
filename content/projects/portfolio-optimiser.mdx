@@ -1,0 +1,34 @@
+---
+title: "Portfolio Optimiser"
+slug: "portfolio-optimiser"
+kind: "Quant finance"
+oneLine: "Markowitz optimisation on eight London-listed ETFs, and why the “best” portfolio is not to be trusted."
+group: "markets"
+status: "complete"
+year: 2026
+stack: ["Python", "pandas", "NumPy", "SciPy", "yfinance"]
+links:
+  repo: "https://github.com/poggey/portfolio-optimiser"
+keyResult:
+  figure: "0.76"
+  label: "maximum Sharpe ratio, against −0.31 for an equal-weight portfolio (2020–2025, 4% risk-free rate)"
+graphic: "optimiser-frontier"
+size: "standard"
+order: 4
+---
+
+## The question
+
+How far does textbook portfolio theory get you with real data?
+
+## Data
+
+Five years of daily prices for eight ETFs across five asset classes (UK and global equity, gilts, US Treasuries, index-linked gilts, gold, UK corporate bonds, UK property).
+
+## Result
+
+The maximum-Sharpe portfolio was 56% gold and 44% global equity, a Sharpe ratio of 0.76.
+
+## What broke
+
+The optimiser concentrated into two assets because it exploits noise in the estimated returns. Fixes would be weight caps and shrinkage estimators such as Ledoit–Wolf. The sample includes Covid, the 2022 rate rises and the gilt crisis.

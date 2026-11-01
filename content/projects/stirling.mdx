@@ -1,0 +1,37 @@
+---
+title: "Stirling"
+slug: "stirling"
+kind: "Automated system"
+oneLine: "A daily economic briefing that decides what mattered, writes it up and files one numbered edition a day, for £0 a month."
+group: "systems"
+status: "live"
+statusNote: "updated daily"
+year: 2026
+stack: ["Next.js", "TypeScript", "Vercel", "GitHub Actions", "free public APIs (Bank of England, FRED, ECB, Frankfurter)"]
+links:
+  live: "https://stirling-report.vercel.app"
+  repo: "https://github.com/poggey/stirling-report"
+graphic: "stirling-editions"
+size: "standard"
+order: 2
+---
+
+## The idea
+
+Replicate a junior analyst’s daily routine. Pull market and macro data, rank what mattered, and publish one permanent edition per day.
+
+## How it works
+
+Every evening a scheduled job fetches all sources, computes how unusual each move was, picks the Story of the Day with a transparent scoring rule, and writes an immutable edition. A second job mirrors each edition into the repo as an open dataset.
+
+## Principle
+
+The code decides what mattered; the AI only words it. If the AI step fails, a template takes over.
+
+## Features worth naming
+
+A yield curve observatory, a central bank decision countdown, a Time Machine to replay any past edition, and an interview-prep mode.
+
+## Quality
+
+46 fixture-backed tests, no live calls in tests.

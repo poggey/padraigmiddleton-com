@@ -1,0 +1,85 @@
+{
+  "title": "Padraig Middleton",
+  "description": "Essays on economics and markets, and the projects I build to test them. Economics and Finance at Queen Mary University of London.",
+  "domain": "TODO(Padraig): buy the domain (suggested padraigmiddleton.com)",
+  "author": "Padraig Middleton",
+  "contact": {
+    "email": "padraigmiddleton@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/padraig-middleton",
+    "github": "https://github.com/poggey",
+    "cv": "/cv.pdf",
+    "cvTodo": "TODO(Padraig): supply the current CV as a PDF"
+  },
+  "hero": {
+    "headline": "Economics and markets, argued in writing and tested in code.",
+    "headlineOptions": [
+      "I write about economics and markets, and build the tools to test what I write.",
+      "Economics and markets, argued in writing and tested in code.",
+      "I write opinionated essays on economics and finance, and build things to check I’m right."
+    ],
+    "subline": "Second-year Economics and Finance student at Queen Mary University of London. Looking for Summer 2027 internships.",
+    "sublineTodo": "TODO(Padraig): optionally name the areas (banking, markets, asset management).",
+    "primaryButton": "Read the latest essay",
+    "secondaryButton": "See the projects"
+  },
+  "sections": {
+    "writing": {
+      "heading": "Writing",
+      "intro": "Opinionated, sourced, and every essay ends with a dated prediction that I track on the Ledger.",
+      "emptySlot": "Next essay in progress."
+    },
+    "projects": {
+      "heading": "Projects",
+      "intro": "Questions I wanted answered, so I built something to answer them.",
+      "filters": ["All", "Markets", "Data", "Systems"],
+      "button": "View all projects"
+    },
+    "ledger": {
+      "heading": "The Ledger",
+      "copy": "Every essay ends with a dated, checkable prediction. When the date arrives, it gets marked right or wrong here. Nothing is edited and nothing is deleted.",
+      "emptyResolved": "Nothing resolved yet. The first prediction is checked on 30 April 2027."
+    },
+    "experience": {
+      "heading": "Experience",
+      "button": "Download CV"
+    },
+    "contact": {
+      "heading": "Get in touch",
+      "line": "I’m looking for Summer 2027 internships, and I’m always happy to talk about anything I’ve written."
+    }
+  },
+  "about": {
+    "bio": "I’m a second-year Economics and Finance student at Queen Mary University of London, originally from Newcastle. Alongside my degree I work part-time as a Junior Associate at Zaltek Digital, where I’ve worked since 2022. I write about economics and markets here, and I build data and finance projects in Python and TypeScript, all of which are open on GitHub.",
+    "ownWords": "TODO(Padraig): two or three sentences on what you’re curious about, why you write, and what you want to do next.",
+    "headshot": "TODO(Padraig): optional headshot"
+  },
+  "skills": [
+    {
+      "label": "Programming",
+      "items": "Python (pandas, NumPy, SciPy, scikit-learn, statsmodels, Streamlit, Plotly), R, TypeScript and JavaScript (Next.js), SQL"
+    },
+    {
+      "label": "Methods",
+      "items": "regression, Monte Carlo simulation, portfolio optimisation, risk metrics, bootstrapping"
+    },
+    {
+      "label": "Tools",
+      "items": "Excel, BlackRock Portfolio 360, Bloomberg, Figma, n8n, Git and GitHub"
+    },
+    {
+      "label": "Particular interest",
+      "items": "Islamic finance (Shariah-compliant portfolio construction, sukuk)"
+    }
+  ],
+  "beyondWork": [
+    "Raised over £2,000 across a year for a project in Zambia, then built houses and taught on site.",
+    "Black belt in martial arts. Competed, and led and taught classes.",
+    "Languages: English (native), Spanish (basic)."
+  ],
+  "comingNext": [
+    {
+      "title": "FFT option pricing",
+      "todo": "TODO(Padraig): confirm title, one line and status before it appears."
+    }
+  ]
+}

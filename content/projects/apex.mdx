@@ -1,0 +1,24 @@
+---
+title: "APEX"
+slug: "apex"
+kind: "Statistical model"
+oneLine: "Great driver or great car? A model that separates the two across 12,270 Formula 1 qualifying laps."
+group: "data"
+status: "live"
+year: 2026
+stack: ["Python", "pandas", "NumPy", "networkx", "FastF1", "Next.js", "D3"]
+links:
+  live: "https://f1-pace-analyser.vercel.app"
+  repo: "https://github.com/poggey/f1-pace-analyser"
+graphic: "apex-network"
+size: "standard"
+order: 6
+---
+
+## Method
+
+Each lap’s gap to the session best is modelled as circuit plus car-season plus driver plus noise, fitted with ridge-penalised least squares. Uncertainty from a 300-refit bootstrap, so every rating has a confidence interval.
+
+## The insight
+
+Driver and car can only be separated because drivers change teams. The 2021–2023 seasons alone break into disconnected islands, so the data window goes back to 2018.

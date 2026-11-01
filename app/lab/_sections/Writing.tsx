@@ -6,7 +6,7 @@ import { readingMinutes } from "@/lib/readingTime";
 import chart from "@/content/charts/debt-interest-gdp.json";
 import { LabSection, Label } from "./LabSection";
 
-const essayFile = "build-kit/content/posts/the-bill-britain-keeps-signing.mdx";
+const essayFile = "content/posts/the-bill-britain-keeps-signing.mdx";
 
 function EssayCard({ force }: { force?: string }) {
   const minutes = readingMinutes(readFileSync(path.join(process.cwd(), essayFile), "utf8"));
