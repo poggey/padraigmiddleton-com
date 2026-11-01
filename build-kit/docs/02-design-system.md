@@ -1,6 +1,6 @@
 # 02: Design system
 
-Working name for the look: **Gilt-edged**. A cool, precise, light site with one deep navy band, a single blue for interaction and a single gold for "the thing that matters" (today's curve, an open prediction, a key figure). The name is a nod to gilt-edged securities, which is also the subject of the first essay.
+Working name for the look: **Gilt-edged**. A cool, precise, light site that opens on a deep navy hero and has one deep navy band for projects, a single blue for interaction and a single gold for "the thing that matters" (today's curve, an open prediction, a key figure). The name is a nod to gilt-edged securities, which is also the subject of the first essay.
 
 Everything here is a rule, not a suggestion. If something needs to break a rule, write down why in `NOTES.md` and tell Padraig.
 
@@ -25,7 +25,7 @@ Define these as CSS variables in `app/globals.css` and as Tailwind theme tokens.
 | `--muted` | `#5F6878` | Meta text (dates, reading time). Must stay at 4.5:1 or better on `--paper` and `--porcelain`; check it. |
 | `--line` | `#DDE2EA` | Hairlines and card borders |
 | `--line-strong` | `#C3CAD6` | Dividers that need to be seen, inputs |
-| `--night` | `#0B1424` | The one dark band (projects section) and the footer panel |
+| `--night` | `#0B1424` | The hero, the projects band and the contact panel |
 | `--night-raised` | `#14203A` | Cards on `--night` |
 | `--night-text` | `#E8ECF4` | Primary text on `--night` |
 | `--night-muted` | `#A6B0C3` | Secondary text on `--night` |

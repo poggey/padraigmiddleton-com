@@ -112,3 +112,9 @@ Padraig chose a light hero and asked for the ribbon to be prototyped before cont
   - **Lens:** a glass loupe follows the cursor over the 88px headline. Inside is a 1.6× copy of the same text, positioned so the point under the centre lines up, with a red and blue fringe at the rim (`--fringe-warm` and `--fringe-cool`). Pure DOM, so the text stays crisp. Kept inside the headline's box; it drifts when idle.
   - **Questions:** the questions from the project case studies in 04-content.md (APEX, The Slate, Portfolio Optimiser, Portfolio Risk Dashboard), in large type on rows that drift in alternating directions at different speeds (CSS `marquee` keyframes). Hover or focus stops a row and turns it blue; each row links to its project. Screen readers get each question once.
 - **Build note:** `essayText` reads from a fixed folder (`build-kit/content/posts`). A variable path made Turbopack trace the whole project into the server bundle.
+
+## Hero decision (1 November 2026)
+
+- **Chosen: the dark ribbon.** Night ground with the blue glow, and the gilt ribbon in its night tone up the right-hand side. No hero cards. Kit docs 02, 03 and 05 updated.
+- **Torch** is planned for the homepage contact panel (Phase 6), as a quiet discovery rather than a feature. Padraig: "don't force it if it doesn't work". Drop it if it competes with the email link.
+- **Not chosen:** Lens and Questions. Their components remain in `components/` until Phase 6. Questions could still work as the projects band intro; delete whatever is unused by Phase 10.

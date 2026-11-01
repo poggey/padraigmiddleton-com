@@ -6,6 +6,8 @@ These are the few elements that make the site memorable. Build them with the mos
 
 ## 1. The gilt-curve hero
 
+> **Updated 1 November 2026.** Built as a "ribbon": the 60 curves, with blended strands between days, drawn on a 2D canvas (approved instead of WebGL) on the night ground, newest and brightest at the front, latest close in gold, additive glow. It sweeps up the right-hand side and fades out behind the headline. No hero cards. Data: the Bank of England's full nominal spot curve, 6 months to 30 years (`scripts/gilt_curves.py`), not the three IADB par yields. See `NOTES.md` for every round of options.
+
 ### What it is
 
 The homepage hero is filled, edge to edge, with UK government bond yield curves: one thin line per trading day for the last 60 trading days, layered from oldest (faint, furthest back) to today (gold, in front). The field drifts very slowly, bends gently away from the cursor, and draws itself in on first load. A small caption says exactly what it is and where the data comes from.

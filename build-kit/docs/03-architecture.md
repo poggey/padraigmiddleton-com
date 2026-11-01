@@ -24,6 +24,8 @@ The wireframes show structure only. Proportions and styling come from `02-design
 
 ### 1. Hero
 
+> **Decided 1 November 2026 (supersedes the wireframe below).** The hero is dark: the night ground with the projects band's blue glow, and the gilt-curve ribbon (`components/GiltRibbon.tsx`, `tone="night"`) sweeping up the right-hand side, glowing where the curves overlap. Headline (option B), subline, two buttons and the data caption. **No floating cards** in the hero. The prototype is `/lab/heroes/dark-ribbon`. Rejected alternatives and why are in `NOTES.md`.
+
 ```
 ┌──────────────────────────────────────────────────────────────────────────┐
 │ [P] Padraig Middleton          Writing  Projects  Ledger  About  [Download CV] │  ← nav, transparent until scroll
@@ -72,7 +74,7 @@ Removed on 1 November 2026: a row of facts reads as an AI-generated stat strip. 
 - Section heading plus one line: every essay ends with a dated prediction, tracked on the Ledger.
 - The newest essay is the large card. Older essays (when they exist) fill the right column. With only one essay, the right column shows a single understated "Next essay in progress" panel, not fake placeholders.
 
-### 4. Projects (the one dark band)
+### 4. Projects (the dark band)
 
 ```
  ████████████████████████████████████████████████████████████████████████
@@ -105,6 +107,9 @@ Split layout: on the left, heading and two sentences explaining the idea; on the
 Left: a vertical list of roles (organisation, role, dates) as tabs. Right: a detail panel for the selected role with two to four plain bullets. Below or beside: a compact education card (Queen Mary, course, Year 1 average, standout modules). Link: "Download CV".
 
 ### 7. Contact
+
+> **Planned 1 November 2026:** the "torch" (`components/Torch.tsx`, prototype at `/lab/heroes/torch`) lives here, if it earns its place. The latest essay's text sits nearly invisible behind the panel, and a soft light following the cursor reveals it; on touch devices the light drifts. It should be a quiet discovery, not a feature. Drop it if it competes with the email link.
+
 
 A large night panel (16px radius) with a faint echo of the curve field, a short line inviting contact, the email address as a large link, and buttons for LinkedIn, GitHub and the CV.
 
