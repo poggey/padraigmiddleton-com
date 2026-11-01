@@ -37,11 +37,13 @@ export function GlassAndNav() {
         <div className="absolute inset-x-0 top-0">
           <Nav scrolled current="/writing" />
         </div>
-        <GlassPanel className="absolute right-4 bottom-6 w-[15rem] p-5 md:right-16 md:bottom-14">
-          <p className="text-stat">650+</p>
-          <p className="mt-2 text-small text-slate">
-            UK councils use a website template I designed
+        <GlassPanel className="absolute right-4 bottom-6 w-[18rem] p-5 md:right-16 md:bottom-14">
+          <p className="text-small font-semibold text-gilt-deep">On the record</p>
+          <p className="mt-2 text-ui font-medium">
+            Linkers will make up less than 9.3% of planned gilt sales in the 2027{"\u2060–\u2060"}28
+            remit.
           </p>
+          <p className="mt-3 text-small text-muted">Open. Checked 30 April 2027.</p>
         </GlassPanel>
       </div>
     </LabSection>

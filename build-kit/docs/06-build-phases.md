@@ -146,7 +146,7 @@ Record a short screen capture (or a sequence of screenshots at 0ms, 600ms, 1200m
 
 **Prompt:**
 ```
-Phase 6. Build the homepage sections from 03-architecture.md using the Phase 2 components: proof strip, writing section (essay feature card with overlapping chart panel and the honest "Next essay in progress" slot), Ledger preview (with open/resolved toggle and progress bar), experience tabs with the detail panel and education card, and the contact panel with a faint echo of the curve field.
+Phase 6. Build the homepage sections from 03-architecture.md using the Phase 2 components: writing section (essay feature card with overlapping chart panel and the honest "Next essay in progress" slot), Ledger preview (with open/resolved toggle and progress bar), experience tabs with the detail panel and education card, and the contact panel with a faint echo of the curve field.
 
 Copy comes only from 04-content.md. Motion only as allowed in 02-design-system.md: no fade-up on every section.
 

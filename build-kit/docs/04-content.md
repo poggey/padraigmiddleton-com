@@ -43,13 +43,13 @@ Never publish his phone number or home address.
 **Floating cards:**
 1. Key figure card (glass): "£15bn" / "added to this year's UK debt interest before a single Budget measure was counted" / "From No. 1: The bill Britain keeps signing". Links to the essay. Includes a tiny four-bar chart of debt interest (£39bn 2019–20, £109bn 2025–26, £124bn 2026–27, £160bn forecast 2031–32).
 2. Prediction card (night): "On the record" / "Linkers will make up less than 9.3% of planned gilt sales in the 2027–28 remit." / "Open. Checked 30 April 2027." Links to the Ledger.
-3. Small fact card (glass): "650+" / "UK councils use a website template I designed". Links to the Zaltek role on the About page.
+3. ~~Small fact card (glass): "650+" / "UK councils use a website template I designed".~~ Removed 1 November 2026 (stat card). Replacement decided in Phase 5; the council template fact stays in the Zaltek role.
 
 When a newer essay is published, card 1 switches to that essay's first key figure and card 2 to its prediction automatically.
 
-### Proof strip
+### Proof strip (removed 1 November 2026)
 
-Four short facts:
+No longer shown as a strip. These facts stay true and appear in their own sections instead:
 1. First Class Year 1 average (85%) in Economics and Finance at Queen Mary.
 2. 650+ UK councils use a website template I designed at Zaltek Digital.
 3. Seven independent projects, all open on GitHub.

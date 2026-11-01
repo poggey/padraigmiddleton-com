@@ -18,8 +18,8 @@ const radii: Record<Radius, string> = {
 };
 
 /**
- * A raised surface. Radius follows the job: inline panels 12, cards 20,
- * feature tiles 28, section panels 36. On night, depth comes from a hairline, not a shadow.
+ * A raised surface. Radius follows the job, kept tight: inline 4, cards 8,
+ * feature tiles 12, section panels 16. On night, depth comes from a hairline, not a shadow.
  */
 export function Card({
   elevation = "e1",

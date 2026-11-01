@@ -9,10 +9,10 @@ const elevations = [
 ] as const;
 
 const radii = [
-  { radius: "inline", px: 12, job: "Inputs, tooltips, sidenotes" },
-  { radius: "card", px: 20, job: "Essay previews, experience panel" },
-  { radius: "feature", px: 28, job: "Large project tiles" },
-  { radius: "panel", px: 36, job: "Footer contact panel" },
+  { radius: "inline", px: 4, job: "Inputs, tooltips, sidenotes" },
+  { radius: "card", px: 8, job: "Essay previews, experience panel" },
+  { radius: "feature", px: 12, job: "Large project tiles" },
+  { radius: "panel", px: 16, job: "Footer contact panel" },
 ] as const;
 
 export function Surfaces() {

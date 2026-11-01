@@ -59,3 +59,10 @@ Design decisions, rejected ideas and quirks, so later sessions do not repeat the
 - **Gold on light** is 2.4:1, below 3:1 for graphics. Every gold mark on light is paired with text: the progress bar says "x days to go", chart dots have value labels, status chips have words.
 - **Reading time** for essay No. 1 computes to 3 minutes (about 730 words at 230 per minute).
 - **Placeholders.** The lab's project graphics are labelled placeholder boxes until Phase 7. The side-layout feature card has a tall empty text column because of the placeholder; real graphics will set its height.
+
+## Feedback after Phase 2 (1 November 2026)
+
+- **Radii tightened** to 4 / 8 / 12 / 16px (was 12 / 20 / 28 / 36). Padraig: heavy rounding looked amateur. Buttons, chips and tabs stay pills. Graphics inside cards use 4px so nested corners line up.
+- **No rows of stats anywhere.** Padraig sees them as an AI trademark. Removed from the spec: the proof strip, the row of three key figures under each essay header, and the "650+" hero card. The Ledger record is written as a sentence. Kit docs amended (02, 03, 04, 06) and the AI-tells list extended (10 to 12).
+- **The night band glow stays.** Padraig liked the dark blue to lighter blue light on the projects band.
+- **Hero graphic.** Padraig wants something with the impact of Stripe's flowing colour graphic, not a copy. Direction agreed before building: see the Phase 5 notes once decided.

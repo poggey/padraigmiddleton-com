@@ -29,7 +29,7 @@ const filters = [
 function GraphicPlaceholder({ text, tall }: { text: string; tall?: boolean }) {
   return (
     <div
-      className={`flex items-center justify-center rounded-card p-6 text-center text-small text-night-muted shadow-[inset_0_0_0_1px_var(--night-line)] ${tall ? "aspect-[4/3] h-full lg:aspect-auto lg:min-h-80" : "aspect-[16/9]"}`}
+      className={`flex items-center justify-center rounded-inline p-6 text-center text-small text-night-muted shadow-[inset_0_0_0_1px_var(--night-line)] ${tall ? "aspect-[4/3] h-full lg:aspect-auto lg:min-h-80" : "aspect-[16/9]"}`}
     >
       {text}
     </div>

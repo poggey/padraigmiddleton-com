@@ -206,10 +206,10 @@
 @theme static {
   --radius-*: initial;
   --radius-pill: 999px; /* buttons, chips, tabs, toggles */
-  --radius-inline: 12px; /* inputs, tooltips, small panels, sidenotes */
-  --radius-card: 20px; /* standard cards */
-  --radius-feature: 28px; /* large project tiles */
-  --radius-panel: 36px; /* section-scale panels */
+  --radius-inline: 4px; /* inputs, tooltips, small panels, sidenotes, graphics inside cards */
+  --radius-card: 8px; /* standard cards */
+  --radius-feature: 12px; /* large project tiles */
+  --radius-panel: 16px; /* section-scale panels */
 
   --ease-*: initial;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);

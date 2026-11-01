@@ -82,15 +82,15 @@ Rules:
 
 ## Shape: radii by hierarchy
 
-Different jobs get different radii, so the page does not look like a kit of identical cards.
+Different jobs get different radii, so the page does not look like a kit of identical cards. Keep surfaces crisp: heavy rounding on cards reads as amateur. (Changed 1 November 2026 at Padraig's request; was 12 / 20 / 28 / 36.)
 
 | Radius | Use |
 |---|---|
 | 999px | Buttons, chips, tabs, toggles |
-| 12px | Inputs, tooltips, small inline panels, sidenote cards |
-| 20px | Standard cards (essay previews, experience panel) |
-| 28px | Feature cards (the large project tiles) |
-| 36px | Section-scale panels (footer contact panel) |
+| 4px | Inputs, tooltips, small inline panels, sidenote cards, graphics inside cards |
+| 8px | Standard cards (essay previews, experience panel) |
+| 12px | Feature cards (the large project tiles) |
+| 16px | Section-scale panels (footer contact panel) |
 
 ## Depth
 
@@ -204,5 +204,8 @@ Check every page against this list before showing Padraig. These are what made t
 7. Numbered section markers (01, 02, 03) when the content is not a sequence. (Essay numbers are a real sequence, so "No. 1" is fine.)
 8. Fade-up on every section.
 9. A hero that is "big number, small label, gradient".
+10. A row of stats: three or four big numbers with small labels side by side, anywhere on the site, including "proof strips" written as a row of facts. Numbers belong inside a sentence, a chart or a single card that explains them. (Added 1 November 2026 at Padraig's request.)
+11. Heavy rounding on cards and panels (16px or more on a standard card). (Added 1 November 2026.)
+12. Blurred gradient blobs or mesh-gradient backgrounds with no meaning. Colour and movement must come from real data.
 
 Before showing any page, do Chanel's test: look at it and remove one accessory.

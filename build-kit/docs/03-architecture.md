@@ -46,12 +46,13 @@ The wireframes show structure only. Proportions and styling come from `02-design
 
 - The curve field is the signature moment. Full spec in `05-signature-moments.md`.
 - Headline and subline copy are in `04-content.md`. Left aligned, max 14 words in the headline.
+- (1 November 2026) The third card is no longer a "650+" stat card. Rows and cards of bare numbers are an AI tell. Redesign it in Phase 5 as something with substance, for example the latest Stirling edition (number, date and headline from its open data).
 - The three floating cards overlap one another slightly and sit at different depths (two glass, one night). They link to the essay, the Ledger and the Zaltek experience respectively.
 - On mobile: headline and buttons first, then the cards stacked in a single overlapping cluster beneath, the curve field behind everything at lower opacity.
 
-### 2. Proof strip
+### 2. Proof strip (removed)
 
-A quiet white band directly under the hero with four facts, written as short sentences with the number in `ui` weight 600, not as giant stat blocks. Source: `04-content.md`, Proof strip.
+Removed on 1 November 2026: a row of facts reads as an AI-generated stat strip. The facts it held now live where they explain themselves: the Year 1 result in the education card, the council template in the Zaltek role, the projects in the projects band, Raymond James in experience.
 
 ### 3. Writing
 
@@ -97,7 +98,7 @@ A quiet white band directly under the hero with four facts, written as short sen
 
 ### 5. The Ledger
 
-Split layout: on the left, heading and two sentences explaining the idea; on the right, a raised card listing predictions with an Open / Resolved toggle, a progress bar for each open prediction (made date to check date), and a small running record (made, right, wrong). Links to `/ledger`.
+Split layout: on the left, heading and two sentences explaining the idea; on the right, a raised card listing predictions with an Open / Resolved toggle, a progress bar for each open prediction (made date to check date), and the running record written as one sentence (for example "One prediction made, none resolved yet."), never as a row of numbers. Links to `/ledger`.
 
 ### 6. Experience and education
 
@@ -105,7 +106,7 @@ Left: a vertical list of roles (organisation, role, dates) as tabs. Right: a det
 
 ### 7. Contact
 
-A large night panel (36px radius) with a faint echo of the curve field, a short line inviting contact, the email address as a large link, and buttons for LinkedIn, GitHub and the CV.
+A large night panel (16px radius) with a faint echo of the curve field, a short line inviting contact, the email address as a large link, and buttons for LinkedIn, GitHub and the CV.
 
 ### 8. Footer
 
@@ -120,8 +121,6 @@ nav (with reading progress bar and "x min left" on desktop)
           Title (title)
           Standfirst (essay-dek, Source Serif)
           Padraig Middleton, 3 November 2026, 6 min read   [Copy link] [Share on LinkedIn]
-
-   [ key figure ] [ key figure ] [ key figure ]   ← raised cards overlapping the header's bottom edge
 
    ┌ reading column 680px ───────────────┐  ┌ sidenotes 240px ┐
    │ body (Source Serif 4, 20/1.75)       │  │ 1. source…      │
@@ -141,7 +140,7 @@ nav (with reading progress bar and "x min left" on desktop)
    Next / previous essay
 ```
 
-- MDX components available inside essays: `<Figure>`, `<Chart>`, `<PullQuote>`, `<KeyFigures>`, `<WhereIMightBeWrong>`, `<Prediction id="…" />`, and one-off interactives (for example `<HeadroomSlider />`).
+- MDX components available inside essays: `<Figure>`, `<Chart>`, `<PullQuote>`, `<WhereIMightBeWrong>`, `<Prediction id="…" />`, and one-off interactives (for example `<HeadroomSlider />`).
 - Markdown footnotes (`[^name]`) become sidenotes on wide screens and tap-to-open notes on mobile.
 - Each essay gets a generated Open Graph image (title, number, key figure, a slice of the curve field) so LinkedIn previews look designed.
 
@@ -163,8 +162,8 @@ Build each as its own file in `components/`. Primitives first (Phase 1), then se
 
 - Primitives: `Button`, `Chip`, `Tabs` (with sliding indicator), `Card` (variants by elevation and radius), `GlassPanel`, `Stat`, `ExternalLink`, `ProgressBar`, `Tooltip`
 - Layout: `Nav`, `MobileMenu`, `Footer`, `Section`, `Container`, `ReadingProgress`, `CommandMenu` (stretch)
-- Homepage: `HeroCurves` (WebGL), `HeroCards`, `ProofStrip`, `EssayFeature`, `ProjectsBento`, `ProjectCard`, `ProjectGraphic` (one per project), `LedgerPreview`, `ExperienceTabs`, `EducationCard`, `ContactPanel`
-- Essay: `EssayHeader`, `KeyFigures`, `Sidenote`, `Figure`, `Chart`, `PullQuote`, `WhereIMightBeWrong`, `PredictionCard`, `Sources`, `ShareBar`, `AuthorCard`, `EssayNav`
+- Homepage: `HeroCurves` (WebGL), `HeroCards`, `EssayFeature`, `ProjectsBento`, `ProjectCard`, `ProjectGraphic` (one per project), `LedgerPreview`, `ExperienceTabs`, `EducationCard`, `ContactPanel`
+- Essay: `EssayHeader`, `Sidenote`, `Figure`, `Chart`, `PullQuote`, `WhereIMightBeWrong`, `PredictionCard`, `Sources`, `ShareBar`, `AuthorCard`, `EssayNav`
 - Essay interactives: `HeadroomSlider` (first essay), later others
 
 ## Content model
