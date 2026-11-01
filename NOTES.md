@@ -42,3 +42,20 @@ Design decisions, rejected ideas and quirks, so later sessions do not repeat the
 - **Screenshots run on port 4310** and never reuse an existing server. Padraig's `personal-site` project has dev servers running on 3000 and 3100, and the first screenshot run captured its 404 page by mistake.
 - **`npm audit`** reports 16 moderate issues, all in ESLint's dependencies (`minimatch`). Development only, nothing shipped. Not force-fixed.
 - **Removed** the default Next.js favicon. A real favicon is still needed.
+
+## Phase 2: design lab (1 November 2026)
+
+- **Tabular figures quirk.** Schibsted Grotesk's `tnum` also widens `. , : ; # %` to full digit width, so "0.76" and "4.2%" look gappy. Use `tabular-nums` only where digits must line up in columns (tables, Ledger day counts, axis ticks). Standalone figures (stats, key results, chart labels) stay proportional. This departs from the spec's "tabular figures in stats".
+- **Dates are worked out in the browser.** With Cache Components on, `new Date()` fails a static prerender. Anything that counts days (`ProgressBar`, later the Ledger) uses `lib/useToday.ts`, so it is always correct without a daily rebuild. The line is blank for a moment before the page loads, and its height is reserved.
+- **Turbopack CSS rule.** The create-next-app rule sent every `*.css` file through Tailwind as global CSS, which silently broke CSS modules: the class was never applied. `next.config.ts` now excludes `*.module.css`. Found because a behaviour test passed for the wrong reason: a missing pseudo-element reports opacity 1. The test now checks `content` too.
+- **Two kinds of glass.** `glass` for floating surfaces (border and e3 shadow, as specified) and `glass-bar` for the nav (same blur, bottom hairline, no shadow). A full-width bar with e3 looked heavy.
+- **State variants.** `is-hover` (hover devices only), `is-active` and `group-is-hover` also respond to `data-force`, which only `/lab` sets, so states can be shown side by side. The `reduced` variant matches the media query and `data-motion="reduce"` (the lab switch).
+- **Night surfaces** set `data-tone="night"`, which switches the focus ring to `--signal-soft`. `--signal` on night-raised is 2.9:1, under the 3:1 needed for focus indicators.
+- **Essay card.** The glass key-figure chip first sat at the top right of the chart and hid the gold 2031–32 point and its label. It now spans the panel's top edge above the plot area, as a horizontal chip.
+- **Project card footer.** Status was a bordered chip beside a plain stack line. Cut to one sentence ("Live. Built with Python, Streamlit and Plotly.") as the "remove one accessory" fix. Slash and middle-dot separators were rejected as template chrome.
+- **Mobile nav** shows the name, "Download CV" and an icon-only menu button (labelled "Menu" for screen readers), so the CV stays one tap away on phones.
+- **Charts.** `LineChart` draws the line in SVG and puts dots and labels in HTML so text stays sharp at any width. It reveals with a clip-path wipe over `--dur-reveal` when 40% visible. The forecast is dashed. The essay chart data is in `content/charts/debt-interest-gdp.json`, recovered from `Posts/debt-interest.svg`.
+- **Ranges.** `lib/typography.ts` keeps "2027–28" from breaking at the en dash. Phase 3 should apply it to all content automatically.
+- **Gold on light** is 2.4:1, below 3:1 for graphics. Every gold mark on light is paired with text: the progress bar says "x days to go", chart dots have value labels, status chips have words.
+- **Reading time** for essay No. 1 computes to 3 minutes (about 730 words at 230 per minute).
+- **Placeholders.** The lab's project graphics are labelled placeholder boxes until Phase 7. The side-layout feature card has a tall empty text column because of the placeholder; real graphics will set its height.

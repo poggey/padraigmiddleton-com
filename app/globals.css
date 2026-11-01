@@ -26,6 +26,17 @@
   --gilt: #c9a227;
   --gilt-deep: #7a5d0a;
 
+  /* Derived from the palette above */
+  --night-line: rgb(255 255 255 / 0.1); /* card borders on night */
+  --night-line-strong: rgb(255 255 255 / 0.18); /* structure lines in graphics on night */
+  --spotlight: color-mix(in srgb, var(--signal) 14%, transparent); /* project card cursor light */
+  --night-glow: color-mix(
+    in srgb,
+    var(--signal) 18%,
+    transparent
+  ); /* the only gradient: light behind the dark band */
+  --focus-ring: var(--signal);
+
   /* Type sizes: fluid from the mobile value at 390px to the desktop value at 1440px */
   --size-display: clamp(3rem, 2.0714rem + 3.8095vw, 5.5rem);
   --size-title: clamp(2.5rem, 1.9429rem + 2.2857vw, 4rem);
@@ -131,6 +142,8 @@
   --color-signal-soft: var(--signal-soft);
   --color-gilt: var(--gilt);
   --color-gilt-deep: var(--gilt-deep);
+  --color-night-line: var(--night-line);
+  --color-night-line-strong: var(--night-line-strong);
 
   --font-*: initial;
   --font-sans: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
@@ -203,11 +216,70 @@
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
+/*
+ * State variants. data-force lets /lab show a hover, pressed or focused state side by side;
+ * nothing outside /lab sets it. Hover only applies on devices that can hover.
+ */
+@custom-variant is-hover {
+  @media (hover: hover) {
+    &:hover {
+      @slot;
+    }
+  }
+  &[data-force~="hover"] {
+    @slot;
+  }
+}
+@custom-variant is-active {
+  &:active {
+    @slot;
+  }
+  &[data-force~="active"] {
+    @slot;
+  }
+}
+@custom-variant group-is-hover {
+  @media (hover: hover) {
+    :where(.group):hover & {
+      @slot;
+    }
+  }
+  :where(.group)[data-force~="hover"] & {
+    @slot;
+  }
+}
+@custom-variant reduced {
+  @media (prefers-reduced-motion: reduce) {
+    @slot;
+  }
+  :root[data-motion="reduce"] & {
+    @slot;
+  }
+}
+
 /* Glass: nav bar, hero floating cards, chips over graphics, command menu. Nowhere else. */
 @utility glass {
   background: var(--glass-bg-fallback);
   border: 1px solid var(--glass-border);
   box-shadow: var(--e3);
+
+  @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    background: var(--glass-bg);
+    -webkit-backdrop-filter: var(--glass-filter);
+    backdrop-filter: var(--glass-filter);
+  }
+}
+
+/* The one dark band: night ground with a soft blue light from above. The only gradient on the site. */
+@utility night-band {
+  background: radial-gradient(60% 50% at 70% 0%, var(--night-glow), transparent 70%), var(--night);
+  color: var(--night-text);
+}
+
+/* The nav bar's glass: same material, but a bottom hairline instead of a floating border and shadow. */
+@utility glass-bar {
+  background: var(--glass-bg-fallback);
+  box-shadow: 0 1px 0 var(--line);
 
   @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
     background: var(--glass-bg);
@@ -249,8 +321,15 @@
     color: var(--paper);
   }
 
-  :focus-visible {
-    outline: 2px solid var(--signal);
+  :focus-visible,
+  [data-force~="focus"] {
+    outline: 2px solid var(--focus-ring);
     outline-offset: 2px;
+  }
+
+  /* On night surfaces the focus ring and links switch to the lighter blue (3:1 or better). */
+  [data-tone="night"] {
+    --focus-ring: var(--signal-soft);
+    color: var(--night-text);
   }
 }

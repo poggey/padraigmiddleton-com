@@ -1,0 +1,50 @@
+/* Cursor spotlight: a soft light on the surface and a brighter edge where the cursor is. */
+.card {
+  position: relative;
+  isolation: isolate;
+  --x: 50%;
+  --y: 50%;
+}
+
+.card::before,
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--dur-hover) var(--ease-out);
+}
+
+.card::before {
+  z-index: -1;
+  background: radial-gradient(320px circle at var(--x) var(--y), var(--spotlight), transparent 70%);
+}
+
+/* The edge: a 1px ring masked out of a radial light. */
+.card::after {
+  padding: 1px;
+  background: radial-gradient(
+    240px circle at var(--x) var(--y),
+    var(--signal-soft),
+    transparent 70%
+  );
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .card:hover::before,
+  .card:hover::after,
+  .card[data-force~="hover"]::before,
+  .card[data-force~="hover"]::after {
+    opacity: 1;
+  }
+}
+
+:root[data-motion="reduce"] .card::before,
+:root[data-motion="reduce"] .card::after {
+  opacity: 0;
+}
