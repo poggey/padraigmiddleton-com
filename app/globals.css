@@ -95,6 +95,8 @@
   --glass-bg-fallback: rgb(255 255 255 / 0.94);
   --glass-border: rgb(255 255 255 / 0.7);
   --glass-filter: blur(20px) saturate(170%);
+  --glass-night-bg: rgb(11 20 36 / 0.62);
+  --glass-night-bg-fallback: rgb(11 20 36 / 0.94);
 
   /* Motion */
   --dur-press: 120ms;
@@ -283,6 +285,18 @@
   }
 }
 
+/* The nav bar's glass over dark sections: the same blur on a night tint, with a faint light hairline. */
+@utility glass-bar-night {
+  background: var(--glass-night-bg-fallback);
+  box-shadow: 0 1px 0 var(--night-line);
+
+  @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    background: var(--glass-night-bg);
+    -webkit-backdrop-filter: var(--glass-filter);
+    backdrop-filter: var(--glass-filter);
+  }
+}
+
 /* The one dark band: night ground with a soft blue light from above. The only gradient on the site. */
 @utility night-band {
   background: radial-gradient(60% 50% at 70% 0%, var(--night-glow), transparent 70%), var(--night);
@@ -352,4 +366,41 @@
     --focus-ring: var(--signal-soft);
     color: var(--night-text);
   }
+}
+
+/*
+ * Page transitions: a 200ms cross-fade between pages (React <ViewTransition>). The nav is pinned
+ * so it never moves, and clicks pass through while a transition runs. Browsers without the View
+ * Transitions API simply swap pages.
+ */
+::view-transition-group(*),
+::view-transition-old(*),
+::view-transition-new(*) {
+  animation-duration: 200ms;
+  animation-timing-function: var(--ease-out);
+}
+::view-transition {
+  pointer-events: none;
+}
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+::view-transition-old(site-header) {
+  display: none;
+}
+::view-transition-new(site-header) {
+  animation: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0s !important;
+  }
+}
+
+/* The page behind the mobile menu does not scroll while it is open. */
+html:has(dialog[open]) {
+  overflow: hidden;
 }

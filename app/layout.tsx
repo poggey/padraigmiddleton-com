@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Schibsted_Grotesk, Source_Serif_4 } from "next/font/google";
 import { MotionProvider } from "@/components/MotionProvider";
+import { getSite } from "@/lib/content";
+import { siteUrl } from "@/lib/site";
 import "./globals.css";
 
 // Interface, headlines and numbers.
@@ -17,10 +19,16 @@ const sourceSerif = Source_Serif_4({
   axes: ["opsz"],
 });
 
+const site = getSite();
+
 export const metadata: Metadata = {
-  title: "Padraig Middleton",
-  description:
-    "Essays on economics and markets, and the projects I build to test them. Economics and Finance at Queen Mary University of London.",
+  metadataBase: new URL(siteUrl),
+  title: { default: site.title, template: `%s | ${site.title}` },
+  description: site.description,
+  authors: [{ name: site.author }],
+  openGraph: { siteName: site.title, locale: "en_GB", type: "website" },
+  twitter: { card: "summary_large_image" },
+  alternates: { types: { "application/rss+xml": "/rss.xml" } },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

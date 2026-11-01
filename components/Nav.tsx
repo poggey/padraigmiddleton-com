@@ -3,7 +3,7 @@ import { Button } from "@/components/Button";
 import { Container } from "@/components/Container";
 import { cx } from "@/lib/cx";
 
-const links = [
+export const navLinks = [
   { href: "/writing", label: "Writing" },
   { href: "/projects", label: "Projects" },
   { href: "/ledger", label: "Ledger" },
@@ -11,27 +11,39 @@ const links = [
 ];
 
 /**
- * The navigation bar. Transparent at the top of the page, glass once scrolled.
- * Phase 4 adds the scroll listener and the mobile menu sheet.
+ * The navigation bar. Transparent at the top of the page, glass once scrolled. `tone` follows
+ * what is underneath: "night" over the dark hero and projects band, "light" elsewhere.
+ * `SiteNav` supplies the state on the real site; /lab renders it with fixed props.
  */
 export function Nav({
   scrolled = false,
   current,
   tone = "light",
+  menuOpen = false,
+  onMenu,
+  pinned = false,
 }: {
   scrolled?: boolean;
   current?: string;
-  /** "night" for pages that open on a dark hero. */
   tone?: "light" | "night";
+  menuOpen?: boolean;
+  onMenu?: () => void;
+  /**
+   * Keeps the bar still during page transitions. The name sits on the header itself: on an
+   * ancestor it would make that ancestor a backdrop root and the glass would stop blurring.
+   */
+  pinned?: boolean;
 }) {
   const night = tone === "night";
   return (
     <header
-      className={cx(
-        "transition-[background-color,box-shadow] duration-(--dur-hover) ease-out",
-        scrolled ? "glass-bar" : "bg-transparent",
-      )}
       data-tone={night ? "night" : undefined}
+      className={cx(
+        pinned && "[view-transition-name:site-header]",
+        "transition-[background-color,box-shadow,color] duration-(--dur-hover) ease-out",
+        scrolled ? (night ? "glass-bar-night" : "glass-bar") : "bg-transparent",
+        night ? "text-night-text" : "text-ink",
+      )}
     >
       <Container className="flex h-16 items-center justify-between gap-4">
         <Link
@@ -43,7 +55,7 @@ export function Nav({
         <div className="flex items-center gap-1 md:gap-2">
           <nav aria-label="Main" className="hidden md:block">
             <ul className="flex items-center">
-              {links.map((link) => {
+              {navLinks.map((link) => {
                 const active = link.href === current;
                 return (
                   <li key={link.href}>
@@ -66,7 +78,10 @@ export function Nav({
                       {active && (
                         <span
                           aria-hidden
-                          className="absolute inset-x-3 bottom-2 h-0.5 rounded-pill bg-signal"
+                          className={cx(
+                            "absolute inset-x-3 bottom-2 h-0.5 rounded-pill",
+                            night ? "bg-signal-soft" : "bg-signal",
+                          )}
                         />
                       )}
                     </Link>
@@ -81,11 +96,11 @@ export function Nav({
           <button
             type="button"
             aria-label="Menu"
-            aria-expanded={false}
-            className={cx(
-              "inline-flex size-11 items-center justify-center rounded-pill md:hidden",
-              night ? "text-night-text" : "text-ink",
-            )}
+            aria-haspopup="dialog"
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+            onClick={onMenu}
+            className="inline-flex size-11 items-center justify-center rounded-pill md:hidden"
           >
             <svg aria-hidden width="20" height="20" viewBox="0 0 20 20" fill="none">
               <path

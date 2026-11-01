@@ -130,3 +130,18 @@ Padraig chose a light hero and asked for the ribbon to be prototyped before cont
 - **Not placed:** "this was Padraig's first ever coding project" (Portfolio Optimiser), written in the third person in 04, needs his own wording if wanted. The project "Graphic:" descriptions are build specs for Phase 7, not copy.
 - **Tooling:** `@types/node` moved to 24.x (Vitest 5 needs 22 or later), and `engines.node` is now `>=22`. Unit tests live next to the code (`lib/**/*.test.ts`); Playwright keeps `tests/`. The Vitest config is `.mts` to avoid Vite's CommonJS warning.
 - **RSS is hand-written** (`app/rss.xml/route.ts`), about 30 lines, rather than adding a package. The site URL comes from `NEXT_PUBLIC_SITE_URL`, falling back to the suggested domain.
+
+## Phase 4: shell (1 November 2026)
+
+- **Decisions shown in context later**, at Padraig's request: The Slate's "boost" wording (case study, Phase 7), the prediction judging rule (Ledger, Phase 9), "first ever coding project" (Portfolio Optimiser case study, Phase 7), and the footer credit (now).
+- **Route group:** every public page is under `app/(site)/`, sharing `(site)/layout.tsx` (skip link, `SiteNav`, `<ViewTransition>` around `<main>`, `Footer`). `/lab` stays outside the group, so its demos have no shell. `app/not-found.tsx` renders the shell itself.
+- **Nav tone follows what is underneath:** any element with `data-nav-tone="night"` (hero, projects band, footer) turns the bar night-toned while it sits under the bar's midline. Night glass is `glass-bar-night`.
+- **Backdrop-root bug, fixed:** `view-transition-name` on the nav's fixed wrapper made it a backdrop root, so the glass blurred nothing. The name now sits on the `<header>` itself (`Nav pinned`), and only on the live nav, because duplicate names (the lab has two navs on one page) abort view transitions.
+- **Mobile menu** is a native modal `<dialog>`: the browser traps focus, Esc closes it, focus returns to the menu button. It opens with `@starting-style` (`starting:` in Tailwind). The page behind is locked with `html:has(dialog[open])`. It closes on navigation because state stores the page it was opened on (no setState in an effect, which ESLint flags).
+- **No Lenis**, as decided in Phase 0: smooth scrolling hijacks native scroll and breaks anchor jumps to footnotes.
+- **Page transitions:** React `<ViewTransition>` with a 200ms cross-fade, header pinned, instant under reduced motion. Verified: `document.startViewTransition` fires on a link click.
+- **Cache Components and dynamic routes:** `dynamicParams` is not allowed. Unknown slugs call `notFound()`, but because the static shell has already started streaming, `/writing/nope` keeps status 200 with `<meta name="robots" content="noindex">` and the 404 content (documented Next behaviour). Unmatched paths such as `/nope` return a real 404.
+- **Built-by badge not used as a script.** It floats a fixed pill, loads the GitHub avatar from a third party (against "no embeds that phone home"), and uses a monospace glyph and its own colours. The footer has a quiet "Designed and built by Padraig ↗" link to GitHub instead; Padraig to confirm.
+- **Footer has no year.** `new Date()` cannot run during a static prerender, so it reads "© Padraig Middleton. London and Newcastle."
+- **Layout** is at least a screen tall (`min-h-svh` flex column), so the footer sits at the bottom of short pages.
+- **Screenshot gotcha:** Playwright's full-page capture resizes the viewport, which can catch the ribbon between frames and look like an unfinished draw-in. A normal viewport capture after scrolling away mid-load shows it complete.
