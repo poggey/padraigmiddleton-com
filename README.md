@@ -21,7 +21,7 @@ npm run dev          # http://localhost:3000
 | `npm run format`      | Prettier over the codebase                                |
 | `npm run screenshots` | Screenshots at 1440, 768 and 390 wide into `screenshots/` |
 
-Screenshots start their own dev server on port 4310. Choose pages with `PAGES`, for example `PAGES="/,/lab" npm run screenshots`. The first time, install the browser with `npx playwright install chromium`.
+Screenshots build the site and serve the production version on port 4310, so they work while `npm run dev` is running (Next.js allows one dev server per project). Choose pages with `PAGES`, for example `PAGES="/,/lab" npm run screenshots`. The first time, install the browser with `npx playwright install chromium`.
 
 ## Where things live
 
@@ -41,3 +41,14 @@ Screenshots start their own dev server on port 4310. Choose pages with `PAGES`, 
 ## Design tokens
 
 All colours, type sizes, radii, shadows, glass and motion values are defined once in `app/globals.css` and exposed as Tailwind utilities, for example `bg-paper`, `text-ink`, `text-display`, `rounded-card`, `shadow-e2`, `duration-(--dur-hover)` and `ease-out`. Tailwind's default palette, radii and shadows are switched off, so anything outside the design system fails to build into a class.
+
+## Gilt curve data
+
+`public/data/gilt-curves.json` holds the last 60 trading days of UK nominal gilt spot curves from the Bank of England, drawn by the hero ribbon. Refresh it with:
+
+```bash
+pip install -r scripts/requirements.txt   # once
+python3 scripts/gilt_curves.py
+```
+
+The script merges the Bank's current-month file into the committed history and keeps the latest 60 days. It refuses to overwrite the file if the data looks wrong.

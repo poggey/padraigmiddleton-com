@@ -66,3 +66,19 @@ Design decisions, rejected ideas and quirks, so later sessions do not repeat the
 - **No rows of stats anywhere.** Padraig sees them as an AI trademark. Removed from the spec: the proof strip, the row of three key figures under each essay header, and the "650+" hero card. The Ledger record is written as a sentence. Kit docs amended (02, 03, 04, 06) and the AI-tells list extended (10 to 12).
 - **The night band glow stays.** Padraig liked the dark blue to lighter blue light on the projects band.
 - **Hero graphic.** Padraig wants something with the impact of Stripe's flowing colour graphic, not a copy. Direction agreed before building: see the Phase 5 notes once decided.
+
+## Hero ribbon prototype (1 November 2026)
+
+Padraig chose a light hero and asked for the ribbon to be prototyped before content work, so part of Phase 5 (data, then the field) came forward. It lives on `/lab` as the first section.
+
+- **Data source.** Stirling uses the Bank of England database (IADB) for 5, 10 and 20-year par yields only (no 2-year series exists there). The ribbon instead uses the Bank's full nominal spot curve ("4. spot curve" sheet), every half-year from 6 months to 40 years. We keep 16 maturities from 6 months to 30 years: some days lack the 40-year point. 60 days is 7.8 KB (2.5 KB compressed).
+- **Script.** `scripts/gilt_curves.py` (Python, needs `openpyxl`, the only extra dependency, for data prep only). Daily runs download the current-month file (about 450 KB) and merge it into the committed history. The 39 MB yearly archive is only used to fill a short history. Still to do: a daily GitHub Action to run it and commit the result (Phase 5 or 11).
+- **IADB quirk.** The database URL now redirects (302); follow redirects if it is ever used.
+- **Drawing.** 2D canvas, not WebGL, for the prototype: far less code, easy to explain. 60 real curves, with three extra strands blended between neighbouring days for a silk look (237 strands on desktop, 60 on touch devices). Monotone cubic interpolation, so the curve never overshoots the data. The latest curve is gold, at the front.
+- **Colour.** Four new tokens, `--ribbon-back` (periwinkle), `--ribbon-iris` (violet, new), `--ribbon-mid` (signal) and `--ribbon-front` (deep blue), read by the component. A faint 28px wash under every sixth strand gives the sheet a body of colour that still follows the data.
+- **Composition.** The sheet sweeps up from the lower middle to the top right, behind the cards, and fades out over the left 38–62% so the headline sits on a clean ground. On phones it runs across the top at 35% opacity. Headline on four lines (column 1.45fr), and the glass key-figure card has the ribbon behind it so the glass actually shows.
+- **Performance** (production build, headless Chrome, software canvas): desktop 60 fps. With the CPU slowed 4×, 18 fps at first, then 35 fps after adding adaptive quality (if the first 60 frames average over 24 ms, it draws every other strand and drops the wash). Phone width with a slowed CPU: 43 fps. If real phones struggle, port to WebGL in Phase 5.
+- **Behaviour verified:** draw-in (oldest first, gold last, about 1.9 s), slow ripple, strands part around the cursor and spring back, pauses off screen and when the tab is hidden, and under reduced motion draws the final state once and never moves.
+- **Caption** says "the latest close, 29 October 2026, is in gold" rather than "today's", because the Bank's data lags by a day or more.
+- **Not yet built:** the hover tooltip on the gold curve, card tilt and the settle-in on load (Phase 5), and a replacement for the third hero card.
+- **Dev server gotcha.** A long-running `next dev` served a stale `globals.css` after edits (new tokens missing). Restart it if styles look out of date. Screenshots now use a production build so they can't be affected.

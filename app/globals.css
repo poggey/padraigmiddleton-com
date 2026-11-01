@@ -37,6 +37,12 @@
   ); /* the only gradient: light behind the dark band */
   --focus-ring: var(--signal);
 
+  /* The hero ribbon, front (newest curves) to back (oldest). Read by components/GiltRibbon.tsx. */
+  --ribbon-front: #1d3a9e;
+  --ribbon-mid: #2d5be3;
+  --ribbon-iris: #7a6cf0;
+  --ribbon-back: #8fa8ff;
+
   /* Type sizes: fluid from the mobile value at 390px to the desktop value at 1440px */
   --size-display: clamp(3rem, 2.0714rem + 3.8095vw, 5.5rem);
   --size-title: clamp(2.5rem, 1.9429rem + 2.2857vw, 4rem);
