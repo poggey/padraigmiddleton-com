@@ -1,7 +1,6 @@
 import { Container } from "@/components/Container";
 import { AlsoBuilt } from "@/components/projects/AlsoBuilt";
-import { projectItems } from "@/components/projects/items";
-import { ProjectIndex } from "@/components/projects/ProjectIndex";
+import { ProjectList } from "@/components/projects/ProjectList";
 import { getProjects, getSite } from "@/lib/content";
 import { pageMetadata } from "@/lib/metadata";
 
@@ -12,7 +11,7 @@ export const metadata = pageMetadata({
   path: "/projects",
 });
 
-// Every project on night: the main work as an index with a preview, the rest listed beneath.
+// Every project on night: the main work as an index with emblems, the rest listed beneath.
 export default function ProjectsPage() {
   const projects = getProjects();
   return (
@@ -25,7 +24,7 @@ export default function ProjectsPage() {
         <h1 className="text-title text-night-text">{copy.heading}</h1>
         <p className="mt-4 max-w-[60ch] text-lead text-night-muted">{copy.intro}</p>
         <div className="mt-12">
-          <ProjectIndex items={projectItems(projects.filter((p) => p.featured))} heading={2} />
+          <ProjectList projects={projects.filter((p) => p.featured)} heading={2} />
         </div>
         <AlsoBuilt projects={projects.filter((p) => !p.featured)} heading={2} />
       </Container>

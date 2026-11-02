@@ -109,6 +109,7 @@
   --dur-hover: 200ms;
   --dur-ui: 320ms;
   --dur-reveal: 600ms;
+  --dur-emblem: 900ms; /* project emblems moving when their project is pointed at */
 }
 
 @media (min-width: 768px) {
@@ -130,6 +131,7 @@
     --dur-hover: 0ms;
     --dur-ui: 0ms;
     --dur-reveal: 0ms;
+    --dur-emblem: 0ms;
   }
 }
 
@@ -493,4 +495,67 @@ html:has(dialog[open]) {
 }
 [data-reveal="pending"] [data-fade] {
   opacity: 0;
+}
+
+/*
+ * Project emblems (components/project-emblems) move once when their project is pointed at or
+ * focused. Held states (stretch, turn, fan, lift) ease back when the pointer leaves; the rest play
+ * from a starting pose into the resting one, so leaving early only skips to the end.
+ */
+[data-emblem="stretch"] {
+  transform-box: fill-box;
+  transform-origin: bottom;
+}
+[data-emblem="stretch"],
+[data-emblem="turn"],
+[data-emblem="fan"] {
+  transition:
+    scale var(--dur-emblem) var(--ease-out),
+    rotate calc(var(--dur-emblem) * 1.8) var(--ease-in-out),
+    translate var(--dur-emblem) var(--ease-out);
+}
+/* The slate's arm lifts gently and claps shut quickly. */
+[data-emblem="lift"] {
+  transition: rotate calc(var(--dur-emblem) / 4) var(--ease-in-out);
+}
+[data-emblem-host]:is(:hover, :focus-visible) {
+  [data-emblem="stretch"] {
+    scale: 1 2.6;
+  }
+  [data-emblem="turn"] {
+    rotate: var(--turns);
+  }
+  [data-emblem="fan"] {
+    translate: var(--fan);
+  }
+  [data-emblem="lift"] {
+    rotate: -24deg;
+    transition: rotate calc(var(--dur-emblem) / 2) var(--ease-out);
+  }
+  [data-emblem="sweep"] {
+    animation: emblem-sweep var(--dur-emblem) var(--ease-out);
+  }
+  [data-emblem="draw"] {
+    stroke-dasharray: 1;
+    animation: emblem-draw var(--dur-emblem) var(--ease-in-out);
+  }
+  [data-emblem="arrive"] {
+    animation: emblem-arrive var(--dur-emblem) var(--ease-out);
+  }
+}
+@keyframes emblem-sweep {
+  from {
+    rotate: var(--from);
+  }
+}
+@keyframes emblem-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+}
+@keyframes emblem-arrive {
+  0%,
+  60% {
+    opacity: 0;
+  }
 }

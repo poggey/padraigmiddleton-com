@@ -3,8 +3,7 @@ import { ContactPanel } from "@/components/home/ContactPanel";
 import { ExperienceSection } from "@/components/home/ExperienceSection";
 import { WritingSection } from "@/components/home/WritingSection";
 import { AlsoBuilt } from "@/components/projects/AlsoBuilt";
-import { projectItems } from "@/components/projects/items";
-import { ProjectIndex } from "@/components/projects/ProjectIndex";
+import { ProjectList } from "@/components/projects/ProjectList";
 import { Section } from "@/components/Section";
 import { getExperience, getPosts, getProjects, getSite } from "@/lib/content";
 import { essayParagraphs } from "@/lib/essayText";
@@ -39,7 +38,7 @@ export default function HomePage() {
         tone="night"
       >
         <div className="mt-12">
-          <ProjectIndex items={projectItems(projects.filter((p) => p.featured))} />
+          <ProjectList projects={projects.filter((p) => p.featured)} />
         </div>
         <AlsoBuilt projects={projects.filter((p) => !p.featured)} />
       </Section>

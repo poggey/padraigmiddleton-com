@@ -47,3 +47,4 @@ next-env.d.ts
 
 # original kit download (unzipped into build-kit/)
 /files
+__pycache__/
