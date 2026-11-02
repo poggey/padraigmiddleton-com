@@ -1,0 +1,119 @@
+/*
+ * Design prototypes on /reviews. Each direction re-points the site's own colour variables inside
+ * its wrapper (so bg-paper, text-ink and the rest pick up its palette) and adds a few of its own.
+ * Nothing here reaches the live site. Whichever direction Padraig picks moves into globals.css.
+ */
+
+/* A. Intaglio: paper, engraving green, intaglio blue, old gold. No gradients. */
+.proposal-intaglio {
+  --paper: #f6f7f4;
+  --porcelain: #eef0eb;
+  --ink: #0e3b2e;
+  --slate: #3d5a4f;
+  --muted: #5b7068;
+  --line: rgb(14 59 46 / 0.16);
+  --line-strong: rgb(14 59 46 / 0.32);
+  --signal: #1f3a6d;
+  --signal-deep: #162b52;
+  --gilt: #b08d3c;
+  --gilt-deep: #7d6227;
+  --focus-ring: #1f3a6d;
+  --engrave: rgb(14 59 46 / 0.62);
+  --engrave-faint: rgb(14 59 46 / 0.22);
+  background: var(--paper);
+  color: var(--ink);
+}
+
+/* B. Survey: map white, contour slate, deep water blue, one gold contour. */
+.proposal-survey {
+  --paper: #f7f8f6;
+  --porcelain: #eef1ee;
+  --ink: #16283a;
+  --slate: #4b5b6b;
+  --muted: #5e6b78;
+  --line: rgb(94 107 120 / 0.2);
+  --line-strong: rgb(94 107 120 / 0.42);
+  --signal: #173b5c;
+  --signal-deep: #0f2a43;
+  --gilt: #c29a2e;
+  --gilt-deep: #866a1c;
+  --focus-ring: #173b5c;
+  --contour: rgb(94 107 120 / 0.55);
+  --contour-index: rgb(46 60 74 / 0.8);
+  --water: 23 59 92; /* deep water blue as r g b, for the low-ground wash */
+  background: var(--paper);
+  color: var(--ink);
+}
+
+/*
+ * C. Trading day: the palette follows the London clock. The page sets --sky-top, --sky-bottom,
+ * --ground, --ink and --muted from the time (see TradingDayClock); these are the defaults for
+ * market hours, used before the script runs.
+ */
+.proposal-trading-day {
+  --sky-top: #dfe9f6;
+  --sky-bottom: #ffffff;
+  --ground: #ffffff;
+  --ink: #0f1e36;
+  --slate: #3f4b5e;
+  --muted: #5a6577;
+  --rule: rgb(15 30 54 / 0.14);
+  --signal: #2d5be3;
+  --signal-deep: #2249c4;
+  --gilt: #b8901c;
+  --sun: #ffd98a;
+  --line: var(--rule);
+  --line-strong: rgb(15 30 54 / 0.3);
+  --paper: var(--ground);
+  background: var(--ground);
+  color: var(--ink);
+  transition:
+    background-color 1.2s var(--ease-out),
+    color 1.2s var(--ease-out);
+}
+
+/* E. Axis: night, one cool white for lines, one blue for interaction, gold for today. No violet. */
+.proposal-axis {
+  --axis-night: #0b1220;
+  --axis-text: #e9edf3;
+  --axis-muted: #9aa5b8;
+  --axis-line: rgb(233 237 243 / 0.16);
+  --axis-line-strong: rgb(233 237 243 / 0.34);
+  --axis-tick: rgb(233 237 243 / 0.5);
+  --axis-light-line: rgb(15 23 42 / 0.12);
+  --axis-light-tick: rgb(15 23 42 / 0.32);
+  --ink: #0f172a;
+  --slate: #3c4658;
+  --muted: #5b6577;
+  --line: rgb(15 23 42 / 0.12);
+  --line-strong: rgb(15 23 42 / 0.28);
+  --paper: #ffffff;
+  --porcelain: #f4f6f9;
+  --signal: #3366ff;
+  --signal-soft: #8fa8ff;
+  --gilt: #d4ac2b;
+  --gilt-deep: #86680f;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+/*
+ * One-off entrances, run when the element's <Reveal> wrapper comes into view (the same mechanism
+ * as the live site's charts). Under reduced motion --dur-reveal is 0, so they appear at once.
+ */
+[data-reveal] .engrave-in {
+  transition: clip-path calc(var(--dur-reveal) * 2.4) var(--ease-out);
+}
+[data-reveal="pending"] .engrave-in {
+  clip-path: inset(0 100% 0 0);
+}
+[data-reveal] .settle {
+  transition:
+    opacity calc(var(--dur-reveal) * 1.4) var(--ease-out),
+    translate calc(var(--dur-reveal) * 1.4) var(--ease-out);
+  transition-delay: calc(var(--dur-reveal) * 0.4);
+}
+[data-reveal="pending"] .settle {
+  opacity: 0;
+  translate: 0 0.18em;
+}

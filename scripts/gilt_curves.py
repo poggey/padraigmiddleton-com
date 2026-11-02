@@ -37,14 +37,14 @@ def download(url: str) -> zipfile.ZipFile:
         return zipfile.ZipFile(io.BytesIO(response.read()))
 
 
-def read_spot_curves(book_bytes: bytes) -> dict[str, list[float]]:
-    """Returns {ISO date: yields at MATURITIES} for every complete row of the spot curve sheet."""
+def read_spot_curves(book_bytes: bytes, maturities=MATURITIES) -> dict[str, list[float]]:
+    """Returns {ISO date: yields at maturities} for every complete row of the spot curve sheet."""
     sheet = openpyxl.load_workbook(io.BytesIO(book_bytes), read_only=True, data_only=True)[
         "4. spot curve"
     ]
     rows = list(sheet.iter_rows(values_only=True))
     header = rows[3]  # "years:", 0.5, 1, 1.5 ...
-    columns = [header.index(m) for m in MATURITIES]
+    columns = [header.index(m) for m in maturities]
 
     curves = {}
     for row in rows[5:]:
