@@ -1,0 +1,33 @@
+# Refreshes the hero's gilt curves from the Bank of England every weekday and commits the
+# result, which redeploys the site. The Bank publishes each day's curves the next morning.
+name: Refresh gilt curves
+
+on:
+  schedule:
+    - cron: "30 11 * * 2-6" # 11:30 UTC, Tuesday to Saturday (Monday to Friday's closes)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r scripts/requirements.txt
+      - run: python scripts/gilt_curves.py
+      - name: Commit if the data changed
+        run: |
+          git config user.name "gilt-curves bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add public/data/gilt-curves.json
+          if git diff --cached --quiet; then
+            echo "No new curves."
+          else
+            git commit -m "Refresh gilt curves to $(python -c 'import json;print(json.load(open("public/data/gilt-curves.json"))["asOf"])')"
+            git push
+          fi

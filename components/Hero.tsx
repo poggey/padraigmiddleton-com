@@ -1,6 +1,7 @@
 import { Button } from "@/components/Button";
 import { Container } from "@/components/Container";
 import { GiltRibbon } from "@/components/GiltRibbon";
+import { GiltRibbonStatic } from "@/components/GiltRibbonStatic";
 import { formatDate } from "@/lib/format";
 import gilts from "@/public/data/gilt-curves.json";
 
@@ -31,6 +32,9 @@ export function Hero({
         tone="night"
         className="absolute inset-0 size-full opacity-25 lg:opacity-100"
       />
+      <noscript>
+        <GiltRibbonStatic />
+      </noscript>
       <Container className="relative flex flex-1 items-center py-16">
         <div className="max-w-[44rem]">
           <h1 id="hero-heading" className="text-display text-night-text">

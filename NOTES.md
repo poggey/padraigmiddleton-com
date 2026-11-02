@@ -145,3 +145,17 @@ Padraig chose a light hero and asked for the ribbon to be prototyped before cont
 - **Footer has no year.** `new Date()` cannot run during a static prerender, so it reads "© Padraig Middleton. London and Newcastle."
 - **Layout** is at least a screen tall (`min-h-svh` flex column), so the footer sits at the bottom of short pages.
 - **Screenshot gotcha:** Playwright's full-page capture resizes the viewport, which can catch the ribbon between frames and look like an unfinished draw-in. A normal viewport capture after scrolling away mid-load shows it complete.
+
+## Phase 5: hero (2 November 2026)
+
+- **Data** refreshed to the 30 October 2026 close. `.github/workflows/gilt-curves.yml` runs `scripts/gilt_curves.py` at 11:30 UTC Tuesday to Saturday and commits if the curves changed, which redeploys on Vercel. It only runs once the repo is on GitHub.
+- **Gold-curve tooltip:** hovering within 16px of the gold curve's visible part shows a glass label at the nearest real data point ("30 October 2026, 6-year 4.96%") with a gold dot. The gold curve is exempt from the cursor push, so it holds still while the other strands part. Keyboard: a visually hidden button ("Latest gilt yields", `aria-describedby` the tooltip) shows it at the 10-year point. It works under reduced motion. The tooltip is a fifth use of glass, the exception agreed in Phase 0.
+- **No JavaScript:** `GiltRibbonStatic` (every third day plus the latest close, SVG) inside `<noscript>`.
+- **Nav first-paint bug, fixed:** tone was detected only after hydration, so the bar was dark-on-dark over the hero on first paint and without JS. `SiteNav` now starts night-toned on pages listed in `darkTop` (the homepage).
+- **Load sequence verified:** text readable at first paint; oldest curves from about 600ms; complete with gold by 2000ms.
+- **Measurements** (production build, three runs each):
+  - LCP: the headline `h1`. 44ms desktop; 688ms with 4× CPU and slow 4G. Budget 2.0s. Pass.
+  - CLS 0.000.
+  - Hero JavaScript: about 6 KB gzip for the ribbon chunk, plus 2.5 KB data. Budget 40 KB. Pass.
+  - **Homepage JavaScript: 197 KB gzip. Budget 150 KB. Fail.** About 125 KB is the framework (React DOM, the Next router runtime and Turbopack), 44.7 KB is Motion (`domMax` via `MotionProvider` on every page), and the rest is the ribbon, menu, view transitions and badge. Proposed to Padraig: replace Motion with the browser's View Transitions API and CSS for its three jobs (tab indicator, filter reflow, chart reveal). That drops to about 152 KB, then trim the rest.
+- **Headline options** for Padraig to choose in context: `/lab/headlines` (A, B, C in the real hero). B is in use.

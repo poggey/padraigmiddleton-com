@@ -9,10 +9,14 @@ import { Nav, navLinks } from "@/components/Nav";
  * The live navigation: fixed to the top, glass after 8px of scroll, and night-toned while it sits
  * over any section marked data-nav-tone="night" (the hero, the projects band, the footer).
  */
+// Pages whose first section is dark (the homepage hero).
+const darkTop = new Set(["/"]);
+
 export function SiteNav({ contact }: { contact: { linkedin: string; github: string } }) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
-  const [tone, setTone] = useState<"light" | "night">("light");
+  // Night-toned from the first paint on pages that open on a dark hero, before any script runs.
+  const [tone, setTone] = useState<"light" | "night">(darkTop.has(pathname) ? "night" : "light");
   // The page the menu was opened on. Navigating anywhere else closes it automatically.
   const [menuPage, setMenuPage] = useState<string | null>(null);
   const menuOpen = menuPage === pathname;
