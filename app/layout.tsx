@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Schibsted_Grotesk, Source_Serif_4 } from "next/font/google";
-import { MotionProvider } from "@/components/MotionProvider";
 import { getSite } from "@/lib/content";
 import { siteUrl } from "@/lib/site";
 import "./globals.css";
@@ -34,9 +33,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en-GB" className={`${schibsted.variable} ${sourceSerif.variable}`}>
-      <body>
-        <MotionProvider>{children}</MotionProvider>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

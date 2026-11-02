@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useReducedMotionConfig } from "motion/react";
+import { useReducedMotion } from "@/lib/useReducedMotion";
 import gilts from "@/public/data/gilt-curves.json";
 import { smoothCurve } from "@/lib/curves";
 
@@ -132,8 +132,8 @@ export function GiltRibbon({
   const tipRef = useRef<HTMLDivElement>(null);
   const dotRef = useRef<HTMLSpanElement>(null);
   const focusRef = useRef<HTMLButtonElement>(null);
-  // Follows the visitor setting, and the /lab simulation switch via MotionConfig.
-  const reduced = useReducedMotionConfig() ?? false;
+  // Follows the visitor setting, and the /lab simulation switch.
+  const reduced = useReducedMotion();
 
   useEffect(() => {
     const canvas = canvasRef.current;

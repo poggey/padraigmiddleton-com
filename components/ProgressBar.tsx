@@ -1,6 +1,8 @@
 "use client";
 
 import { cx } from "@/lib/cx";
+import { useRef } from "react";
+import { useInView } from "@/lib/useInView";
 import { useToday } from "@/lib/useToday";
 
 const DAY = 24 * 60 * 60 * 1000;
@@ -21,6 +23,9 @@ export function ProgressBar({
   className?: string;
 }) {
   const today = useToday();
+  // The bar fills once it is on screen.
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, 0.6);
   const start = Date.parse(made);
   const end = Date.parse(checkDate);
   const now = today?.getTime() ?? start;
@@ -31,6 +36,7 @@ export function ProgressBar({
   return (
     <div className={className}>
       <div
+        ref={ref}
         role="progressbar"
         aria-label="Time until the check date"
         aria-valuemin={0}
@@ -42,7 +48,10 @@ export function ProgressBar({
           tone === "light" ? "bg-line" : "bg-night-line",
         )}
       >
-        <div className="h-full rounded-pill bg-gilt" style={{ width: `${fraction * 100}%` }} />
+        <div
+          className="h-full rounded-pill bg-gilt transition-[width] duration-(--dur-reveal) ease-out"
+          style={{ width: `${inView ? fraction * 100 : 0}%` }}
+        />
       </div>
       <p
         className={cx(

@@ -1,6 +1,6 @@
-import { ViewTransition } from "react";
 import { BuiltBy } from "@/components/BuiltBy";
 import { Footer } from "@/components/Footer";
+import { PageTransition } from "@/components/PageTransition";
 import { SiteNav } from "@/components/SiteNav";
 import { SkipLink } from "@/components/SkipLink";
 import { getSite } from "@/lib/content";
@@ -14,11 +14,11 @@ export default function SiteLayout({ children }: LayoutProps<"/">) {
     <div className="flex min-h-svh flex-col">
       <SkipLink />
       <SiteNav contact={contact} />
-      <ViewTransition>
+      <PageTransition>
         <main id="main" tabIndex={-1} className="flex-1 outline-none">
           {children}
         </main>
-      </ViewTransition>
+      </PageTransition>
       <Footer />
       <BuiltBy name={author} github={contact.github} />
     </div>

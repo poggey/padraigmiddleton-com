@@ -43,10 +43,8 @@ A site that makes a recruiter or reader think "this person thinks clearly and bu
 - Next.js (App Router) with TypeScript, deployed on Vercel
 - Tailwind CSS v4 with design tokens defined as CSS variables (see `02-design-system.md`)
 - MDX for essays and project write-ups, validated with zod schemas
-- Motion (the `motion` package, formerly Framer Motion) for interaction and layout animation
-- GSAP with ScrollTrigger only where scroll-linked timing is genuinely needed
-- Lenis for smooth scrolling, disabled under reduced motion
-- Raw WebGL (or OGL if it keeps the code clearer) for the hero; no three.js unless Padraig agrees
+- Motion: CSS transitions plus React `<ViewTransition>` (the browser View Transitions API) for interaction, layout and page animation. The `motion` package, GSAP and Lenis were dropped with Padraig's agreement (2 November 2026) to meet the JavaScript budget; see NOTES.md
+- The hero ribbon is a 2D canvas (agreed with Padraig instead of WebGL)
 - `next/og` for generated social images; RSS and sitemap generated at build
 - Fonts via `next/font/google`: Schibsted Grotesk and Source Serif 4
 

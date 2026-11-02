@@ -2,7 +2,8 @@ import Link from "next/link";
 
 /**
  * The newest essay on the homepage: a chart panel that overlaps the top of the card,
- * and a glass chip with the key figure. The whole card is one link.
+ * and a glass chip with the key figure. The whole card is one link. Without a chart, the
+ * card stands on its own.
  */
 export function EssayFeature({
   href,
@@ -18,31 +19,36 @@ export function EssayFeature({
   meta: string;
   title: string;
   summary: string;
-  keyFigure: { figure: string; label: string };
-  chart: React.ReactNode;
-  chartCaption: string;
+  keyFigure?: { figure: string; label: string };
+  chart?: React.ReactNode;
+  chartCaption?: string;
   force?: string;
 }) {
   return (
     <article className="group relative" data-force={force}>
-      <div className="relative z-10 mx-3 rounded-card bg-paper px-5 pt-24 pb-5 shadow-e2 md:mx-8 md:px-6 md:pt-14 md:pb-6">
-        {/* Sits across the panel's top edge, above the plot, so it never covers data. */}
-        <div
-          className={
-            "glass absolute -top-6 right-3 left-3 flex items-center gap-4 rounded-inline px-4 py-3 " +
-            "md:left-auto md:-right-5 md:max-w-[24rem] " +
-            "transition-[background-color] duration-(--dur-hover) ease-out group-is-hover:bg-paper"
-          }
-        >
-          <p className="shrink-0 text-h3">{keyFigure.figure}</p>
-          <p className="text-small text-slate">{keyFigure.label}</p>
+      {chart && (
+        <div className="relative z-10 mx-3 rounded-card bg-paper px-5 pt-24 pb-5 shadow-e2 md:mx-8 md:px-6 md:pt-14 md:pb-6">
+          {/* Sits across the panel's top edge, above the plot, so it never covers data. */}
+          {keyFigure && (
+            <div
+              className={
+                "glass absolute -top-6 right-3 left-3 flex items-center gap-4 rounded-inline px-4 py-3 " +
+                "md:left-auto md:-right-5 md:max-w-[24rem] " +
+                "transition-[background-color] duration-(--dur-hover) ease-out group-is-hover:bg-paper"
+              }
+            >
+              <p className="shrink-0 text-h3">{keyFigure.figure}</p>
+              <p className="text-small text-slate">{keyFigure.label}</p>
+            </div>
+          )}
+          {chart}
+          {chartCaption && <p className="mt-3 text-small text-muted">{chartCaption}</p>}
         </div>
-        {chart}
-        <p className="mt-3 text-small text-muted">{chartCaption}</p>
-      </div>
+      )}
       <div
         className={
-          "-mt-10 rounded-card bg-paper px-6 pt-16 pb-8 shadow-e1 md:px-10 " +
+          (chart ? "-mt-10 pt-16 " : "pt-8 ") +
+          "rounded-card bg-paper px-6 pb-8 shadow-e1 md:px-10 " +
           "transition-[translate,box-shadow] duration-(--dur-hover) ease-out " +
           "group-is-hover:-translate-y-0.5 group-is-hover:shadow-e2"
         }

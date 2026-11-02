@@ -1,7 +1,9 @@
+import { firstChartId, getChart } from "./charts";
 import { getExperience, getPredictions, getSite } from "./data";
 import { getPosts } from "./posts";
 import { getProjects } from "./projects";
 
+export { firstChartId, getChart, type ChartData } from "./charts";
 export { getExperience, getPredictions, getSite } from "./data";
 export { getPost, getPosts, type Post } from "./posts";
 export { getProject, getProjects, type Project } from "./projects";
@@ -18,6 +20,8 @@ export function validateContent() {
   const site = getSite();
 
   for (const post of posts) {
+    const chart = firstChartId(post.body);
+    if (chart) getChart(chart);
     if (post.predictionId && !predictions.some((p) => p.id === post.predictionId)) {
       throw new Error(`content/posts/${post.slug}.mdx refers to prediction ${post.predictionId}, which is not in content/predictions.json`);
     }

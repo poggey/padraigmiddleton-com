@@ -159,3 +159,21 @@ Padraig chose a light hero and asked for the ribbon to be prototyped before cont
   - Hero JavaScript: about 6 KB gzip for the ribbon chunk, plus 2.5 KB data. Budget 40 KB. Pass.
   - **Homepage JavaScript: 197 KB gzip. Budget 150 KB. Fail.** About 125 KB is the framework (React DOM, the Next router runtime and Turbopack), 44.7 KB is Motion (`domMax` via `MotionProvider` on every page), and the rest is the ribbon, menu, view transitions and badge. Proposed to Padraig: replace Motion with the browser's View Transitions API and CSS for its three jobs (tab indicator, filter reflow, chart reveal). That drops to about 152 KB, then trim the rest.
 - **Headline options** for Padraig to choose in context: `/lab/headlines` (A, B, C in the real hero). B is in use.
+
+## Phase 6: homepage sections (2 November 2026)
+
+- **Headline B confirmed** by Padraig.
+- **Motion removed** (Padraig: "as long as the end product is the same, and there is motion on the page"). Its jobs now:
+  - Tab indicators: one absolutely positioned element moved with a CSS transition (`Tabs`, horizontal or vertical). It only animates after first placement.
+  - Panel swaps (Ledger toggle, experience detail, lab filter reflow): React `<ViewTransition>` with `startTransition`.
+  - Chart and bar reveals: `lib/useInView.ts`. Reduced motion: `lib/useReducedMotion.ts`, which also follows the lab's `data-motion` switch.
+  - Page transitions moved into `PageTransition`, keyed by path, with `default="none"`, so in-page updates do not cross-fade the whole page.
+  - Homepage JavaScript went from 197 to 156 KB gzip. The remaining 6 KB over budget is for Phase 10.
+- **Sections:**
+  - **Writing:** the essay card with the chart panel and glass £15bn chip, chart data from `content/charts/*.json` via `getChart` (validated, and checked in `validateContent`). Beside it: "Next essay in progress." and "All essays".
+  - **Projects:** a marked slot for Phase 7.
+  - **Ledger:** the idea and the record as a sentence on the left, the card with the Open/Resolved toggle on the right. The progress bar fills when on screen. On 2 November it is empty because the prediction is dated 3 November.
+  - **Experience:** vertical role tabs with a sliding indicator; the detail panel cross-fades. Education card with the CV button.
+  - **Contact:** the night panel running into the footer, with the torch behind it (`Torch quiet`: fainter writing, smaller light, drifts on its own). The email wraps only at the @ on phones.
+- **Footer** gained a faint top hairline so it separates from the night contact panel.
+- **Kit and CLAUDE.md** stack line updated: no `motion`, GSAP or Lenis; 2D canvas hero.

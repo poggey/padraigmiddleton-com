@@ -5,7 +5,7 @@ import { Container } from "@/components/Container";
 // badge is fixed to the bottom right corner.
 export function Footer() {
   return (
-    <footer data-tone="night" data-nav-tone="night" className="bg-night">
+    <footer data-tone="night" data-nav-tone="night" className="border-t border-night-line bg-night">
       <Container className="flex flex-wrap items-center gap-x-6 gap-y-2 pt-10 pb-20 text-small text-night-muted md:pb-10">
         <p>© Padraig Middleton. London and Newcastle.</p>
         <Link

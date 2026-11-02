@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useReducedMotionConfig } from "motion/react";
+import { useReducedMotion } from "@/lib/useReducedMotion";
 
 /**
  * A dark surface with writing hidden beneath it. A soft circle of light follows the cursor and
@@ -10,15 +10,18 @@ import { useReducedMotionConfig } from "motion/react";
  */
 export function Torch({
   paragraphs,
+  quiet = false,
   className,
   children,
 }: {
   paragraphs: string[];
+  /** Fainter writing and a smaller light, for places where the torch is a background detail. */
+  quiet?: boolean;
   className?: string;
   children: React.ReactNode;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const reduced = useReducedMotionConfig() ?? false;
+  const reduced = useReducedMotion();
 
   useEffect(() => {
     const el = ref.current;
@@ -84,8 +87,7 @@ export function Torch({
       ))}
     </div>
   );
-  const mask =
-    "radial-gradient(circle 300px at var(--x) var(--y), #000 0%, rgb(0 0 0 / 0.5) 45%, transparent 78%)";
+  const mask = `radial-gradient(circle ${quiet ? 240 : 300}px at var(--x) var(--y), #000 0%, rgb(0 0 0 / 0.5) 45%, transparent 78%)`;
 
   return (
     <div ref={ref} className={`relative overflow-hidden ${className ?? ""}`}>
@@ -95,7 +97,7 @@ export function Torch({
       <div
         aria-hidden
         className="absolute inset-0 text-night-muted select-none"
-        style={{ maskImage: mask, WebkitMaskImage: mask }}
+        style={{ maskImage: mask, WebkitMaskImage: mask, opacity: quiet ? 0.55 : 1 }}
       >
         {text}
       </div>

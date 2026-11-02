@@ -1,12 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import { AnimatePresence, m } from "motion/react";
+import { startTransition, useState, ViewTransition } from "react";
 import { ProjectCard } from "@/components/ProjectCard";
 import { Tabs } from "@/components/Tabs";
 import { Button } from "@/components/Button";
 import { Card } from "@/components/Card";
-import { spring } from "@/lib/motion";
 import { Label } from "./LabSection";
 
 const projects = [
@@ -109,33 +107,27 @@ export function ProjectsDemo() {
           idPrefix="lab-filter"
           items={filters}
           value={filter}
-          onChange={setFilter}
+          onChange={(id) => startTransition(() => setFilter(id))}
         />
-        <m.ul
-          layout
+        {/* Each tile is a named view transition: tiles that stay slide to their new place,
+            tiles that leave or arrive fade. */}
+        <ul
           id="lab-filter-panel"
           role="tabpanel"
           aria-labelledby={`lab-filter-tab-${filter}`}
           className="mt-6 grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4"
         >
-          <AnimatePresence mode="popLayout" initial={false}>
-            {shown.map((p) => (
-              <m.li
-                key={p.title}
-                layout
-                transition={spring}
-                initial={{ opacity: 0, scale: 0.96 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.96 }}
-              >
+          {shown.map((p) => (
+            <ViewTransition key={p.title} name={`lab-tile-${p.title.replace(/\W+/g, "-")}`}>
+              <li>
                 <Card tone="night" className="h-full p-5">
                   <p className="text-ui font-semibold text-night-text">{p.title}</p>
                   <p className="mt-1 text-small text-night-muted">{p.kind}</p>
                 </Card>
-              </m.li>
-            ))}
-          </AnimatePresence>
-        </m.ul>
+              </li>
+            </ViewTransition>
+          ))}
+        </ul>
       </div>
 
       <div>

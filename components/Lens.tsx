@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useReducedMotionConfig } from "motion/react";
+import { useReducedMotion } from "@/lib/useReducedMotion";
 import { cx } from "@/lib/cx";
 
 /**
@@ -16,7 +16,7 @@ export function Lens({ text, className }: { text: string; className?: string }) 
   const box = useRef<HTMLDivElement>(null);
   const lens = useRef<HTMLDivElement>(null);
   const copy = useRef<HTMLDivElement>(null);
-  const reduced = useReducedMotionConfig() ?? false;
+  const reduced = useReducedMotion();
 
   useEffect(() => {
     const el = box.current;

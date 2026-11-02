@@ -1,15 +1,16 @@
 "use client";
 
-import { useRef } from "react";
-import { m } from "motion/react";
-import { spring } from "@/lib/motion";
+import { useEffect, useRef } from "react";
 import { cx } from "@/lib/cx";
 
-export type TabItem = { id: string; label: string };
+export type TabItem = { id: string; label: React.ReactNode };
 
 /**
- * A row of tabs with a sliding indicator. Arrow keys, Home and End move between tabs.
+ * Tabs with a sliding indicator. Horizontal tabs are pills in a row (filters, toggles); vertical
+ * tabs are a list of rows (the experience section). Arrow keys, Home and End move between tabs.
  * The parent renders the panel with id `${idPrefix}-panel` and role="tabpanel".
+ *
+ * The indicator is one element moved with a CSS transition to the selected tab's position.
  */
 export function Tabs({
   label,
@@ -18,6 +19,7 @@ export function Tabs({
   onChange,
   idPrefix,
   tone = "light",
+  orientation = "horizontal",
   className,
 }: {
   label: string;
@@ -26,15 +28,46 @@ export function Tabs({
   onChange: (id: string) => void;
   idPrefix: string;
   tone?: "light" | "night";
+  orientation?: "horizontal" | "vertical";
   className?: string;
 }) {
+  const list = useRef<HTMLDivElement>(null);
+  const indicator = useRef<HTMLSpanElement>(null);
   const refs = useRef<Array<HTMLButtonElement | null>>([]);
+  const vertical = orientation === "vertical";
+  const index = Math.max(
+    0,
+    items.findIndex((item) => item.id === value),
+  );
 
-  function onKeyDown(event: React.KeyboardEvent, index: number) {
+  // Move the indicator onto the selected tab, and again whenever the tabs change size.
+  useEffect(() => {
+    const bar = indicator.current;
+    const container = list.current;
+    if (!bar || !container) return;
+    const place = () => {
+      const tab = refs.current[index];
+      if (!tab) return;
+      bar.style.translate = `${tab.offsetLeft}px ${tab.offsetTop}px`;
+      bar.style.width = `${tab.offsetWidth}px`;
+      bar.style.height = `${tab.offsetHeight}px`;
+    };
+    place();
+    // Only animate after the first placement, so nothing slides in on page load.
+    const frame = requestAnimationFrame(() => (bar.dataset.ready = "true"));
+    const resizer = new ResizeObserver(place);
+    resizer.observe(container);
+    return () => {
+      cancelAnimationFrame(frame);
+      resizer.disconnect();
+    };
+  }, [index, items.length]);
+
+  function onKeyDown(event: React.KeyboardEvent, i: number) {
     const last = items.length - 1;
     const next = {
-      ArrowRight: index === last ? 0 : index + 1,
-      ArrowLeft: index === 0 ? last : index - 1,
+      [vertical ? "ArrowDown" : "ArrowRight"]: i === last ? 0 : i + 1,
+      [vertical ? "ArrowUp" : "ArrowLeft"]: i === 0 ? last : i - 1,
       Home: 0,
       End: last,
     }[event.key];
@@ -46,21 +79,41 @@ export function Tabs({
 
   return (
     <div
+      ref={list}
       role="tablist"
       aria-label={label}
+      aria-orientation={orientation}
       className={cx(
-        "inline-flex max-w-full gap-1 overflow-x-auto rounded-pill p-1",
-        tone === "light" ? "bg-ink/6" : "bg-night-line",
+        "relative",
+        vertical
+          ? "flex flex-col gap-1"
+          : cx(
+              "inline-flex max-w-full gap-1 overflow-x-auto rounded-pill p-1",
+              tone === "light" ? "bg-ink/6" : "bg-night-line",
+            ),
         className,
       )}
     >
-      {items.map((item, index) => {
-        const selected = item.id === value;
+      <span
+        ref={indicator}
+        aria-hidden
+        className={cx(
+          "absolute top-0 left-0",
+          "data-[ready=true]:transition-[translate,width,height] data-[ready=true]:duration-(--dur-ui) data-[ready=true]:ease-out",
+          vertical
+            ? "rounded-inline bg-paper shadow-e1"
+            : tone === "light"
+              ? "rounded-pill bg-paper shadow-e1"
+              : "rounded-pill bg-night-line-strong",
+        )}
+      />
+      {items.map((item, i) => {
+        const selected = i === index;
         return (
           <button
             key={item.id}
             ref={(el) => {
-              refs.current[index] = el;
+              refs.current[i] = el;
             }}
             type="button"
             role="tab"
@@ -69,10 +122,12 @@ export function Tabs({
             aria-controls={`${idPrefix}-panel`}
             tabIndex={selected ? 0 : -1}
             onClick={() => onChange(item.id)}
-            onKeyDown={(event) => onKeyDown(event, index)}
+            onKeyDown={(event) => onKeyDown(event, i)}
             className={cx(
-              "relative h-11 shrink-0 rounded-pill px-4 text-small font-semibold",
-              "transition-colors duration-(--dur-ui) ease-out",
+              "relative shrink-0 transition-colors duration-(--dur-ui) ease-out",
+              vertical
+                ? "min-h-11 rounded-inline px-4 py-3 text-left"
+                : "h-11 rounded-pill px-4 text-small font-semibold",
               tone === "light"
                 ? selected
                   ? "text-ink"
@@ -82,17 +137,7 @@ export function Tabs({
                   : "text-night-muted is-hover:text-night-text",
             )}
           >
-            {selected && (
-              <m.span
-                layoutId={`${idPrefix}-indicator`}
-                transition={spring}
-                className={cx(
-                  "absolute inset-0 rounded-pill",
-                  tone === "light" ? "bg-paper shadow-e1" : "bg-night-line-strong",
-                )}
-              />
-            )}
-            <span className="relative">{item.label}</span>
+            {item.label}
           </button>
         );
       })}

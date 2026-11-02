@@ -1,15 +1,27 @@
-import Link from "next/link";
 import { Container } from "@/components/Container";
 import { Hero } from "@/components/Hero";
-import { getPosts, getSite } from "@/lib/content";
+import { ContactPanel } from "@/components/home/ContactPanel";
+import { ExperienceSection } from "@/components/home/ExperienceSection";
+import { LedgerPreview } from "@/components/home/LedgerPreview";
+import { WritingSection } from "@/components/home/WritingSection";
+import { Section } from "@/components/Section";
+import { getExperience, getPosts, getPredictions, getSite } from "@/lib/content";
+import { essayParagraphs } from "@/lib/essayText";
+import { recordSentence } from "@/lib/ledger";
 import { pageMetadata } from "@/lib/metadata";
 
 const site = getSite();
 export const metadata = pageMetadata({ description: site.description, path: "/" });
 
-// The homepage. The hero is in place; the sections below it are built in Phases 6 and 7.
 export default function HomePage() {
-  const latest = getPosts()[0];
+  const posts = getPosts();
+  const latest = posts[0];
+  const predictions = getPredictions();
+  const entries = predictions.map((p) => {
+    const essay = posts.find((post) => post.slug === p.essaySlug);
+    return { ...p, essayTitle: essay?.title ?? "", essayNumber: essay?.number ?? 0 };
+  });
+
   return (
     <>
       <Hero
@@ -19,21 +31,36 @@ export default function HomePage() {
         secondary={site.hero.secondaryButton}
         latestEssay={`/writing/${latest.slug}`}
       />
-      <Container className="py-(--section-y)">
-        <h2 className="text-h2">{site.sections.writing.heading}</h2>
-        <p className="mt-3 max-w-[60ch] text-lead text-slate">{site.sections.writing.intro}</p>
-        <p className="mt-8">
-          <Link
-            href={`/writing/${latest.slug}`}
-            className="text-h3 underline decoration-line-strong underline-offset-8"
-          >
-            {latest.title}
-          </Link>
-        </p>
-        <p className="mt-16 text-small text-muted">
-          The homepage sections below the hero are built in Phases 6 and 7.
-        </p>
-      </Container>
+
+      <WritingSection posts={posts} copy={site.sections.writing} />
+
+      {/* Built in Phase 7: the projects bento with each project's own graphic. */}
+      <Section
+        id="projects"
+        title={site.sections.projects.heading}
+        intro={site.sections.projects.intro}
+        tone="night"
+      >
+        <p className="mt-12 text-small text-night-muted">The projects band is built in Phase 7.</p>
+      </Section>
+
+      <section id="ledger" aria-labelledby="ledger-heading" className="py-(--section-y)">
+        <Container>
+          <LedgerPreview
+            entries={entries}
+            record={recordSentence(predictions)}
+            copy={site.sections.ledger}
+          />
+        </Container>
+      </section>
+
+      <ExperienceSection experience={getExperience()} copy={site.sections.experience} />
+
+      <ContactPanel
+        copy={site.sections.contact}
+        contact={site.contact}
+        essay={essayParagraphs(`${latest.slug}.mdx`)}
+      />
     </>
   );
 }

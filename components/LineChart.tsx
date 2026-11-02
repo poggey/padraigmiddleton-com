@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { useInView } from "motion/react";
+import { useInView } from "@/lib/useInView";
 import { cx } from "@/lib/cx";
 
 export type Point = { label: string; value: number };
@@ -33,7 +33,7 @@ export function LineChart({
   className?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { amount: 0.4, once: true });
+  const inView = useInView(ref, 0.4);
 
   const x = (i: number) => (i / (points.length - 1)) * 100;
   const y = (v: number) => 100 - (v / yMax) * 100;
