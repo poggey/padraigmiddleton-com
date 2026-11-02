@@ -154,7 +154,7 @@ BSc (Econ) Economics and Finance, September 2025 to June 2028.
 - Programming: Python (pandas, NumPy, SciPy, scikit-learn, statsmodels, Streamlit, Plotly), R, TypeScript and JavaScript (Next.js), SQL
 - Methods: regression, Monte Carlo simulation, portfolio optimisation, risk metrics, bootstrapping
 - Tools: Excel, BlackRock Portfolio 360, Bloomberg, Figma, n8n, Git and GitHub
-- Particular interest: Islamic finance (Shariah-compliant portfolio construction, sukuk)
+- ~~Particular interest: Islamic finance~~ Removed 2 November 2026: Padraig says this is not true. Never use it.
 
 ## Beyond work
 

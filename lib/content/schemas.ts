@@ -82,7 +82,7 @@ export const siteSchema = z.object({
     experience: z.object({ heading: z.string(), button: z.string() }),
     contact: z.object({ heading: z.string(), line: z.string() }),
   }),
-  about: z.object({ bio: z.string(), ownWords: z.string(), headshot: z.string() }),
+  about: z.object({ bio: z.string(), ownWords: z.string(), headshot: z.string().optional() }),
   skills: z.array(z.object({ label: z.string(), items: z.string() })),
   beyondWork: z.array(z.string()),
 });

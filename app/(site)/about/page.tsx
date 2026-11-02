@@ -23,7 +23,7 @@ export default function AboutPage() {
     <>
       <Container className="pt-32 pb-(--section-y)">
         <h1 className="text-title">About</h1>
-        <p className="mt-6 max-w-[60ch] text-lead text-slate">{about.bio}</p>
+        {/* Padraig's own words first, then the facts. */}
         {todo(about.ownWords) ? (
           <div className="max-w-[60ch]">
             <Todo>{todo(about.ownWords)}</Todo>
@@ -31,7 +31,8 @@ export default function AboutPage() {
         ) : (
           <p className="mt-6 max-w-[60ch] text-lead text-slate">{about.ownWords}</p>
         )}
-        {todo(about.headshot) && (
+        <p className="mt-6 max-w-[60ch] text-lead text-slate">{about.bio}</p>
+        {about.headshot && todo(about.headshot) && (
           <div className="max-w-[60ch]">
             <Todo>{todo(about.headshot)}</Todo>
           </div>
