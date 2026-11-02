@@ -92,10 +92,12 @@ describe("projects", () => {
     ]);
   });
 
-  it("flags Escape Velocity's figures for Padraig to confirm, with no key result yet", () => {
-    const escape = projects.find((p) => p.slug === "escape-velocity")!;
-    expect(escape.keyResult).toBeUndefined();
-    expect(escape.todo).toMatch(/^TODO\(Padraig\)/);
+  it("has no key result for Escape Velocity, and no open TODOs on any project", () => {
+    expect(projects.find((p) => p.slug === "escape-velocity")!.keyResult).toBeUndefined();
+    for (const project of projects) {
+      expect(project.todo, project.slug).toBeUndefined();
+      expect(project.body, project.slug).not.toContain("<Todo>");
+    }
   });
 
   it("features the finance and economics work; F1 and books are listed as also built", () => {

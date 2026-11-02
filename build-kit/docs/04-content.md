@@ -224,7 +224,7 @@ Display order (homepage and `/projects`) and card sizes are given for each. "Gra
   - Data: five years of daily prices for eight ETFs across five asset classes (UK and global equity, gilts, US Treasuries, index-linked gilts, gold, UK corporate bonds, UK property).
   - Result: the maximum-Sharpe portfolio was 56% gold and 44% global equity, a Sharpe ratio of 0.76.
   - What broke: the optimiser concentrated into two assets because it exploits noise in the estimated returns. Fixes would be weight caps and shrinkage estimators such as Ledoit-Wolf. The sample includes Covid, the 2022 rate rises and the gilt crisis.
-  - Note: this was Padraig's first ever coding project.
+  - ~~Note: this was Padraig's first ever coding project.~~ Not true (2 November 2026): his earlier projects just weren't on GitHub. Never say it.
 
 ### 5. Escape Velocity
 - Slug: `escape-velocity`. Group: markets. Size: standard. Status: in progress. Year: 2026.

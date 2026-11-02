@@ -17,6 +17,9 @@ export function generateStaticParams() {
   return getProjects().map((project) => ({ slug: project.slug }));
 }
 
+// Every page here is prerendered from generateStaticParams, so waiting for params is fine.
+export const instant = false;
+
 export async function generateMetadata({ params }: PageProps<"/projects/[slug]">) {
   const project = getProject((await params).slug);
   if (!project) return {};

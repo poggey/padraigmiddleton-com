@@ -72,7 +72,6 @@ export const siteSchema = z.object({
     headline: z.string().min(1),
     headlineOptions: z.array(z.string()),
     subline: z.string().min(1),
-    sublineTodo: z.string().optional(),
     primaryButton: z.string().min(1),
     secondaryButton: z.string().min(1),
   }),

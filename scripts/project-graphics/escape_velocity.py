@@ -18,7 +18,7 @@ out = {
     "source": daily["source"],
     "ticker": daily["ticker"],
     "ipoPrice": daily["ipo_price"],
-    "verified": False,
+    "verified": True,  # live yfinance data (is_stub false), checked against the repo
     "series": [[r["date"], round(float(r[close_key]), 2)] for r in rows],
 }
 path = Path("public/data/projects/escape-velocity.json")

@@ -17,14 +17,13 @@
       "I write opinionated essays on economics and finance, and build things to check I’m right."
     ],
     "subline": "Second-year Economics and Finance student at Queen Mary University of London. Looking for Summer 2027 internships.",
-    "sublineTodo": "TODO(Padraig): optionally name the areas (banking, markets, asset management).",
     "primaryButton": "Read the latest essay",
     "secondaryButton": "See the projects"
   },
   "sections": {
     "writing": {
       "heading": "Writing",
-      "intro": "Opinionated, sourced, and every essay ends with a dated prediction.",
+      "intro": "Opinionated and sourced.",
       "emptySlot": "Next essay in progress."
     },
     "projects": {

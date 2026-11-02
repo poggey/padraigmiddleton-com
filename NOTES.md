@@ -296,3 +296,12 @@ Padraig: the projects section's "enormous graphs and charts… looks like you're
 - **Islamic finance removed** as a "particular interest": Padraig says it is not true. Marked in `build-kit/docs/04-content.md` so it does not come back. The Raymond James bullet about building a Shariah-compliant model portfolio stays: that was real work.
 - **Own words:** his paragraph is the first thing on `/about`, verbatim. The bio below it no longer repeats "second-year Economics and Finance student at Queen Mary" and starts at Newcastle.
 - **No headshot** for now: the field is optional and the placeholder is gone.
+
+## Content decisions (2 November 2026)
+
+- **Escape Velocity case study** is Padraig's own reflection from the repo README, verbatim, split under three headings (why, view, what I'd do differently). Its price data is the repo's live yfinance series (`is_stub` false, identical to `data/spcx_daily.json`), so the "confirm figures" TODO is gone and `verified` is true. Still no key result on the card.
+- **Portfolio Optimiser was not his first coding project** (earlier ones just weren't on GitHub). Never say it was; marked in the kit's content doc.
+- **The Slate:** "in 2025 dollars" added to the $1.62bn and −$37m; the key result now says "associated with", not "boost", since it is a regression.
+- **Marginalia** keeps its graphic. **Writing intro** is now "Opinionated and sourced.": essays sometimes end with an opinion or prediction, not always. **Hero subline** stays as it is.
+- **Domain:** waiting on Padraig.
+- `export const instant = false` on the project and essay `[slug]` routes: Next 16.4 warned in dev that `params` is read outside `<Suspense>`. Every page is prerendered from `generateStaticParams`, so blocking costs nothing.
