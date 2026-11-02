@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Container } from "@/components/Container";
+import { BuiltBy } from "@/components/BuiltBy";
 import { Footer } from "@/components/Footer";
 import { SiteNav } from "@/components/SiteNav";
 import { SkipLink } from "@/components/SkipLink";
@@ -9,7 +10,7 @@ export const metadata = { title: "Page not found" };
 
 // Short and useful: where to go instead. Polished in Phase 9.
 export default function NotFound() {
-  const { contact } = getSite();
+  const { contact, author } = getSite();
   return (
     <div className="flex min-h-svh flex-col">
       <SkipLink />
@@ -36,7 +37,8 @@ export default function NotFound() {
           </ul>
         </Container>
       </main>
-      <Footer github={contact.github} />
+      <Footer />
+      <BuiltBy name={author} github={contact.github} />
     </div>
   );
 }
