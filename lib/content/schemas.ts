@@ -31,6 +31,10 @@ export const projectSchema = z.object({
   graphic: z.string().min(1),
   size: z.enum(["feature", "standard"]),
   order: z.number().int(),
+  /** Shown in the homepage band (the full list is on /projects). */
+  homepage: z.boolean().default(true),
+  /** A visible note for Padraig on the card and page, until he resolves it. */
+  todo: z.string().optional(),
 });
 
 export const predictionSchema = z.object({

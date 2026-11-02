@@ -1,0 +1,37 @@
+{
+ "source": "Marginalia, tests/recommender/expected.json (the recommender's test reader)",
+ "reader": "test reader",
+ "setting": "Comfort",
+ "books": [
+  {
+   "title": "Dark Matter",
+   "author": "Blake Crouch",
+   "predicted": 3.898,
+   "band": 0.7
+  },
+  {
+   "title": "To Sleep in a Sea of Stars",
+   "author": "Christopher Paolini",
+   "predicted": 3.809,
+   "band": 0.9
+  },
+  {
+   "title": "A Fire Upon the Deep",
+   "author": "Vernor Vinge",
+   "predicted": 3.779,
+   "band": 1.1
+  },
+  {
+   "title": "The First Fifteen Lives of Harry August",
+   "author": "Claire North",
+   "predicted": 3.7,
+   "band": 1.1
+  },
+  {
+   "title": "The Left Hand of Darkness",
+   "author": "Ursula K. Le Guin",
+   "predicted": 3.542,
+   "band": 1.2
+  }
+ ]
+}

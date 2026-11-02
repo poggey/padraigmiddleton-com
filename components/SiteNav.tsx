@@ -9,8 +9,8 @@ import { Nav, navLinks } from "@/components/Nav";
  * The live navigation: fixed to the top, glass after 8px of scroll, and night-toned while it sits
  * over any section marked data-nav-tone="night" (the hero, the projects band, the footer).
  */
-// Pages whose first section is dark (the homepage hero).
-const darkTop = new Set(["/"]);
+// Pages whose first section is dark (the homepage hero, the projects page).
+const darkTop = new Set(["/", "/projects"]);
 
 export function SiteNav({ contact }: { contact: { linkedin: string; github: string } }) {
   const pathname = usePathname();

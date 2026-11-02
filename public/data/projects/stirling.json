@@ -1,0 +1,21 @@
+{
+ "source": "Stirling, data/editions (open dataset)",
+ "url": "https://stirling-report.vercel.app",
+ "editions": [
+  {
+   "number": 120,
+   "date": "2026-10-30",
+   "headline": "S&P 500 slumps as Gold slumps"
+  },
+  {
+   "number": 119,
+   "date": "2026-10-29",
+   "headline": "US 30y Treasury edges higher as Brent Crude slides"
+  },
+  {
+   "number": 118,
+   "date": "2026-10-27",
+   "headline": "Brent Crude slumps as FTSE 100 drifts lower"
+  }
+ ]
+}

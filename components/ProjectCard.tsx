@@ -17,6 +17,8 @@ export type ProjectCardProps = {
   /** Where the graphic sits on wide screens. */
   layout?: "top" | "side";
   graphic: React.ReactNode;
+  todo?: string;
+  className?: string;
   force?: string;
 };
 
@@ -34,6 +36,8 @@ export function ProjectCard({
   size,
   layout = "top",
   graphic,
+  todo,
+  className,
   force,
 }: ProjectCardProps) {
   const ref = useRef<HTMLElement>(null);
@@ -55,13 +59,21 @@ export function ProjectCard({
       onPointerMove={onPointerMove}
       className={cx(
         styles.card,
-        "flex flex-col bg-night-raised shadow-[inset_0_0_0_1px_var(--night-line)]",
+        "flex h-full flex-col bg-night-raised shadow-[inset_0_0_0_1px_var(--night-line)]",
         "transition-[translate] duration-(--dur-hover) ease-out is-hover:-translate-y-0.5",
         size === "feature" ? "rounded-feature" : "rounded-card",
         layout === "side" && "lg:flex-row",
+        className,
       )}
     >
-      <div className={cx("p-2", layout === "side" && "lg:w-1/2")}>{graphic}</div>
+      <div
+        className={cx(
+          "px-5 pt-5 md:px-6 md:pt-6",
+          layout === "side" && "lg:w-[56%] lg:shrink-0 lg:self-center lg:pb-6",
+        )}
+      >
+        {graphic}
+      </div>
       <div className="flex flex-1 flex-col px-6 pt-4 pb-6 md:px-7 md:pb-7">
         <p className="text-small text-night-muted">{kind}</p>
         <h3 className="mt-1 text-h3 text-night-text">
@@ -77,6 +89,11 @@ export function ProjectCard({
           <p className="mt-5 flex items-baseline gap-3">
             <span className="text-h3 text-gilt">{keyResult.figure}</span>
             <span className="text-small text-night-muted">{keyResult.label}</span>
+          </p>
+        )}
+        {todo && (
+          <p className="mt-4 rounded-inline bg-gilt/15 px-3 py-2 text-small text-night-text">
+            {todo}
           </p>
         )}
         <p className="mt-auto pt-6 text-small text-night-muted">

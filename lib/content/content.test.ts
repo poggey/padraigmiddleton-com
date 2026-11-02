@@ -100,10 +100,20 @@ describe("projects", () => {
     ]);
   });
 
-  it("keeps Escape Velocity's figures off the site until they are verified", () => {
+  it("flags Escape Velocity's figures for Padraig to confirm, with no key result yet", () => {
     const escape = projects.find((p) => p.slug === "escape-velocity")!;
     expect(escape.keyResult).toBeUndefined();
-    expect(escape.body).toContain("TODO(Padraig)");
+    expect(escape.todo).toMatch(/^TODO\(Padraig\)/);
+  });
+
+  it("shows five projects on the homepage", () => {
+    expect(projects.filter((p) => p.homepage).map((p) => p.slug)).toEqual([
+      "risk-dashboard",
+      "stirling",
+      "the-slate",
+      "portfolio-optimiser",
+      "apex",
+    ]);
   });
 });
 

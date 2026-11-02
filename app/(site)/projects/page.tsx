@@ -1,36 +1,35 @@
-import Link from "next/link";
 import { Container } from "@/components/Container";
-import { Stub } from "@/components/Stub";
+import { ProjectsGrid } from "@/components/ProjectsGrid";
+import { ProjectTile } from "@/components/ProjectTile";
 import { getProjects, getSite } from "@/lib/content";
 import { pageMetadata } from "@/lib/metadata";
 
-const { projects } = getSite().sections;
+const { projects: copy } = getSite().sections;
 export const metadata = pageMetadata({
-  title: projects.heading,
-  description: projects.intro,
+  title: copy.heading,
+  description: copy.intro,
   path: "/projects",
 });
 
+// Every project on night, filterable by group.
 export default function ProjectsPage() {
+  const items = getProjects().map((project) => ({
+    slug: project.slug,
+    group: project.group,
+    size: project.size,
+    tile: <ProjectTile project={project} layout={project.size === "feature" ? "side" : "top"} />,
+  }));
   return (
-    <Container className="pt-32 pb-(--section-y)">
-      <h1 className="text-title">{projects.heading}</h1>
-      <p className="mt-4 max-w-[60ch] text-lead text-slate">{projects.intro}</p>
-      <ul className="mt-12 space-y-6">
-        {getProjects().map((project) => (
-          <li key={project.slug}>
-            <p className="text-small text-muted">{project.kind}</p>
-            <Link
-              href={`/projects/${project.slug}`}
-              className="text-h3 underline decoration-line-strong underline-offset-8"
-            >
-              {project.title}
-            </Link>
-            <p className="mt-1 max-w-[60ch] text-slate">{project.oneLine}</p>
-          </li>
-        ))}
-      </ul>
-      <Stub phase={9} />
-    </Container>
+    <section
+      data-tone="night"
+      data-nav-tone="night"
+      className="night-band min-h-svh pt-32 pb-(--section-y)"
+    >
+      <Container>
+        <h1 className="text-title text-night-text">{copy.heading}</h1>
+        <p className="mt-4 max-w-[60ch] text-lead text-night-muted">{copy.intro}</p>
+        <ProjectsGrid items={items} />
+      </Container>
+    </section>
   );
 }

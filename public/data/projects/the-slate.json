@@ -1,0 +1,74 @@
+{
+ "source": "The Slate, data/processed/films_financial.csv (core sample)",
+ "films": 58,
+ "medianRoi": -10,
+ "meanRoi": 191,
+ "topFive": [
+  "Backrooms",
+  "Everything Everywhere All at Once",
+  "Hereditary",
+  "Lady Bird",
+  "Moonlight"
+ ],
+ "bins": [
+  {
+   "from": "−100%",
+   "count": 14,
+   "top": []
+  },
+  {
+   "from": "−75%",
+   "count": 5,
+   "top": []
+  },
+  {
+   "from": "−50%",
+   "count": 5,
+   "top": []
+  },
+  {
+   "from": "−25%",
+   "count": 9,
+   "top": []
+  },
+  {
+   "from": "0",
+   "count": 5,
+   "top": []
+  },
+  {
+   "from": "+50%",
+   "count": 4,
+   "top": [
+    "Everything Everywhere All at Once"
+   ]
+  },
+  {
+   "from": "+100%",
+   "count": 5,
+   "top": []
+  },
+  {
+   "from": "+200%",
+   "count": 4,
+   "top": [
+    "Hereditary",
+    "Lady Bird"
+   ]
+  },
+  {
+   "from": "+400%",
+   "count": 3,
+   "top": [
+    "Moonlight"
+   ]
+  },
+  {
+   "from": "+800%",
+   "count": 4,
+   "top": [
+    "Backrooms"
+   ]
+  }
+ ]
+}

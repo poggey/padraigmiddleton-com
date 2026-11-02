@@ -404,3 +404,32 @@
 html:has(dialog[open]) {
   overflow: hidden;
 }
+
+/*
+ * Data graphics draw in once when they come into view (components/Reveal.tsx sets
+ * data-reveal="pending", then "done"). Without JavaScript nothing is hidden. Under reduced
+ * motion the durations are 0, so graphics appear in their final state.
+ */
+[data-reveal] [data-draw] {
+  transition: stroke-dashoffset calc(var(--dur-reveal) * 2) var(--ease-out);
+}
+[data-reveal="pending"] [data-draw] {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+[data-reveal] [data-grow] {
+  transform-box: fill-box;
+  transform-origin: bottom;
+  transition: scale var(--dur-reveal) var(--ease-out);
+  transition-delay: calc(var(--i, 0) * var(--dur-reveal) / 12);
+}
+[data-reveal="pending"] [data-grow] {
+  scale: 1 0;
+}
+[data-reveal] [data-fade] {
+  transition: opacity var(--dur-reveal) var(--ease-out);
+  transition-delay: calc(var(--dur-reveal) * var(--after, 1));
+}
+[data-reveal="pending"] [data-fade] {
+  opacity: 0;
+}
