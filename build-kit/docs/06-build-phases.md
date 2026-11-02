@@ -182,11 +182,11 @@ Screenshot the band at three widths, each filter state, and two case study pages
 Phase 8. Build /writing/[slug] as specified in 03-architecture.md and 05-signature-moments.md section 3, using content/posts/the-bill-britain-keeps-signing.mdx.
 
 - Centred header with chips, title, standfirst, byline, copy-link and share buttons.
-- Key figures overlapping the header's bottom edge.
+- ~~Key figures overlapping the header's bottom edge.~~ Removed 1 November 2026 (no rows of stats).
 - Source Serif 4 body at the specified measure, drop cap, pull quote styling.
 - Sidenotes on wide screens, tap-to-open notes on mobile.
 - The debt interest Chart and the HeadroomSlider interactive.
-- Where I could be wrong, the Prediction card with days remaining, Sources, author card, next and previous links.
+- Where I could be wrong, the Prediction card (no days remaining since the Ledger was removed), Sources, author card, next and previous links.
 - Reading progress in the nav.
 - Generated Open Graph image for the essay as specified in section 5.
 

@@ -142,7 +142,7 @@ nav (with reading progress bar and "x min left" on desktop)
    │ e.g. the headroom slider                          │
    └───────────────────────────────────────────────────┘
    Where I could be wrong (raised card)
-   Prediction card (night, gold status dot, days remaining, links to Ledger)
+   Prediction card (night, gold dot, the essay's own prediction paragraph, made and check dates, how it will be judged; no tracking since the Ledger was removed)
    Sources (numbered, linked)
    Author card: one line about Padraig, links to About and CV
    Next / previous essay

@@ -109,7 +109,11 @@ export function LineChart({
               <span
                 className={cx(
                   "absolute bottom-2 text-small font-semibold text-ink",
-                  i === 0 ? "left-0" : i === points.length - 1 ? "right-0" : "-translate-x-1/2",
+                  i === 0
+                    ? "left-0"
+                    : i === points.length - 1
+                      ? "right-0"
+                      : "hidden -translate-x-1/2 md:inline", // no room between the ends on phones
                 )}
               >
                 {points[i].value.toFixed(1)}
@@ -118,12 +122,32 @@ export function LineChart({
             </div>
           ))}
         </div>
-        <div aria-hidden className="mt-2 flex justify-between text-small text-muted">
-          <span>{points[0].label}</span>
+        {/* The year under each labelled point, plus where the forecast starts. */}
+        <div aria-hidden className="relative mt-2 h-5 text-small whitespace-nowrap text-muted">
+          {labelled.map((i) => (
+            <span
+              key={i}
+              className={cx(
+                "absolute top-0",
+                i === 0
+                  ? "left-0"
+                  : i === points.length - 1
+                    ? "right-0"
+                    : "hidden -translate-x-1/2 md:inline", // no room between the ends on phones
+              )}
+              style={i === 0 || i === points.length - 1 ? undefined : { left: `${x(i)}%` }}
+            >
+              {points[i].label}
+            </span>
+          ))}
           {firstForecast !== undefined && (
-            <span className="hidden md:inline">Forecast from {points[firstForecast].label}</span>
+            <span
+              className="absolute top-0 hidden -translate-x-1/2 md:inline"
+              style={{ left: `${x(firstForecast)}%` }}
+            >
+              Forecast from {points[firstForecast].label}
+            </span>
           )}
-          <span>{points[points.length - 1].label}</span>
         </div>
       </div>
     </div>

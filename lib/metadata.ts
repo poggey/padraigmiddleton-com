@@ -25,6 +25,6 @@ export function pageMetadata({
       type,
       ...(publishedTime ? { publishedTime } : {}),
     },
-    twitter: { ...(title ? { title } : {}), description },
+    twitter: { card: "summary_large_image", ...(title ? { title } : {}), description },
   };
 }

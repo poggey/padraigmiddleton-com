@@ -83,6 +83,7 @@
   --measure-essay: 680px;
   --sidenote-width: 240px;
   --figure-wide: 960px;
+  --sidenote-gap: 40px;
 
   /* Elevation: shadows tinted with --ink */
   --e0: 0 0 0 1px var(--line);
@@ -97,6 +98,9 @@
   --glass-filter: blur(20px) saturate(170%);
   --glass-night-bg: rgb(11 20 36 / 0.62);
   --glass-night-bg-fallback: rgb(11 20 36 / 0.94);
+
+  /* The slider thumb in essay interactives */
+  --thumb-shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 0 0 1px rgb(0 0 0 / 0.08);
 
   /* Motion */
   --dur-press: 120ms;
@@ -211,6 +215,8 @@
   --breakpoint-md: 768px;
   --breakpoint-lg: 1024px;
   --breakpoint-xl: 1440px;
+  /* Wide enough for the 680px reading column plus a sidenote margin on each side. */
+  --breakpoint-notes: 1312px;
 
   --container-page: var(--container);
   --container-essay: var(--measure-essay);
@@ -301,6 +307,76 @@
 @utility night-band {
   background: radial-gradient(60% 50% at 70% 0%, var(--night-glow), transparent 70%), var(--night);
   color: var(--night-text);
+}
+
+/*
+ * Essay layout. The article is a size container, so figures can break out of the 680px reading
+ * column to 960px (or the screen width less the gutters), centred on the column.
+ */
+@utility essay-wide {
+  --wide: min(var(--figure-wide), 100cqw - 2 * var(--gutter));
+  width: var(--wide);
+  margin-inline: calc((100% - var(--wide)) / 2);
+  clear: both;
+}
+
+/*
+ * A range slider on night: a thin track filled in blue up to the thumb, and a white thumb.
+ * The fill comes from --fill, set by the component (0% to 100%).
+ */
+@utility range-night {
+  appearance: none;
+  height: 44px;
+  background: transparent;
+  cursor: pointer;
+
+  &::-webkit-slider-runnable-track {
+    height: 4px;
+    border-radius: 999px;
+    background: linear-gradient(
+      to right,
+      var(--signal-soft) var(--fill),
+      var(--night-line-strong) var(--fill)
+    );
+  }
+  &::-webkit-slider-thumb {
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    margin-top: -10px;
+    border-radius: 999px;
+    background: var(--paper);
+    box-shadow: var(--thumb-shadow);
+  }
+  &::-moz-range-track {
+    height: 4px;
+    border-radius: 999px;
+    background: var(--night-line-strong);
+  }
+  &::-moz-range-progress {
+    height: 4px;
+    border-radius: 999px;
+    background: var(--signal-soft);
+  }
+  &::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--paper);
+    box-shadow: var(--thumb-shadow);
+  }
+  &:focus-visible {
+    outline: none;
+  }
+  &:focus-visible::-webkit-slider-thumb {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+  &:focus-visible::-moz-range-thumb {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
 }
 
 /* Moves a row of duplicated content left by half its width, so it loops without a seam. */

@@ -21,6 +21,7 @@ export function Nav({
   menuOpen = false,
   onMenu,
   pinned = false,
+  progress,
 }: {
   scrolled?: boolean;
   current?: string;
@@ -32,12 +33,15 @@ export function Nav({
    * ancestor it would make that ancestor a backdrop root and the glass would stop blurring.
    */
   pinned?: boolean;
+  /** Reading progress, drawn along the bar's bottom edge on essay pages. */
+  progress?: React.ReactNode;
 }) {
   const night = tone === "night";
   return (
     <header
       data-tone={night ? "night" : undefined}
       className={cx(
+        "relative",
         pinned && "[view-transition-name:site-header]",
         "transition-[background-color,box-shadow,color] duration-(--dur-hover) ease-out",
         scrolled ? (night ? "glass-bar-night" : "glass-bar") : "bg-transparent",
@@ -112,6 +116,7 @@ export function Nav({
           </button>
         </div>
       </Container>
+      {progress}
     </header>
   );
 }

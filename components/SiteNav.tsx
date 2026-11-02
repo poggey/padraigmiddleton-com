@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { MobileMenu } from "@/components/MobileMenu";
 import { Nav, navLinks } from "@/components/Nav";
+import { ReadingProgress } from "@/components/ReadingProgress";
 
 /**
  * The live navigation: fixed to the top, glass after 8px of scroll, and night-toned while it sits
@@ -60,6 +61,7 @@ export function SiteNav({ contact }: { contact: { linkedin: string; github: stri
         current={current}
         menuOpen={menuOpen}
         onMenu={() => setMenuPage(pathname)}
+        progress={/^\/writing\/[^/]+$/.test(pathname) && <ReadingProgress key={pathname} />}
       />
       <MobileMenu
         open={menuOpen}
