@@ -5,6 +5,9 @@ import { Section } from "@/components/Section";
 import { firstChartId, getChart, type Post } from "@/lib/content";
 import { formatDate } from "@/lib/format";
 
+const link =
+  "inline-flex min-h-11 items-center rounded-[4px] text-small font-semibold text-signal underline decoration-signal/35 underline-offset-4 is-hover:decoration-signal";
+
 const meta = (post: Post) =>
   `No. ${post.number}, ${formatDate(post.date)}, ${post.readingMinutes} min read`;
 
@@ -68,17 +71,16 @@ export function WritingSection({
               <p className="mt-2 text-slate">{post.summary}</p>
             </article>
           ))}
-          {older.length === 0 && (
-            <div className="rounded-card p-6 shadow-e0">
-              <p className="text-slate">{copy.emptySlot}</p>
-            </div>
-          )}
-          <Link
-            href="/writing"
-            className="mt-2 self-start rounded-[4px] text-small font-semibold text-signal underline decoration-signal/35 underline-offset-4 is-hover:decoration-signal"
-          >
-            All essays
-          </Link>
+          {/* With one essay, a plain line rather than a placeholder card. */}
+          {older.length === 0 && <p className="text-lead text-slate">{copy.emptySlot}</p>}
+          <p className="flex flex-wrap gap-x-6">
+            <Link href="/writing" className={link}>
+              All essays
+            </Link>
+            <Link href="/rss.xml" className={link}>
+              Follow by RSS
+            </Link>
+          </p>
         </div>
       </div>
     </Section>

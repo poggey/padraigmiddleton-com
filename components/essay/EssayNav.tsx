@@ -22,7 +22,10 @@ export function EssayNav({ newer, older }: { newer?: Post; older?: Post }) {
           <span className="mt-1 block font-semibold group-hover:text-signal">{newer.title}</span>
         </Link>
       )}
-      <Link href="/writing" className={`${link} justify-self-start md:col-span-2`}>
+      <Link
+        href="/writing"
+        className={`${link} inline-flex min-h-11 items-center justify-self-start md:col-span-2`}
+      >
         All essays
       </Link>
     </nav>

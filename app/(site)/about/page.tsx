@@ -38,9 +38,6 @@ export default function AboutPage() {
         )}
         <div className="mt-8 flex flex-wrap gap-3">
           <Button href={contact.cv}>Download CV</Button>
-          <Button href={contact.linkedin} variant="secondary" external>
-            LinkedIn
-          </Button>
         </div>
 
         <AboutSection title="Experience">

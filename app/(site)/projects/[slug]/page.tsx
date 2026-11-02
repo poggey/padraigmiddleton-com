@@ -24,6 +24,7 @@ export async function generateMetadata({ params }: PageProps<"/projects/[slug]">
     title: project.title,
     description: project.oneLine,
     path: `/projects/${project.slug}`,
+    ownImage: true,
   });
 }
 
@@ -78,16 +79,17 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
         </figure>
       </Container>
 
-      <Container className="mt-16">
-        <div className="max-w-essay">
-          {project.keyResult && (
-            <p className="mb-12 flex flex-wrap items-baseline gap-x-4 gap-y-1 border-l-2 border-gilt pl-5">
+      {/* On wide screens the key result sits beside the write-up and stays in view. */}
+      <Container className="mt-16 lg:grid lg:grid-cols-[minmax(0,var(--measure-essay))_minmax(0,1fr)] lg:gap-16">
+        {project.keyResult && (
+          <aside className="mb-12 lg:order-2 lg:mb-0">
+            <p className="flex flex-wrap items-baseline gap-x-4 gap-y-1 border-l-2 border-gilt pl-5 lg:sticky lg:top-28 lg:flex-col">
               <span className="text-stat">{project.keyResult.figure}</span>
               <span className="max-w-[36ch] text-slate">{project.keyResult.label}</span>
             </p>
-          )}
-          {body}
-        </div>
+          </aside>
+        )}
+        <div className="lg:order-1">{body}</div>
       </Container>
 
       <Container className="mt-(--section-y)">

@@ -8,12 +8,15 @@ export function ProjectTile({
   project,
   layout = "top",
   wide = false,
+  heading,
   className,
 }: {
   project: Project;
   layout?: "top" | "side";
   /** The card spans the full width, so the graphic gets the wide drawing box. */
   wide?: boolean;
+  /** The card title's heading level: 3 under a section heading, 2 directly under the page's h1. */
+  heading?: 2 | 3;
   className?: string;
 }) {
   return (
@@ -28,6 +31,7 @@ export function ProjectTile({
       size={project.size}
       layout={layout}
       todo={project.todo}
+      heading={heading}
       className={className}
       graphic={
         wide ? (

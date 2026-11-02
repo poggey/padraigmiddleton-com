@@ -18,6 +18,7 @@ export type ProjectCardProps = {
   layout?: "top" | "side";
   graphic: React.ReactNode;
   todo?: string;
+  heading?: 2 | 3;
   className?: string;
 };
 
@@ -36,8 +37,10 @@ export function ProjectCard({
   layout = "top",
   graphic,
   todo,
+  heading = 3,
   className,
 }: ProjectCardProps) {
+  const Heading = heading === 2 ? "h2" : "h3";
   const ref = useRef<HTMLElement>(null);
 
   // Moves the spotlight with the cursor without re-rendering.
@@ -73,14 +76,14 @@ export function ProjectCard({
       </div>
       <div className="flex flex-1 flex-col px-6 pt-4 pb-6 md:px-7 md:pb-7">
         <p className="text-small text-night-muted">{kind}</p>
-        <h3 className="mt-1 text-h3 text-night-text">
+        <Heading className="mt-1 text-h3 text-night-text">
           <Link
             href={href}
             className="rounded-[4px] after:absolute after:inset-0 after:rounded-[inherit]"
           >
             {title}
           </Link>
-        </h3>
+        </Heading>
         <p className="mt-3 max-w-[48ch] text-night-muted">{oneLine}</p>
         {keyResult && (
           <p className="mt-5 flex items-baseline gap-3">

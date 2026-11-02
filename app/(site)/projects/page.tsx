@@ -17,7 +17,13 @@ export default function ProjectsPage() {
     slug: project.slug,
     group: project.group,
     size: project.size,
-    tile: <ProjectTile project={project} layout={project.size === "feature" ? "side" : "top"} />,
+    tile: (
+      <ProjectTile
+        project={project}
+        layout={project.size === "feature" ? "side" : "top"}
+        heading={2}
+      />
+    ),
   }));
   return (
     <section

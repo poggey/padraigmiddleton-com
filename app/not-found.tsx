@@ -19,8 +19,7 @@ export default function NotFound() {
       <SiteNav contact={contact} />
       <main id="main" tabIndex={-1} className="flex-1 outline-none">
         <Container className="min-h-[70svh] pt-40 pb-(--section-y)">
-          <p className="text-small text-muted">Page not found</p>
-          <h1 className="mt-3 text-title">This page doesn’t exist.</h1>
+          <h1 className="text-title">This page doesn’t exist.</h1>
           <p className="mt-6 max-w-[52ch] text-lead text-slate">
             If you followed a link to an essay, it may be this one:{" "}
             <Link

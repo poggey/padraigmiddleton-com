@@ -52,7 +52,7 @@ export function Hero({
         </div>
       </Container>
       <Container className="relative pb-8">
-        <p className="max-w-[60ch] text-small text-night-muted">
+        <p className="max-w-[60ch] text-small text-balance text-night-muted">
           UK government bond yield curves, 6 months to 30 years, over the last 60 trading days. The
           latest close, {formatDate(gilts.asOf)}, is in gold. Source: Bank of England.
         </p>

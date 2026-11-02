@@ -228,3 +228,25 @@ Padraig chose a light hero and asked for the ribbon to be prototyped before cont
 - **`/projects`** was finished in Phase 7; the Ledger is gone.
 - **Command menu: skipped.** It's a stretch goal, and it would add JavaScript to every page while the site is already over the 150 KB budget.
 - Deleted `components/Stub.tsx` (no stubs left).
+
+## Phase 10: polish and critique (2 November 2026)
+
+- **Parkdean:** "around 25" advisors, confirmed by Padraig. TODO removed.
+- **Design lab deleted** (`/lab`, the hero and headline experiments, and everything only they used: Lens, QuestionRows, ProgressBar, StatusChip, Stat, Card, GlassPanel, Switch, Tooltip, useToday, contrast, the `data-force` and `data-motion` hooks). Its decisions are all live on real pages and recorded above; git history keeps the code.
+- **JavaScript budget met.** Measured as the module chunks a page's HTML names, gzip -9, plus the badge (the `noModule` polyfill chunk is skipped by modern browsers and doesn't count). Browser "transferred" totals look higher because Next prefetches linked pages' code; those aren't part of the page.
+  - Before: homepage 152.7 KB, essay 151.3 KB. After: homepage 147.8 KB, essay 149.0 KB, other pages 142 to 145 KB. Framework (React, router, runtime) is about 133 KB of that.
+  - How: the badge loads with a plain `<script defer>` (no `next/script` loader); `LineChart` became a server component revealed by `Reveal` and CSS (`data-wipe`), so `useInView` went; the gilt data is passed to the ribbon as a prop instead of bundled (also means the daily data refresh no longer changes the JS file); the unused "horizon" ribbon layout went; "x min left" went (see below).
+- **Critique fixes:**
+  - Homepage: the boxed "Next essay in progress." looked like a placeholder; now a plain line with "All essays" and "Follow by RSS". The hero caption is balanced (no "of England." orphan).
+  - Case study: the write-up sat in a narrow left column with the right half empty. The key result now sits on the right, sticky, beside the write-up.
+  - `/projects`: card titles are h2 there (h3 under a section heading on the homepage), so headings don't skip a level.
+  - Small link targets made 44px tall: footer RSS, "All essays" (essay and homepage), "Follow by RSS".
+- **"Remove one accessory":**
+  - Essay: "x min left" in the nav. The line already shows progress, and for a 3-minute essay the count added nothing.
+  - About: the LinkedIn button at the top (the contact block below has it).
+  - 404: the "Page not found" label above the heading (the heading says it).
+  - Homepage: the placeholder card's border and fill.
+  - Writing, projects, case studies: nothing left to remove that wasn't content.
+- **Social images** for every page. `lib/og.tsx` holds one frame; essays and projects have their own `opengraph-image.tsx`, and every other page uses `/social.png` (name and headline) via `pageMetadata`. Gotchas: a page's `openGraph` replaces the layout's whole object (so `siteName` and `locale` are repeated in `pageMetadata`), and setting `images` in metadata overrides an `opengraph-image` file (hence `ownImage`). Project images use the curve slice, not each project's own graphic as the spec suggested: the graphics are HTML and Tailwind, which next/og can't render.
+- **`PUBLISHING.md`** written. Tested end to end with a temporary essay No. 2 (deleted, never committed): it appeared on `/writing`, the homepage, RSS and the sitemap with its own preview image, and the tag filters appeared and worked by mouse and keyboard.
+- **Lighthouse could not be run here** (downloading the CLI was blocked). Measured directly instead: LCP 56 ms desktop, about 0.82 s on a 4× slowed phone with slow 4G (the h1 on the homepage, the first paragraph on the essay); CLS 0 to 0.002; worst interaction 120 ms at 4× CPU; every page has one h1, ordered headings, named controls, a unique title, a canonical URL and `lang`; text contrast 5.1:1 or better everywhere.
