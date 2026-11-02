@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import { smoothCurve } from "@/lib/curves";
-import { formatDate } from "@/lib/format";
 import { useReducedMotion } from "@/lib/useReducedMotion";
 
 /** public/data/gilt-curves.json. Passed in by the server, so the data isn't in the JS bundle. */
@@ -22,7 +21,7 @@ export type GiltCurves = {
  * load, and stops when off screen, when the tab is hidden, or under reduced motion.
  */
 
-const SAMPLES = 72; // points along each strand
+const SAMPLES = 96; // points along each strand
 
 type Strand = { age: number; yields: number[]; colour: string; width: number };
 
@@ -121,9 +120,6 @@ export function GiltRibbon({
   className?: string;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const tipRef = useRef<HTMLDivElement>(null);
-  const dotRef = useRef<HTMLSpanElement>(null);
-  const focusRef = useRef<HTMLButtonElement>(null);
   // Follows the visitor's reduced-motion setting.
   const reduced = useReducedMotion();
 
@@ -136,8 +132,6 @@ export function GiltRibbon({
     const night = tone === "night";
     const strands = buildStrands(data, coarse ? 1 : 4, night);
     const all = data.curves.flatMap((c) => c.yields);
-    const logMin = Math.log(data.maturities[0]);
-    const logMax = Math.log(data.maturities[data.maturities.length - 1]);
     const yMin = Math.min(...all);
     const yMax = Math.max(...all);
 
@@ -151,11 +145,8 @@ export function GiltRibbon({
     const frameTimes: number[] = [];
     const start = performance.now();
     const pointer = { x: -1e4, y: -1e4, strength: 0, inside: false };
-    // Where the gold (latest) curve was last drawn, for the tooltip.
-    const gold = new Float32Array(SAMPLES * 2);
-    let goldDrawn = false;
-    let goldVisibleFrom = 0;
-    let tipIndex = -1;
+    // One strand's points, reused for every strand.
+    const points = new Float32Array(SAMPLES * 2);
 
     function resize() {
       const box = canvas!.getBoundingClientRect();
@@ -195,52 +186,49 @@ export function GiltRibbon({
         const strand = strands[s];
         if (lite && s % 2 === 1 && s !== strands.length - 1) continue;
         // Draw-in: oldest strands first, short maturities to long, latest gold curve last.
-        const delay = strand.width > 2 ? 1200 : strand.age * 900;
+        const delay = strand.width >= 2 ? 1200 : strand.age * 900;
         const progress = Math.min(1, Math.max(0, (elapsed - delay) / 700));
         const count = Math.ceil(progress * (SAMPLES - 1)) + 1;
         if (progress <= 0) continue;
 
         const back = 1 - strand.age;
-        const isGold = s === strands.length - 1;
-        ctx!.beginPath();
         for (let i = 0; i < count; i++) {
           const u = i / (SAMPLES - 1);
-          let x = originX + u * spanX + back * depthX;
+          const x = originX + u * spanX + back * depthX;
           let y =
             baseY -
             ((strand.yields[i] - yMin) / (yMax - yMin)) * rise -
             back * depthY +
             ripple * Math.sin(u * 4.2 + strand.age * 6.5 + time * 0.32) * (0.4 + 0.6 * u);
 
-          // The gold curve holds still; the rest part around the cursor.
-          if (pointer.strength > 0.01 && !isGold) {
+          // Strands part around the cursor in a smooth, rounded lens: each is pushed up or down
+          // by a bell-shaped amount that fades with distance, so none ever kink or cross.
+          if (pointer.strength > 0.01) {
             const dx = x - pointer.x;
             const dy = y - pointer.y;
-            const d = Math.hypot(dx, dy);
-            if (d < 160) {
-              const push = (1 - d / 160) ** 2 * 26 * pointer.strength;
-              x += (dx / (d || 1)) * push * 0.4;
-              y += (dy / (d || 1)) * push;
-            }
+            const along = Math.exp(-(dx * dx) / (2 * 120 * 120));
+            const across = (dy / 46) * Math.exp(-(dy * dy) / (2 * 46 * 46));
+            y += 34 * pointer.strength * along * across;
           }
-          if (isGold) {
-            gold[i * 2] = x;
-            gold[i * 2 + 1] = y;
-          }
-          if (i === 0) ctx!.moveTo(x, y);
-          else ctx!.lineTo(x, y);
+          points[i * 2] = x;
+          points[i * 2 + 1] = y;
         }
-        if (isGold) goldDrawn = count === SAMPLES;
+
+        // A smooth curve through the points: each segment bends through the midpoints.
+        ctx!.beginPath();
+        ctx!.moveTo(points[0], points[1]);
+        for (let i = 1; i < count - 1; i++) {
+          const mx = (points[i * 2] + points[i * 2 + 2]) / 2;
+          const my = (points[i * 2 + 1] + points[i * 2 + 3]) / 2;
+          ctx!.quadraticCurveTo(points[i * 2], points[i * 2 + 1], mx, my);
+        }
+        if (count > 1) ctx!.lineTo(points[(count - 1) * 2], points[(count - 1) * 2 + 1]);
         ctx!.strokeStyle = strand.colour;
         ctx!.lineWidth = strand.width;
         ctx!.stroke();
       }
 
       ctx!.globalCompositeOperation = "source-over";
-      // The tooltip only answers where the sheet is at full strength.
-      goldVisibleFrom = narrow ? width : width * 0.6;
-      if (tipIndex >= 0) placeTip(tipIndex);
-
       // Fade the whole sheet across the width: faint behind the text, full on the right.
       const fade = ctx!.createLinearGradient(0, 0, width, 0);
       for (const [at, alpha] of c.fade) fade.addColorStop(at, `rgb(0 0 0 / ${alpha})`);
@@ -261,69 +249,13 @@ export function GiltRibbon({
       frame = requestAnimationFrame(draw);
     }
 
-    // The tooltip: date, maturity and yield at the nearest real data point on the gold curve.
-    function placeTip(i: number) {
-      const tip = tipRef.current;
-      const dot = dotRef.current;
-      if (!tip || !dot) return;
-      const logMaturity = logMin + ((logMax - logMin) * i) / (SAMPLES - 1);
-      const nearest = data.maturities.reduce(
-        (best, m, k) =>
-          Math.abs(Math.log(m) - logMaturity) <
-          Math.abs(Math.log(data.maturities[best]) - logMaturity)
-            ? k
-            : best,
-        0,
-      );
-      const m = data.maturities[nearest];
-      const label = m < 1 ? `${m * 12}-month` : `${m}-year`;
-      const value = data.curves[data.curves.length - 1].yields[nearest].toFixed(2);
-      tip.textContent = `${formatDate(data.asOf)}, ${label} ${value}%`;
-      for (const el of [tip, dot]) {
-        el.style.left = `${gold[i * 2]}px`;
-        el.style.top = `${gold[i * 2 + 1]}px`;
-        el.style.opacity = "1";
-      }
-    }
-    function hideTip() {
-      tipIndex = -1;
-      for (const el of [tipRef.current, dotRef.current]) if (el) el.style.opacity = "0";
-    }
-
     function onPointerMove(event: PointerEvent) {
       const box = canvas!.getBoundingClientRect();
       pointer.x = event.clientX - box.left;
       pointer.y = event.clientY - box.top;
       pointer.inside = pointer.y >= 0 && pointer.y <= box.height;
-
-      let closest = -1;
-      let best = 16;
-      if (goldDrawn && pointer.inside) {
-        for (let i = 0; i < SAMPLES; i++) {
-          if (gold[i * 2] < goldVisibleFrom) continue;
-          const d = Math.hypot(gold[i * 2] - pointer.x, gold[i * 2 + 1] - pointer.y);
-          if (d < best) [best, closest] = [d, i];
-        }
-      }
-      if (closest >= 0) {
-        tipIndex = closest;
-        placeTip(closest);
-      } else if (document.activeElement !== focusRef.current) {
-        hideTip();
-      }
       if (!reduced) restart();
     }
-
-    // Keyboard: focusing the hidden button shows the tooltip at the 10-year point.
-    const tenYear = Math.round(((Math.log(10) - logMin) / (logMax - logMin)) * (SAMPLES - 1));
-    const onFocus = () => {
-      if (!goldDrawn) return;
-      tipIndex = tenYear;
-      placeTip(tenYear);
-    };
-    const focusButton = focusRef.current;
-    focusButton?.addEventListener("focus", onFocus);
-    focusButton?.addEventListener("blur", hideTip);
 
     const resizer = new ResizeObserver(() => {
       resize();
@@ -347,28 +279,8 @@ export function GiltRibbon({
       watcher.disconnect();
       document.removeEventListener("visibilitychange", onVisibility);
       window.removeEventListener("pointermove", onPointerMove);
-      focusButton?.removeEventListener("focus", onFocus);
-      focusButton?.removeEventListener("blur", hideTip);
     };
   }, [reduced, tone, data]);
 
-  return (
-    <>
-      <canvas ref={canvasRef} aria-hidden className={className} />
-      <span
-        ref={dotRef}
-        aria-hidden
-        className="pointer-events-none absolute z-10 size-2.5 -translate-1/2 rounded-full bg-gilt opacity-0 ring-2 ring-night transition-opacity duration-(--dur-hover)"
-      />
-      <div
-        ref={tipRef}
-        id="gilt-tooltip"
-        role="tooltip"
-        className="glass pointer-events-none absolute z-10 -translate-x-1/2 translate-y-[calc(-100%-14px)] rounded-inline px-3 py-1.5 text-small whitespace-nowrap text-ink opacity-0 transition-opacity duration-(--dur-hover)"
-      />
-      <button ref={focusRef} type="button" aria-describedby="gilt-tooltip" className="sr-only">
-        Latest gilt yields
-      </button>
-    </>
-  );
+  return <canvas ref={canvasRef} aria-hidden className={className} />;
 }

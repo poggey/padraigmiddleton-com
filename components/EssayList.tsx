@@ -40,7 +40,7 @@ export function EssayList({ items }: { items: Item[] }) {
         id="essays-panel"
         role={filtering ? "tabpanel" : undefined}
         aria-labelledby={filtering ? `essays-tab-${filter}` : undefined}
-        className="mt-12 space-y-4"
+        className="mt-12 border-t border-line"
       >
         {shown.map((item) => (
           <ViewTransition key={item.slug} name={`essay-${item.slug}`}>

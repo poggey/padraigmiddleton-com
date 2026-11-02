@@ -47,15 +47,12 @@ export function Hero({
           </div>
         </div>
       </Container>
-      {/* The source, on a strip ruled off from the hero; the ribbon runs on behind it. */}
-      <div className="relative border-t border-frame">
-        <Container className="py-5">
-          <p className="max-w-[60ch] text-small text-balance text-night-muted">
-            UK government bond yield curves, 6 months to 30 years, over the last 60 trading days.
-            The latest close, {formatDate(gilts.asOf)}, is in gold. Source: Bank of England.
-          </p>
-        </Container>
-      </div>
+      {/* The ribbon is decorative on screen; this says what it shows for screen readers. */}
+      <p className="sr-only">
+        Behind the headline: UK government bond yield curves, 6 months to 30 years, over the last 60
+        trading days, with the latest close, {formatDate(gilts.asOf)}, in gold. Source: Bank of
+        England.
+      </p>
     </section>
   );
 }
