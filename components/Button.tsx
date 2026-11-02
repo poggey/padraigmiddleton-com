@@ -10,8 +10,6 @@ type Common = {
   size?: "md" | "sm";
   className?: string;
   children: React.ReactNode;
-  /** Shows a state statically. Only /lab uses this. */
-  force?: string;
 };
 
 type AsLink = Common & { href: string; download?: boolean; external?: boolean };
@@ -42,7 +40,7 @@ const variants: Record<Tone, Record<Variant, string>> = {
 };
 
 export function Button(props: AsLink | AsButton) {
-  const { variant = "primary", tone = "light", size = "md", className, children, force } = props;
+  const { variant = "primary", tone = "light", size = "md", className, children } = props;
   const classes = cx(base, sizes[size], variants[tone][variant], className);
 
   if (props.href !== undefined) {
@@ -50,22 +48,22 @@ export function Button(props: AsLink | AsButton) {
     // Files and other sites are plain links; internal pages use next/link for prefetching.
     if (download || external || href.endsWith(".pdf")) {
       return (
-        <a href={href} download={download} className={classes} data-force={force}>
+        <a href={href} download={download} className={classes}>
           {children}
           {external && <span aria-hidden>↗</span>}
         </a>
       );
     }
     return (
-      <Link href={href} className={classes} data-force={force}>
+      <Link href={href} className={classes}>
         {children}
       </Link>
     );
   }
 
-  const { variant: _v, tone: _t, size: _s, className: _c, force: _f, ...buttonProps } = props;
+  const { variant: _v, tone: _t, size: _s, className: _c, ...buttonProps } = props;
   return (
-    <button type="button" {...buttonProps} className={classes} data-force={force}>
+    <button type="button" {...buttonProps} className={classes}>
       {children}
     </button>
   );

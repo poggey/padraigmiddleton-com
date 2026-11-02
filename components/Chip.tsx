@@ -1,21 +1,5 @@
 import { cx } from "@/lib/cx";
 
-type Status = "open" | "right" | "wrong" | "void";
-
-const dot: Record<Status, string> = {
-  open: "bg-gilt",
-  right: "bg-signal",
-  wrong: "bg-slate",
-  void: "bg-line-strong",
-};
-
-const statusLabel: Record<Status, string> = {
-  open: "Open",
-  right: "Right",
-  wrong: "Wrong",
-  void: "Void",
-};
-
 /** Tags such as "Gilts". */
 export function Chip({
   children,
@@ -38,23 +22,5 @@ export function Chip({
     >
       {children}
     </span>
-  );
-}
-
-/** Prediction status. The word carries the meaning; the dot only reinforces it. */
-export function StatusChip({
-  status,
-  tone = "light",
-}: {
-  status: Status;
-  tone?: "light" | "night";
-}) {
-  return (
-    <Chip tone={tone} className="gap-2 font-semibold">
-      <span aria-hidden className={cx("size-2 rounded-full", dot[status])} />
-      <span className={tone === "light" ? "text-ink" : "text-night-text"}>
-        {statusLabel[status]}
-      </span>
-    </Chip>
   );
 }

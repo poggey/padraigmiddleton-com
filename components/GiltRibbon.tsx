@@ -1,9 +1,16 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useReducedMotion } from "@/lib/useReducedMotion";
-import gilts from "@/public/data/gilt-curves.json";
 import { smoothCurve } from "@/lib/curves";
+import { formatDate } from "@/lib/format";
+import { useReducedMotion } from "@/lib/useReducedMotion";
+
+/** public/data/gilt-curves.json. Passed in by the server, so the data isn't in the JS bundle. */
+export type GiltCurves = {
+  asOf: string;
+  maturities: number[];
+  curves: { date: string; yields: number[] }[];
+};
 
 /**
  * The hero ribbon: the last 60 days of UK gilt yield curves, drawn as one flowing sheet.
@@ -16,25 +23,15 @@ import { smoothCurve } from "@/lib/curves";
  */
 
 const SAMPLES = 72; // points along each strand
-const LATEST_DATE = new Date(gilts.asOf).toLocaleDateString("en-GB", {
-  day: "numeric",
-  month: "long",
-  year: "numeric",
-  timeZone: "UTC",
-});
-const LOG_MIN = Math.log(gilts.maturities[0]);
-const LOG_MAX = Math.log(gilts.maturities[gilts.maturities.length - 1]);
 
 type Strand = { age: number; yields: number[]; colour: string; wash: string; width: number };
 
-export type RibbonLayout = "side" | "horizon";
-
 /**
- * Where the sheet sits, as fractions of the canvas. "side" sweeps up the right-hand side
- * beside the headline; "horizon" runs edge to edge across the bottom like a landscape.
- * `clear` is the area faded out so text always sits on a clean ground.
+ * Where the sheet sits, as fractions of the canvas. On wide screens it sweeps up the right-hand
+ * side beside the headline, faded out to the left (`clear`) so the text sits on a clean ground.
+ * On phones it runs across the top, behind the text, and the hero dims it instead.
  */
-function composition(layout: RibbonLayout, narrow: boolean) {
+function composition(narrow: boolean) {
   if (narrow) {
     return {
       originX: -0.15,
@@ -46,17 +43,6 @@ function composition(layout: RibbonLayout, narrow: boolean) {
       clear: null,
     };
   }
-  if (layout === "horizon") {
-    return {
-      originX: -0.08,
-      spanX: 1.16,
-      baseY: 1.02,
-      rise: 0.3,
-      depthX: 0.05,
-      depthY: 0.34,
-      clear: { axis: "y" as const, from: 0.3, to: 0.52 },
-    };
-  }
   return {
     originX: 0.3,
     spanX: 0.84,
@@ -64,7 +50,7 @@ function composition(layout: RibbonLayout, narrow: boolean) {
     rise: 0.48,
     depthX: 0.08,
     depthY: 0.5,
-    clear: { axis: "x" as const, from: 0.38, to: 0.62 },
+    clear: { from: 0.38, to: 0.62 },
   };
 }
 
@@ -82,7 +68,7 @@ function rampColour(stops: number[][], age: number, alpha: number) {
   return `rgb(${r} ${g} ${b} / ${alpha.toFixed(3)})`;
 }
 
-function buildStrands(blend: number, night: boolean): Strand[] {
+function buildStrands(data: GiltCurves, blend: number, night: boolean): Strand[] {
   const style = getComputedStyle(document.documentElement);
   const token = (name: string) => hexToRgb(style.getPropertyValue(name));
   // On light, the sheet darkens towards the front. On night it brightens towards the front,
@@ -94,12 +80,12 @@ function buildStrands(blend: number, night: boolean): Strand[] {
   ).map(token);
   const gold = style.getPropertyValue("--gilt").trim();
 
-  const logs = gilts.maturities.map(Math.log);
+  const logs = data.maturities.map(Math.log);
   const at = Array.from(
     { length: SAMPLES },
-    (_, i) => LOG_MIN + ((LOG_MAX - LOG_MIN) * i) / (SAMPLES - 1),
+    (_, i) => logs[0] + ((logs[logs.length - 1] - logs[0]) * i) / (SAMPLES - 1),
   );
-  const days = gilts.curves.map((c) => smoothCurve(logs, c.yields, at));
+  const days = data.curves.map((c) => smoothCurve(logs, c.yields, at));
 
   const strands: Strand[] = [];
   const total = (days.length - 1) * blend;
@@ -120,11 +106,11 @@ function buildStrands(blend: number, night: boolean): Strand[] {
 }
 
 export function GiltRibbon({
-  layout = "side",
+  data,
   tone = "light",
   className,
 }: {
-  layout?: RibbonLayout;
+  data: GiltCurves;
   tone?: "light" | "night";
   className?: string;
 }) {
@@ -132,7 +118,7 @@ export function GiltRibbon({
   const tipRef = useRef<HTMLDivElement>(null);
   const dotRef = useRef<HTMLSpanElement>(null);
   const focusRef = useRef<HTMLButtonElement>(null);
-  // Follows the visitor setting, and the /lab simulation switch.
+  // Follows the visitor's reduced-motion setting.
   const reduced = useReducedMotion();
 
   useEffect(() => {
@@ -142,8 +128,10 @@ export function GiltRibbon({
 
     const coarse = window.matchMedia("(pointer: coarse)").matches;
     const night = tone === "night";
-    const strands = buildStrands(coarse ? 1 : 4, night);
-    const all = gilts.curves.flatMap((c) => c.yields);
+    const strands = buildStrands(data, coarse ? 1 : 4, night);
+    const all = data.curves.flatMap((c) => c.yields);
+    const logMin = Math.log(data.maturities[0]);
+    const logMax = Math.log(data.maturities[data.maturities.length - 1]);
     const yMin = Math.min(...all);
     const yMax = Math.max(...all);
 
@@ -187,9 +175,8 @@ export function GiltRibbon({
 
       ctx!.clearRect(0, 0, width, height);
       ctx!.globalCompositeOperation = night ? "lighter" : "source-over";
-      // On phones the sheet runs across the top, behind the text, whichever layout is chosen.
       const narrow = width < 1024;
-      const c = composition(layout, narrow);
+      const c = composition(narrow);
       const originX = width * c.originX;
       const spanX = width * c.spanX;
       const baseY = height * c.baseY;
@@ -251,24 +238,19 @@ export function GiltRibbon({
       }
 
       ctx!.globalCompositeOperation = "source-over";
-      goldVisibleFrom = c.clear?.axis === "x" ? width * c.clear.to * 0.92 : 0;
+      goldVisibleFrom = c.clear ? width * c.clear.to * 0.92 : 0;
       if (tipIndex >= 0) placeTip(tipIndex);
 
-      // Fade the field out where the text sits (left for "side", top for "horizon").
+      // Fade the field out on the left, where the text sits.
       if (c.clear) {
-        const size = c.clear.axis === "x" ? width : height;
-        const from = size * c.clear.from;
-        const to = size * c.clear.to;
-        const fade =
-          c.clear.axis === "x"
-            ? ctx!.createLinearGradient(from, 0, to, 0)
-            : ctx!.createLinearGradient(0, from, 0, to);
+        const from = width * c.clear.from;
+        const to = width * c.clear.to;
+        const fade = ctx!.createLinearGradient(from, 0, to, 0);
         fade.addColorStop(0, "rgb(0 0 0 / 1)");
         fade.addColorStop(1, "rgb(0 0 0 / 0)");
         ctx!.globalCompositeOperation = "destination-out";
         ctx!.fillStyle = fade;
-        if (c.clear.axis === "x") ctx!.fillRect(0, 0, to, height);
-        else ctx!.fillRect(0, 0, width, to);
+        ctx!.fillRect(0, 0, to, height);
         ctx!.globalCompositeOperation = "source-over";
       }
 
@@ -289,19 +271,19 @@ export function GiltRibbon({
       const tip = tipRef.current;
       const dot = dotRef.current;
       if (!tip || !dot) return;
-      const logMaturity = LOG_MIN + ((LOG_MAX - LOG_MIN) * i) / (SAMPLES - 1);
-      const nearest = gilts.maturities.reduce(
+      const logMaturity = logMin + ((logMax - logMin) * i) / (SAMPLES - 1);
+      const nearest = data.maturities.reduce(
         (best, m, k) =>
           Math.abs(Math.log(m) - logMaturity) <
-          Math.abs(Math.log(gilts.maturities[best]) - logMaturity)
+          Math.abs(Math.log(data.maturities[best]) - logMaturity)
             ? k
             : best,
         0,
       );
-      const m = gilts.maturities[nearest];
+      const m = data.maturities[nearest];
       const label = m < 1 ? `${m * 12}-month` : `${m}-year`;
-      const value = gilts.curves[gilts.curves.length - 1].yields[nearest].toFixed(2);
-      tip.textContent = `${LATEST_DATE}, ${label} ${value}%`;
+      const value = data.curves[data.curves.length - 1].yields[nearest].toFixed(2);
+      tip.textContent = `${formatDate(data.asOf)}, ${label} ${value}%`;
       for (const el of [tip, dot]) {
         el.style.left = `${gold[i * 2]}px`;
         el.style.top = `${gold[i * 2 + 1]}px`;
@@ -338,7 +320,7 @@ export function GiltRibbon({
     }
 
     // Keyboard: focusing the hidden button shows the tooltip at the 10-year point.
-    const tenYear = Math.round(((Math.log(10) - LOG_MIN) / (LOG_MAX - LOG_MIN)) * (SAMPLES - 1));
+    const tenYear = Math.round(((Math.log(10) - logMin) / (logMax - logMin)) * (SAMPLES - 1));
     const onFocus = () => {
       if (!goldDrawn) return;
       tipIndex = tenYear;
@@ -373,7 +355,7 @@ export function GiltRibbon({
       focusButton?.removeEventListener("focus", onFocus);
       focusButton?.removeEventListener("blur", hideTip);
     };
-  }, [reduced, layout, tone]);
+  }, [reduced, tone, data]);
 
   return (
     <>

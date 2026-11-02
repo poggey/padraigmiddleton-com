@@ -28,7 +28,7 @@ export function Hero({
       className="night-band relative flex min-h-[46rem] flex-col overflow-hidden pt-16 lg:min-h-svh"
     >
       <GiltRibbon
-        layout="side"
+        data={gilts}
         tone="night"
         className="absolute inset-0 size-full opacity-25 lg:opacity-100"
       />

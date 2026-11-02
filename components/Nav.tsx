@@ -12,7 +12,7 @@ export const navLinks = [
 /**
  * The navigation bar. Transparent at the top of the page, glass once scrolled. `tone` follows
  * what is underneath: "night" over the dark hero and projects band, "light" elsewhere.
- * `SiteNav` supplies the state on the real site; /lab renders it with fixed props.
+ * `SiteNav` supplies the state.
  */
 export function Nav({
   scrolled = false,

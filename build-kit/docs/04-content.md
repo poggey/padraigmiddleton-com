@@ -121,7 +121,7 @@ Newcastle. August 2026, one week, self-arranged.
 
 ### Parkdean Resorts, Customer Sales Support Advisor
 Newcastle. June to September 2026.
-- Consistently ranked in the top three of around 25 advisors on the daily revenue leaderboard. `TODO(Padraig)`: confirm around 25 or around 30 so it matches the CV.
+- Consistently ranked in the top three of around 25 advisors on the daily revenue leaderboard. (Confirmed around 25 by Padraig, 2 November 2026.)
 - Beat all eight other summer hires on conversion rate and total sales value.
 
 ### ICD Energy, Internship

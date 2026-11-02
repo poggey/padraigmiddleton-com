@@ -19,7 +19,6 @@ export type ProjectCardProps = {
   graphic: React.ReactNode;
   todo?: string;
   className?: string;
-  force?: string;
 };
 
 const list = new Intl.ListFormat("en-GB", { style: "long", type: "conjunction" });
@@ -38,7 +37,6 @@ export function ProjectCard({
   graphic,
   todo,
   className,
-  force,
 }: ProjectCardProps) {
   const ref = useRef<HTMLElement>(null);
 
@@ -55,7 +53,6 @@ export function ProjectCard({
     <article
       ref={ref}
       data-tone="night"
-      data-force={force}
       onPointerMove={onPointerMove}
       className={cx(
         styles.card,

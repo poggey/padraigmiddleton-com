@@ -6,18 +6,15 @@ export function ExternalLink({
   children,
   tone = "light",
   className,
-  force,
 }: {
   href: string;
   children: React.ReactNode;
   tone?: "light" | "night";
   className?: string;
-  force?: string;
 }) {
   return (
     <a
       href={href}
-      data-force={force}
       className={cx(
         "rounded-[2px] underline decoration-1 underline-offset-[5px]",
         "transition-[text-decoration-color] duration-(--dur-hover) ease-out",

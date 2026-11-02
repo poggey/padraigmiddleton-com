@@ -13,7 +13,6 @@ export function EssayFeature({
   keyFigure,
   chart,
   chartCaption,
-  force,
 }: {
   href: string;
   meta: string;
@@ -22,10 +21,9 @@ export function EssayFeature({
   keyFigure?: { figure: string; label: string };
   chart?: React.ReactNode;
   chartCaption?: string;
-  force?: string;
 }) {
   return (
-    <article className="group relative" data-force={force}>
+    <article className="group relative">
       {chart && (
         <div className="relative z-10 mx-3 rounded-card bg-paper px-5 pt-24 pb-5 shadow-e2 md:mx-8 md:px-6 md:pt-14 md:pb-6">
           {/* Sits across the panel's top edge, above the plot, so it never covers data. */}

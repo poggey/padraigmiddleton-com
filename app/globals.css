@@ -121,7 +121,7 @@
   }
 }
 
-/* Reduced motion: transitions become instant. data-motion="reduce" lets /lab simulate it. */
+/* Reduced motion: transitions become instant. */
 @media (prefers-reduced-motion: reduce) {
   :root {
     --dur-press: 0ms;
@@ -129,12 +129,6 @@
     --dur-ui: 0ms;
     --dur-reveal: 0ms;
   }
-}
-:root[data-motion="reduce"] {
-  --dur-press: 0ms;
-  --dur-hover: 0ms;
-  --dur-ui: 0ms;
-  --dur-reveal: 0ms;
 }
 
 /*
@@ -237,25 +231,16 @@
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-/*
- * State variants. data-force lets /lab show a hover, pressed or focused state side by side;
- * nothing outside /lab sets it. Hover only applies on devices that can hover.
- */
+/* State variants. Hover only applies on devices that can hover. */
 @custom-variant is-hover {
   @media (hover: hover) {
     &:hover {
       @slot;
     }
   }
-  &[data-force~="hover"] {
-    @slot;
-  }
 }
 @custom-variant is-active {
   &:active {
-    @slot;
-  }
-  &[data-force~="active"] {
     @slot;
   }
 }
@@ -265,15 +250,9 @@
       @slot;
     }
   }
-  :where(.group)[data-force~="hover"] & {
-    @slot;
-  }
 }
 @custom-variant reduced {
   @media (prefers-reduced-motion: reduce) {
-    @slot;
-  }
-  :root[data-motion="reduce"] & {
     @slot;
   }
 }
@@ -431,8 +410,7 @@
     color: var(--paper);
   }
 
-  :focus-visible,
-  [data-force~="focus"] {
+  :focus-visible {
     outline: 2px solid var(--focus-ring);
     outline-offset: 2px;
   }
@@ -501,6 +479,13 @@ html:has(dialog[open]) {
 }
 [data-reveal="pending"] [data-grow] {
   scale: 1 0;
+}
+[data-reveal] [data-wipe] {
+  clip-path: inset(-10% -1% -10% -1%);
+  transition: clip-path var(--dur-reveal) var(--ease-out);
+}
+[data-reveal="pending"] [data-wipe] {
+  clip-path: inset(-10% 101% -10% -1%);
 }
 [data-reveal] [data-fade] {
   transition: opacity var(--dur-reveal) var(--ease-out);
