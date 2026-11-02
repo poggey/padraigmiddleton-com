@@ -29,14 +29,7 @@
     },
     "projects": {
       "heading": "Projects",
-      "intro": "Questions I wanted answered, so I built something to answer them.",
-      "filters": [
-        "All",
-        "Markets",
-        "Data",
-        "Systems"
-      ],
-      "button": "View all projects"
+      "intro": "Questions I wanted answered, so I built something to answer them."
     },
     "experience": {
       "heading": "Experience",

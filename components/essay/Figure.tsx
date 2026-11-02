@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-// An image inside an essay, up to the wide figure width, with a caption underneath.
+// An image inside an essay, the width of the reading column, with a caption underneath.
 export function Figure({
   src,
   alt,
@@ -15,7 +15,7 @@ export function Figure({
   caption?: string;
 }) {
   return (
-    <figure className="essay-wide my-12">
+    <figure className="my-12">
       <Image
         src={src}
         alt={alt}

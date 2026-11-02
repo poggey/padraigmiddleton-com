@@ -12,7 +12,7 @@ export function ExperienceTabs({ roles }: { roles: Role[] }) {
   const role = roles.find((r) => r.id === active) ?? roles[0];
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.7fr)] lg:gap-8">
+    <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.7fr)] lg:gap-0">
       <Tabs
         label="Roles"
         idPrefix="experience"
@@ -40,7 +40,7 @@ export function ExperienceTabs({ roles }: { roles: Role[] }) {
           id="experience-panel"
           role="tabpanel"
           aria-labelledby={`experience-tab-${role.id}`}
-          className="rounded-card bg-paper p-6 shadow-e1 md:p-8"
+          className="lg:border-l lg:border-line lg:pl-12"
         >
           <h3 className="text-h3">{role.organisation}</h3>
           <p className="mt-1 text-slate">

@@ -1,5 +1,6 @@
 import { BuiltBy } from "@/components/BuiltBy";
 import { Footer } from "@/components/Footer";
+import { PageFrame } from "@/components/PageFrame";
 import { PageTransition } from "@/components/PageTransition";
 import { SiteNav } from "@/components/SiteNav";
 import { SkipLink } from "@/components/SkipLink";
@@ -15,8 +16,9 @@ export default function SiteLayout({ children }: LayoutProps<"/">) {
       <SkipLink />
       <SiteNav contact={contact} />
       <PageTransition>
-        <main id="main" tabIndex={-1} className="flex-1 outline-none">
+        <main id="main" tabIndex={-1} className="relative flex-1 outline-none">
           {children}
+          <PageFrame />
         </main>
       </PageTransition>
       <Footer />

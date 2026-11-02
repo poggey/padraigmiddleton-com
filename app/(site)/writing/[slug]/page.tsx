@@ -34,8 +34,7 @@ export default async function EssayPage({ params }: PageProps<"/writing/[slug]">
   const site = getSite();
 
   return (
-    // A size container, so figures can be sized against the page rather than the text column.
-    <article className="@container pt-28 pb-(--section-y) md:pt-36">
+    <article className="pt-28 pb-(--section-y) md:pt-36">
       <div className="mx-auto w-full max-w-[calc(var(--measure-essay)+2*var(--gutter))] px-(--gutter)">
         <EssayHeader post={post} url={`${siteUrl}/writing/${post.slug}`} />
         <div data-essay-body className="mt-14 md:mt-20">

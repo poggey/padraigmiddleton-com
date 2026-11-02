@@ -24,7 +24,7 @@ export function Section({
       aria-labelledby={`${id}-heading`}
       data-tone={night ? "night" : undefined}
       data-nav-tone={night ? "night" : undefined}
-      className={cx("py-(--section-y)", night && "night-band", className)}
+      className={cx("border-t border-frame py-(--section-y)", night && "night-band", className)}
     >
       <Container>
         <h2 id={`${id}-heading`} className="text-h2">

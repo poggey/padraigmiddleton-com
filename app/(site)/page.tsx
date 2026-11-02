@@ -1,9 +1,10 @@
-import { Button } from "@/components/Button";
 import { Hero } from "@/components/Hero";
 import { ContactPanel } from "@/components/home/ContactPanel";
 import { ExperienceSection } from "@/components/home/ExperienceSection";
 import { WritingSection } from "@/components/home/WritingSection";
-import { ProjectsBento } from "@/components/ProjectsBento";
+import { AlsoBuilt } from "@/components/projects/AlsoBuilt";
+import { projectItems } from "@/components/projects/items";
+import { ProjectIndex } from "@/components/projects/ProjectIndex";
 import { Section } from "@/components/Section";
 import { getExperience, getPosts, getProjects, getSite } from "@/lib/content";
 import { essayParagraphs } from "@/lib/essayText";
@@ -15,6 +16,7 @@ export const metadata = pageMetadata({ description: site.description, path: "/" 
 export default function HomePage() {
   const posts = getPosts();
   const latest = posts[0];
+  const projects = getProjects();
 
   return (
     <>
@@ -26,6 +28,8 @@ export default function HomePage() {
         latestEssay={`/writing/${latest.slug}`}
       />
 
+      <ExperienceSection experience={getExperience()} copy={site.sections.experience} />
+
       <WritingSection posts={posts} copy={site.sections.writing} />
 
       <Section
@@ -34,13 +38,11 @@ export default function HomePage() {
         intro={site.sections.projects.intro}
         tone="night"
       >
-        <ProjectsBento projects={getProjects().filter((p) => p.homepage)} />
-        <Button tone="night" variant="secondary" href="/projects" className="mt-10">
-          {site.sections.projects.button}
-        </Button>
+        <div className="mt-12">
+          <ProjectIndex items={projectItems(projects.filter((p) => p.featured))} />
+        </div>
+        <AlsoBuilt projects={projects.filter((p) => !p.featured)} />
       </Section>
-
-      <ExperienceSection experience={getExperience()} copy={site.sections.experience} />
 
       <ContactPanel
         copy={site.sections.contact}

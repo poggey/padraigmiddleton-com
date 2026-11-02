@@ -12,7 +12,6 @@ export const postSchema = z.object({
   summary: z.string().min(1),
   tags: z.array(z.string().min(1)).min(1),
   keyFigures: z.array(figure).max(3).optional(),
-  predictionId: z.string().optional(),
   draft: z.boolean(),
 });
 
@@ -29,26 +28,11 @@ export const projectSchema = z.object({
   links: z.object({ live: z.url().optional(), repo: z.url() }),
   keyResult: figure.optional(),
   graphic: z.string().min(1),
-  size: z.enum(["feature", "standard"]),
   order: z.number().int(),
-  /** Shown in the homepage band (the full list is on /projects). */
-  homepage: z.boolean().default(true),
+  /** The main work (finance and economics). Others are listed under "Also built". */
+  featured: z.boolean().default(true),
   /** A visible note for Padraig on the card and page, until he resolves it. */
   todo: z.string().optional(),
-});
-
-export const predictionSchema = z.object({
-  id: z.string().regex(/^\d{3}$/, "three digits, for example 001"),
-  made: isoDate,
-  claim: z.string().min(1),
-  checkDate: isoDate,
-  status: z.enum(["open", "right", "wrong", "void"]),
-  essaySlug: z.string().min(1),
-  /** How the claim will be checked, set before publishing. */
-  judging: z.string().optional(),
-  resolvedOn: isoDate.optional(),
-  outcome: z.string().optional(),
-  evidenceUrl: z.url().optional(),
 });
 
 export const experienceSchema = z.object({
@@ -94,12 +78,7 @@ export const siteSchema = z.object({
   }),
   sections: z.object({
     writing: z.object({ heading: z.string(), intro: z.string(), emptySlot: z.string() }),
-    projects: z.object({
-      heading: z.string(),
-      intro: z.string(),
-      filters: z.array(z.string()),
-      button: z.string(),
-    }),
+    projects: z.object({ heading: z.string(), intro: z.string() }),
     experience: z.object({ heading: z.string(), button: z.string() }),
     contact: z.object({ heading: z.string(), line: z.string() }),
   }),
@@ -110,7 +89,6 @@ export const siteSchema = z.object({
 
 export type PostFrontmatter = z.infer<typeof postSchema>;
 export type ProjectFrontmatter = z.infer<typeof projectSchema>;
-export type Prediction = z.infer<typeof predictionSchema>;
 export type Experience = z.infer<typeof experienceSchema>;
 export type Site = z.infer<typeof siteSchema>;
 

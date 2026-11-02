@@ -27,11 +27,7 @@ export function Hero({
       aria-labelledby="hero-heading"
       className="night-band relative flex min-h-[46rem] flex-col overflow-hidden pt-16 lg:min-h-svh"
     >
-      <GiltRibbon
-        data={gilts}
-        tone="night"
-        className="absolute inset-0 size-full opacity-25 lg:opacity-100"
-      />
+      <GiltRibbon data={gilts} tone="night" className="absolute inset-0 size-full" />
       <noscript>
         <GiltRibbonStatic />
       </noscript>
@@ -51,12 +47,15 @@ export function Hero({
           </div>
         </div>
       </Container>
-      <Container className="relative pb-8">
-        <p className="max-w-[60ch] text-small text-balance text-night-muted">
-          UK government bond yield curves, 6 months to 30 years, over the last 60 trading days. The
-          latest close, {formatDate(gilts.asOf)}, is in gold. Source: Bank of England.
-        </p>
-      </Container>
+      {/* The source, on a strip ruled off from the hero; the ribbon runs on behind it. */}
+      <div className="relative border-t border-frame">
+        <Container className="py-5">
+          <p className="max-w-[60ch] text-small text-balance text-night-muted">
+            UK government bond yield curves, 6 months to 30 years, over the last 60 trading days.
+            The latest close, {formatDate(gilts.asOf)}, is in gold. Source: Bank of England.
+          </p>
+        </Container>
+      </div>
     </section>
   );
 }

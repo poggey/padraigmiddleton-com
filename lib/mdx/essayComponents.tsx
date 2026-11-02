@@ -2,7 +2,6 @@ import type { MDXComponents } from "mdx/types";
 import { EssayChart } from "@/components/essay/EssayChart";
 import { Figure } from "@/components/essay/Figure";
 import { HeadroomSlider } from "@/components/essay/HeadroomSlider";
-import { Prediction } from "@/components/essay/Prediction";
 import { PullQuote } from "@/components/essay/PullQuote";
 import { Sidenote } from "@/components/essay/Sidenote";
 import { Sources } from "@/components/essay/Sources";
@@ -24,7 +23,6 @@ export const essayComponents: MDXComponents = {
   Chart: EssayChart,
   Figure,
   HeadroomSlider,
-  Prediction,
   PullQuote,
   Sidenote,
   Sources,

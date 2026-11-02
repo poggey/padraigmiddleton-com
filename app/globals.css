@@ -22,6 +22,7 @@
   --night-text: #e8ecf4;
   --night-muted: #a6b0c3;
   --signal: #2d5be3;
+  --signal-deep: #2249c4; /* primary button hover */
   --signal-soft: #8fa8ff;
   --gilt: #c9a227;
   --gilt-deep: #7a5d0a;
@@ -29,6 +30,7 @@
   /* Derived from the palette above */
   --night-line: rgb(255 255 255 / 0.1); /* card borders on night */
   --night-line-strong: rgb(255 255 255 / 0.18); /* structure lines in graphics on night */
+  --frame-line: rgb(123 137 163 / 0.26); /* the page's guide lines, readable on light and night */
   --spotlight: color-mix(in srgb, var(--signal) 14%, transparent); /* project card cursor light */
   --night-glow: color-mix(
     in srgb,
@@ -100,7 +102,7 @@
   --glass-night-bg-fallback: rgb(11 20 36 / 0.94);
 
   /* The slider thumb in essay interactives */
-  --thumb-shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 0 0 1px rgb(0 0 0 / 0.08);
+  --thumb-shadow: 0 1px 3px rgb(20 33 58 / 0.3), 0 0 0 1px rgb(20 33 58 / 0.12);
 
   /* Motion */
   --dur-press: 120ms;
@@ -152,11 +154,13 @@
   --color-night-text: var(--night-text);
   --color-night-muted: var(--night-muted);
   --color-signal: var(--signal);
+  --color-signal-deep: var(--signal-deep);
   --color-signal-soft: var(--signal-soft);
   --color-gilt: var(--gilt);
   --color-gilt-deep: var(--gilt-deep);
   --color-night-line: var(--night-line);
   --color-night-line-strong: var(--night-line-strong);
+  --color-frame: var(--frame-line);
 
   --font-*: initial;
   --font-sans: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
@@ -221,7 +225,8 @@
 @theme static {
   --radius-*: initial;
   --radius-pill: 999px; /* buttons, chips, tabs, toggles */
-  --radius-inline: 4px; /* inputs, tooltips, small panels, sidenotes, graphics inside cards */
+  --radius-inline: 4px; /* inputs, tags, tooltips, small panels, sidenotes, graphics inside cards */
+  --radius-control: 6px; /* buttons, tabs, menu buttons */
   --radius-card: 8px; /* standard cards */
   --radius-feature: 12px; /* large project tiles */
   --radius-panel: 16px; /* section-scale panels */
@@ -289,33 +294,28 @@
 }
 
 /*
- * Essay layout. The article is a size container, so figures can break out of the 680px reading
- * column to 960px (or the screen width less the gutters), centred on the column.
+ * A range slider: a thin track filled in blue up to the thumb, and a white thumb. The fill comes
+ * from --fill, set by the component (0% to 100%). Colours switch on night surfaces.
  */
-@utility essay-wide {
-  --wide: min(var(--figure-wide), 100cqw - 2 * var(--gutter));
-  width: var(--wide);
-  margin-inline: calc((100% - var(--wide)) / 2);
-  clear: both;
-}
-
-/*
- * A range slider on night: a thin track filled in blue up to the thumb, and a white thumb.
- * The fill comes from --fill, set by the component (0% to 100%).
- */
-@utility range-night {
+@utility range {
+  --range-track: var(--line-strong);
+  --range-fill: var(--signal);
   appearance: none;
   height: 44px;
   background: transparent;
   cursor: pointer;
 
+  [data-tone="night"] & {
+    --range-track: var(--night-line-strong);
+    --range-fill: var(--signal-soft);
+  }
   &::-webkit-slider-runnable-track {
     height: 4px;
     border-radius: 999px;
     background: linear-gradient(
       to right,
-      var(--signal-soft) var(--fill),
-      var(--night-line-strong) var(--fill)
+      var(--range-fill) var(--fill),
+      var(--range-track) var(--fill)
     );
   }
   &::-webkit-slider-thumb {
@@ -330,12 +330,12 @@
   &::-moz-range-track {
     height: 4px;
     border-radius: 999px;
-    background: var(--night-line-strong);
+    background: var(--range-track);
   }
   &::-moz-range-progress {
     height: 4px;
     border-radius: 999px;
-    background: var(--signal-soft);
+    background: var(--range-fill);
   }
   &::-moz-range-thumb {
     width: 24px;

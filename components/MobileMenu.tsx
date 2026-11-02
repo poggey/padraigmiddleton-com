@@ -53,7 +53,7 @@ export function MobileMenu({
             type="button"
             aria-label="Close menu"
             onClick={onClose}
-            className="inline-flex size-11 items-center justify-center rounded-pill"
+            className="inline-flex size-11 items-center justify-center rounded-control"
           >
             <svg aria-hidden width="20" height="20" viewBox="0 0 20 20" fill="none">
               <path

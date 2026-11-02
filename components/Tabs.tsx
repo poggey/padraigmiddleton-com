@@ -6,8 +6,9 @@ import { cx } from "@/lib/cx";
 export type TabItem = { id: string; label: React.ReactNode };
 
 /**
- * Tabs with a sliding indicator. Horizontal tabs are pills in a row (filters, toggles); vertical
- * tabs are a list of rows (the experience section). Arrow keys, Home and End move between tabs.
+ * Tabs with a sliding indicator. Horizontal tabs sit in a row (filters, toggles); vertical tabs
+ * are a ruled list of rows with a blue bar beside the selected one (the experience section).
+ * Arrow keys, Home and End move between tabs.
  * The parent renders the panel with id `${idPrefix}-panel` and role="tabpanel".
  *
  * The indicator is one element moved with a CSS transition to the selected tab's position.
@@ -49,7 +50,7 @@ export function Tabs({
       const tab = refs.current[index];
       if (!tab) return;
       bar.style.translate = `${tab.offsetLeft}px ${tab.offsetTop}px`;
-      bar.style.width = `${tab.offsetWidth}px`;
+      if (!vertical) bar.style.width = `${tab.offsetWidth}px`;
       bar.style.height = `${tab.offsetHeight}px`;
     };
     place();
@@ -61,7 +62,7 @@ export function Tabs({
       cancelAnimationFrame(frame);
       resizer.disconnect();
     };
-  }, [index, items.length]);
+  }, [index, items.length, vertical]);
 
   function onKeyDown(event: React.KeyboardEvent, i: number) {
     const last = items.length - 1;
@@ -86,9 +87,9 @@ export function Tabs({
       className={cx(
         "relative",
         vertical
-          ? "flex flex-col gap-1"
+          ? "flex flex-col border-t border-line"
           : cx(
-              "inline-flex max-w-full gap-1 overflow-x-auto rounded-pill p-1",
+              "inline-flex max-w-full gap-1 overflow-x-auto rounded-[8px] p-1",
               tone === "light" ? "bg-ink/6" : "bg-night-line",
             ),
         className,
@@ -101,10 +102,10 @@ export function Tabs({
           "absolute top-0 left-0",
           "data-[ready=true]:transition-[translate,width,height] data-[ready=true]:duration-(--dur-ui) data-[ready=true]:ease-out",
           vertical
-            ? "rounded-inline bg-paper shadow-e1"
+            ? "z-10 w-0.5 bg-signal"
             : tone === "light"
-              ? "rounded-pill bg-paper shadow-e1"
-              : "rounded-pill bg-night-line-strong",
+              ? "rounded-control bg-paper shadow-e1"
+              : "rounded-control bg-night-line-strong",
         )}
       />
       {items.map((item, i) => {
@@ -126,8 +127,8 @@ export function Tabs({
             className={cx(
               "relative shrink-0 transition-colors duration-(--dur-ui) ease-out",
               vertical
-                ? "min-h-11 rounded-inline px-4 py-3 text-left"
-                : "h-11 rounded-pill px-4 text-small font-semibold",
+                ? "min-h-11 border-b border-line py-4 pr-4 pl-5 text-left"
+                : "h-10 rounded-control px-4 text-small font-semibold",
               tone === "light"
                 ? selected
                   ? "text-ink"

@@ -13,7 +13,7 @@ export function Chip({
   return (
     <span
       className={cx(
-        "inline-flex h-7 items-center rounded-pill px-3 text-small",
+        "inline-flex h-7 items-center rounded-inline px-2.5 text-small",
         tone === "light"
           ? "bg-paper text-slate shadow-e0"
           : "bg-night-raised text-night-muted shadow-[inset_0_0_0_1px_var(--night-line)]",

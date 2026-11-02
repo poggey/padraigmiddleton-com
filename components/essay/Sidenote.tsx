@@ -51,7 +51,7 @@ export function Sidenote({
           popoverTarget={noteId}
           popoverTargetAction="hide"
           aria-label="Close"
-          className="absolute top-2 right-2 inline-flex size-11 items-center justify-center rounded-pill text-muted is-hover:text-ink notes:hidden"
+          className="absolute top-2 right-2 inline-flex size-11 items-center justify-center rounded-control text-muted is-hover:text-ink notes:hidden"
         >
           <svg aria-hidden width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path

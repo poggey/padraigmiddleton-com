@@ -66,7 +66,7 @@ export function Nav({
                       href={link.href}
                       aria-current={active ? "page" : undefined}
                       className={cx(
-                        "relative inline-flex h-11 items-center rounded-pill px-3 text-small font-medium",
+                        "relative inline-flex h-11 items-center rounded-control px-3 text-small font-medium",
                         "transition-colors duration-(--dur-hover) ease-out",
                         night
                           ? active
@@ -103,7 +103,7 @@ export function Nav({
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             onClick={onMenu}
-            className="inline-flex size-11 items-center justify-center rounded-pill md:hidden"
+            className="inline-flex size-11 items-center justify-center rounded-control md:hidden"
           >
             <svg aria-hidden width="20" height="20" viewBox="0 0 20 20" fill="none">
               <path

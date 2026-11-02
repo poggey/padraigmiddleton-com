@@ -24,33 +24,40 @@ export type GiltCurves = {
 
 const SAMPLES = 72; // points along each strand
 
-type Strand = { age: number; yields: number[]; colour: string; wash: string; width: number };
+type Strand = { age: number; yields: number[]; colour: string; width: number };
 
 /**
- * Where the sheet sits, as fractions of the canvas. On wide screens it sweeps up the right-hand
- * side beside the headline, faded out to the left (`clear`) so the text sits on a clean ground.
- * On phones it runs across the top, behind the text, and the hero dims it instead.
+ * Where the sheet sits, as fractions of the canvas. It runs edge to edge, rising from the bottom
+ * left to the upper right. `fade` is how visible it is across the width: faint under the text on
+ * the left, full strength on the right, so it passes behind the headline instead of stopping.
  */
 function composition(narrow: boolean) {
   if (narrow) {
     return {
-      originX: -0.15,
-      spanX: 1.4,
-      baseY: 0.5,
-      rise: 0.22,
-      depthX: 0.12,
+      originX: -0.25,
+      spanX: 1.45,
+      baseY: 1.02,
+      rise: 0.34,
+      depthX: 0.1,
       depthY: 0.3,
-      clear: null,
+      fade: [
+        [0, 0.16],
+        [1, 0.42],
+      ],
     };
   }
   return {
-    originX: 0.3,
-    spanX: 0.84,
-    baseY: 0.94,
-    rise: 0.48,
-    depthX: 0.08,
-    depthY: 0.5,
-    clear: { from: 0.38, to: 0.62 },
+    originX: -0.04,
+    spanX: 1.1,
+    baseY: 1.04,
+    rise: 0.52,
+    depthX: 0.05,
+    depthY: 0.44,
+    fade: [
+      [0, 0.08],
+      [0.36, 0.14],
+      [0.66, 1],
+    ],
   };
 }
 
@@ -96,12 +103,11 @@ function buildStrands(data: GiltCurves, blend: number, night: boolean): Strand[]
     strands.push({
       age,
       yields: days[day].map((y, i) => y + (days[day + 1][i] - y) * t),
-      colour: rampColour(stops, age, night ? 0.08 + 0.3 * age : 0.12 + 0.34 * age),
-      wash: rampColour(stops, age, night ? 0.03 : 0.035),
-      width: 0.9 + 0.5 * age,
+      colour: rampColour(stops, age, night ? 0.1 + 0.32 * age : 0.12 + 0.34 * age),
+      width: 0.8,
     });
   }
-  strands.push({ age: 1, yields: days[days.length - 1], colour: gold, wash: "", width: 2.5 });
+  strands.push({ age: 1, yields: days[days.length - 1], colour: gold, width: 2 });
   return strands;
 }
 
@@ -139,7 +145,7 @@ export function GiltRibbon({
     let height = 0;
     let frame = 0;
     let visible = true;
-    // Adaptive quality: if the first second runs slowly, draw half the strands and no wash.
+    // Adaptive quality: if the first second runs slowly, draw half the strands.
     let lite = false;
     let lastFrame = 0;
     const frameTimes: number[] = [];
@@ -196,7 +202,6 @@ export function GiltRibbon({
 
         const back = 1 - strand.age;
         const isGold = s === strands.length - 1;
-        const washed = !narrow && !lite && strand.wash && s % 6 === 0;
         ctx!.beginPath();
         for (let i = 0; i < count; i++) {
           const u = i / (SAMPLES - 1);
@@ -226,33 +231,23 @@ export function GiltRibbon({
           else ctx!.lineTo(x, y);
         }
         if (isGold) goldDrawn = count === SAMPLES;
-        // A wide, faint stroke under every sixth strand gives the sheet a soft body of colour.
-        if (washed) {
-          ctx!.strokeStyle = strand.wash;
-          ctx!.lineWidth = 28;
-          ctx!.stroke();
-        }
         ctx!.strokeStyle = strand.colour;
         ctx!.lineWidth = strand.width;
         ctx!.stroke();
       }
 
       ctx!.globalCompositeOperation = "source-over";
-      goldVisibleFrom = c.clear ? width * c.clear.to * 0.92 : 0;
+      // The tooltip only answers where the sheet is at full strength.
+      goldVisibleFrom = narrow ? width : width * 0.6;
       if (tipIndex >= 0) placeTip(tipIndex);
 
-      // Fade the field out on the left, where the text sits.
-      if (c.clear) {
-        const from = width * c.clear.from;
-        const to = width * c.clear.to;
-        const fade = ctx!.createLinearGradient(from, 0, to, 0);
-        fade.addColorStop(0, "rgb(0 0 0 / 1)");
-        fade.addColorStop(1, "rgb(0 0 0 / 0)");
-        ctx!.globalCompositeOperation = "destination-out";
-        ctx!.fillStyle = fade;
-        ctx!.fillRect(0, 0, to, height);
-        ctx!.globalCompositeOperation = "source-over";
-      }
+      // Fade the whole sheet across the width: faint behind the text, full on the right.
+      const fade = ctx!.createLinearGradient(0, 0, width, 0);
+      for (const [at, alpha] of c.fade) fade.addColorStop(at, `rgb(0 0 0 / ${alpha})`);
+      ctx!.globalCompositeOperation = "destination-in";
+      ctx!.fillStyle = fade;
+      ctx!.fillRect(0, 0, width, height);
+      ctx!.globalCompositeOperation = "source-over";
 
       const settling = elapsed < 2000 || pointer.strength > 0.01;
       if (visible && !document.hidden && (!reduced || settling)) {

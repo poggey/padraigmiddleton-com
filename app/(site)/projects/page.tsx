@@ -1,6 +1,7 @@
 import { Container } from "@/components/Container";
-import { ProjectsGrid } from "@/components/ProjectsGrid";
-import { ProjectTile } from "@/components/ProjectTile";
+import { AlsoBuilt } from "@/components/projects/AlsoBuilt";
+import { projectItems } from "@/components/projects/items";
+import { ProjectIndex } from "@/components/projects/ProjectIndex";
 import { getProjects, getSite } from "@/lib/content";
 import { pageMetadata } from "@/lib/metadata";
 
@@ -11,20 +12,9 @@ export const metadata = pageMetadata({
   path: "/projects",
 });
 
-// Every project on night, filterable by group.
+// Every project on night: the main work as an index with a preview, the rest listed beneath.
 export default function ProjectsPage() {
-  const items = getProjects().map((project) => ({
-    slug: project.slug,
-    group: project.group,
-    size: project.size,
-    tile: (
-      <ProjectTile
-        project={project}
-        layout={project.size === "feature" ? "side" : "top"}
-        heading={2}
-      />
-    ),
-  }));
+  const projects = getProjects();
   return (
     <section
       data-tone="night"
@@ -34,7 +24,10 @@ export default function ProjectsPage() {
       <Container>
         <h1 className="text-title text-night-text">{copy.heading}</h1>
         <p className="mt-4 max-w-[60ch] text-lead text-night-muted">{copy.intro}</p>
-        <ProjectsGrid items={items} />
+        <div className="mt-12">
+          <ProjectIndex items={projectItems(projects.filter((p) => p.featured))} heading={2} />
+        </div>
+        <AlsoBuilt projects={projects.filter((p) => !p.featured)} heading={2} />
       </Container>
     </section>
   );

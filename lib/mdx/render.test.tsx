@@ -17,7 +17,6 @@ const components = Object.fromEntries(
   [
     "Chart",
     "HeadroomSlider",
-    "Prediction",
     "PullQuote",
     "Figure",
     "WhereIMightBeWrong",
@@ -33,7 +32,6 @@ describe("renderMdx", () => {
       const html = renderToStaticMarkup(await renderMdx(post.body, components));
       expect(html).toContain('data-component="Sidenote"');
       expect(html).toContain('data-component="Sources"');
-      expect(html).toContain('data-component="Prediction"');
     }
   });
 

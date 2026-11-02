@@ -20,7 +20,7 @@ export function ContactPanel({
       aria-labelledby="contact-heading"
       data-tone="night"
       data-nav-tone="night"
-      className="bg-night"
+      className="border-t border-frame bg-night"
     >
       <Torch paragraphs={essay} quiet>
         <ContactDetails copy={copy} contact={contact} />

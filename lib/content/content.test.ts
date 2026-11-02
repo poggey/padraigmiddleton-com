@@ -4,7 +4,6 @@ import {
   getExperience,
   getPost,
   getPosts,
-  getPredictions,
   getProjects,
   getSite,
   validateContent,
@@ -48,7 +47,6 @@ describe("essays", () => {
   it("loads the first essay with its frontmatter", () => {
     expect(post.number).toBe(1);
     expect(post.title).toBe("The bill Britain keeps signing");
-    expect(post.predictionId).toBe("001");
     expect(post.keyFigures).toHaveLength(3);
   });
 
@@ -84,22 +82,12 @@ describe("projects", () => {
   it("loads all eight in display order", () => {
     expect(projects.map((p) => p.slug)).toEqual([
       "risk-dashboard",
+      "fourier-option-pricing",
+      "portfolio-optimiser",
+      "escape-velocity",
       "stirling",
       "the-slate",
-      "portfolio-optimiser",
-      "fourier-option-pricing",
-      "escape-velocity",
       "apex",
-      "marginalia",
-    ]);
-  });
-
-  // Four of each fill the three-column grid on /projects: a feature and a standard per row.
-  it("has four feature cards and four standard ones", () => {
-    expect(projects.filter((p) => p.size === "feature").map((p) => p.slug)).toEqual([
-      "risk-dashboard",
-      "the-slate",
-      "fourier-option-pricing",
       "marginalia",
     ]);
   });
@@ -110,29 +98,12 @@ describe("projects", () => {
     expect(escape.todo).toMatch(/^TODO\(Padraig\)/);
   });
 
-  it("shows five projects on the homepage", () => {
-    expect(projects.filter((p) => p.homepage).map((p) => p.slug)).toEqual([
-      "risk-dashboard",
-      "stirling",
-      "the-slate",
-      "portfolio-optimiser",
-      "apex",
-    ]);
+  it("features the finance and economics work; F1 and books are listed as also built", () => {
+    expect(projects.filter((p) => !p.featured).map((p) => p.slug)).toEqual(["apex", "marginalia"]);
   });
 });
 
 describe("data files", () => {
-  it("loads the predictions", () => {
-    expect(getPredictions()).toEqual([
-      expect.objectContaining({
-        id: "001",
-        status: "open",
-        checkDate: "2027-04-30",
-        judging: expect.stringMatching(/9.3% or above counts as wrong/),
-      }),
-    ]);
-  });
-
   it("loads five roles and two schools", () => {
     const experience = getExperience();
     expect(experience.roles.map((r) => r.organisation)).toEqual([
@@ -153,13 +124,5 @@ describe("data files", () => {
 describe("validateContent", () => {
   it("passes for the content as it stands", () => {
     expect(() => validateContent()).not.toThrow();
-  });
-
-  it("finds every prediction's claim word for word in its essay", () => {
-    const { posts, predictions } = validateContent();
-    for (const prediction of predictions) {
-      const essay = posts.find((p) => p.slug === prediction.essaySlug)!;
-      expect(essay.body.toLowerCase()).toContain(prediction.claim.toLowerCase());
-    }
   });
 });

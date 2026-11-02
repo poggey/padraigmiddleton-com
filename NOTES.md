@@ -256,3 +256,16 @@ Padraig chose a light hero and asked for the ribbon to be prototyped before cont
 - **Favicon:** option A of four (`screenshots/favicon-options.png`): a night square with two concave yield curves, an earlier one in faint blue behind and today's in gold in front, the hero ribbon in miniature. Rejected: a curve traced from the real data (lumpy at 16px, read as a generic "stock going up" icon), a single curve, "PM" (cramped at 16px) and "P." (the most common favicon pattern there is). Files: `app/icon.svg`, `app/favicon.ico` (16, 32, 48) and `app/apple-icon.png` (180, square, since iOS rounds the corners).
 - **Domain:** none yet. `NEXT_PUBLIC_SITE_URL` falls back to `padraigmiddleton.com` until it's set.
 - **CV:** Padraig's PDF has his mobile number in the header, so it is not published (the site never shows his phone number). It needs a copy without the number before it goes in `public/cv.pdf`.
+
+## Redesign after Padraig's design feedback (2 November 2026)
+
+Padraig pointed to Stripe and to Oversight Supply's sections (supply.madebyoversight.com/sections, reviewed in a browser) for the feel: everything subtle, structured, nothing added as an afterthought. Not to be copied. What changed:
+
+- **Ribbon:** fine even hairlines, no soft wash, edge to edge. A single left-to-right alpha fade (faint behind the headline, full on the right) replaces the hard cut-off mask, so the sheet passes under the text instead of stopping. It runs on behind the source strip and is cut by the hero's bottom hairline.
+- **Guide lines** (`PageFrame`): two hairlines at the outer edges of the content column, full page height, over every section and the ribbon; every section has a hairline at its top (`--frame-line`, readable on light and night). Wide screens only.
+- **Buttons:** 6px corners (`--radius-control`), no lift. Primary is solid signal blue with a chevron that nudges right on hover; secondary is an outline. Tabs and controls use the same radius; tags are 4px.
+- **Homepage order:** hero, experience and education, writing, projects, contact. Experience is a ruled list with a blue bar on the selected role and its detail beside it; education sits on the same grid, ruled rather than boxed.
+- **Writing:** the essay is shown as its own first page (number, tags, title, standfirst, byline, the opening paragraph fading out, "Read the essay"), so it plainly reads as an article. Option 2 (words beside the chart) is on `/review`.
+- **Projects:** finance and economics work is the main body (`featured`); APEX and Marginalia are listed under "Also built". Option 1, an index with a preview panel (ruled list; hover or focus shows the graphic and a ruled panel of result, tools and status), is live; option 2, even cards, is on `/review`. Old bento, filters, tiles and `size` removed.
+- **Essay:** the prediction card is gone (the prediction is a paragraph like any other), and with it `predictions.json`, its schema and checks. The chart and the slider sit in the reading column, ruled above and below. The slider reads as a sentence whose numbers move, and the slider itself carries the £15bn headroom mark and turns gold past it; option 2 (two bars) is on `/review`.
+- **`/review`** is temporary (noindex, disallowed in robots, not in the sitemap). Delete it with the losing options once Padraig decides.
