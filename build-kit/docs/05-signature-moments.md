@@ -117,7 +117,10 @@ Bar chart, £bn: 2019–20: 39, 2025–26: 109, 2026–27: 124 (highlighted), 20
 
 ---
 
-## 4. The Ledger
+## 4. The Ledger (removed)
+
+> **Removed 2 November 2026 at Padraig's request.** Predictions stay at the end of each essay; there is no tracking page and nothing to resolve.
+
 
 - Data: `content/predictions.json` (schema in `03-architecture.md`).
 - Each open prediction shows a thin progress bar from the date made to the check date, filled to today, in `--gilt`, with "x days to go".

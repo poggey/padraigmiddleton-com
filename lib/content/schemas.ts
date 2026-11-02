@@ -97,7 +97,6 @@ export const siteSchema = z.object({
       filters: z.array(z.string()),
       button: z.string(),
     }),
-    ledger: z.object({ heading: z.string(), copy: z.string(), emptyResolved: z.string() }),
     experience: z.object({ heading: z.string(), button: z.string() }),
     contact: z.object({ heading: z.string(), line: z.string() }),
   }),

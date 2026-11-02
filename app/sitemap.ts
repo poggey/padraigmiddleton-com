@@ -6,7 +6,7 @@ import { siteUrl } from "@/lib/site";
 export default function sitemap(): MetadataRoute.Sitemap {
   const { posts, projects } = validateContent();
   const published = posts.filter((p) => !p.draft);
-  const pages = ["", "/writing", "/projects", "/ledger", "/about"];
+  const pages = ["", "/writing", "/projects", "/about"];
 
   return [
     ...pages.map((page) => ({ url: `${siteUrl}${page}` })),

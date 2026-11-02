@@ -98,7 +98,10 @@ Removed on 1 November 2026: a row of facts reads as an AI-generated stat strip. 
 - Filter tabs reflow the grid with a layout animation. Each card links to its case study.
 - Order and grouping are in `04-content.md`.
 
-### 5. The Ledger
+### 5. The Ledger (removed)
+
+> **Removed 2 November 2026 at Padraig's request.** No Ledger section, no `/ledger` page, no nav link. Essays still end with a dated prediction, shown as a card in the essay; nothing tracks or resolves it.
+
 
 Split layout: on the left, heading and two sentences explaining the idea; on the right, a raised card listing predictions with an Open / Resolved toggle, a progress bar for each open prediction (made date to check date), and the running record written as one sentence (for example "One prediction made, none resolved yet."), never as a row of numbers. Links to `/ledger`.
 

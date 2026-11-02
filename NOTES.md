@@ -177,3 +177,10 @@ Padraig chose a light hero and asked for the ribbon to be prototyped before cont
   - **Contact:** the night panel running into the footer, with the torch behind it (`Torch quiet`: fainter writing, smaller light, drifts on its own). The email wraps only at the @ on phones.
 - **Footer** gained a faint top hairline so it separates from the night contact panel.
 - **Kit and CLAUDE.md** stack line updated: no `motion`, GSAP or Lenis; 2D canvas hero.
+
+## Ledger removed (2 November 2026)
+
+- Padraig: "I can still make predictions at the end of my writing but I don't want to have to come back to it." Removed the homepage Ledger section, `/ledger`, the nav link, the sitemap entry, `LedgerPreview` and `lib/ledger.ts`. Kit docs 03 and 05 marked.
+- The Writing intro was trimmed to "Opinionated, sourced, and every essay ends with a dated prediction." (words removed only).
+- Kept: `content/predictions.json` and its validation (the claim must match the essay word for word), for the essay's prediction card in Phase 8. That card should show the claim and when it can be checked, with no status or tracking.
+- Left in the lab: `ProgressBar`, `StatusChip` and `useToday`, which nothing on the site now uses. Delete them in Phase 10 if still unused.

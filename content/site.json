@@ -25,19 +25,19 @@
   "sections": {
     "writing": {
       "heading": "Writing",
-      "intro": "Opinionated, sourced, and every essay ends with a dated prediction that I track on the Ledger.",
+      "intro": "Opinionated, sourced, and every essay ends with a dated prediction.",
       "emptySlot": "Next essay in progress."
     },
     "projects": {
       "heading": "Projects",
       "intro": "Questions I wanted answered, so I built something to answer them.",
-      "filters": ["All", "Markets", "Data", "Systems"],
+      "filters": [
+        "All",
+        "Markets",
+        "Data",
+        "Systems"
+      ],
       "button": "View all projects"
-    },
-    "ledger": {
-      "heading": "The Ledger",
-      "copy": "Every essay ends with a dated, checkable prediction. When the date arrives, it gets marked right or wrong here. Nothing is edited and nothing is deleted.",
-      "emptyResolved": "Nothing resolved yet. The first prediction is checked on 30 April 2027."
     },
     "experience": {
       "heading": "Experience",

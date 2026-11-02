@@ -6,7 +6,6 @@ import { cx } from "@/lib/cx";
 export const navLinks = [
   { href: "/writing", label: "Writing" },
   { href: "/projects", label: "Projects" },
-  { href: "/ledger", label: "Ledger" },
   { href: "/about", label: "About" },
 ];
 

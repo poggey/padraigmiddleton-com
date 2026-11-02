@@ -108,7 +108,7 @@ describe("projects", () => {
 });
 
 describe("data files", () => {
-  it("loads the prediction ledger", () => {
+  it("loads the predictions", () => {
     expect(getPredictions()).toEqual([
       expect.objectContaining({
         id: "001",
