@@ -197,7 +197,7 @@ Do not change any of the essay's words. Screenshot the essay top to bottom at th
 
 ## Phase 9: Remaining pages
 
-**Goal:** `/writing`, `/projects`, `/ledger`, `/about`, and a useful 404.
+**Goal:** `/writing`, `/projects`, `/about`, and a useful 404. (`/ledger` removed 2 November 2026.)
 
 **Prompt:**
 ```

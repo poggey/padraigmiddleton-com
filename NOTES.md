@@ -218,3 +218,13 @@ Padraig chose a light hero and asked for the ribbon to be prototyped before cont
 - **Open Graph image** (`opengraph-image.tsx`, helpers in `lib/og.tsx`): night ground, the curve slice (real data) on the right with the latest curve in gold, number, title, the first key figure on a chip, and the domain. Fonts are static Schibsted Grotesk TTFs in `assets/fonts/` (OFL), because next/og can't read woff2 or variable fonts. Colours are repeated in `lib/og.tsx` since images can't read CSS variables. Twitter card is now `summary_large_image` site-wide.
 - **Measured** (production, essay page): LCP 56 ms desktop and 780 ms on a throttled phone; the LCP element is the first paragraph. CLS 0.
 - **JavaScript on the essay page: 166.4 KB gzip, over the 150 KB budget.** About 8 KB is the essay's own (slider, copy link, chart). About 9.5 KB is a chunk Turbopack shares with the homepage (Torch, experience tabs, Reveal) that the essay doesn't use. Phase 10: split that chunk, then trim the rest.
+
+## Phase 9: remaining pages (2 November 2026)
+
+- **`/writing`:** heading and intro, then each essay as a card (number, date and reading time on the left; title, standfirst and tags on the right; the whole card is the link). Then "Next essay in progress." with a "Follow by RSS" link. **Tag filters** (`EssayList`, the same Tabs and view transitions as `/projects`) appear only once there are two or more essays; with one, a filter would hide nothing.
+- **`/about`:** bio, then visible TODOs for Padraig's own paragraph and the headshot (each one switches to the real text automatically once the `TODO(Padraig):` prefix is gone from `site.json`), CV and LinkedIn buttons, then Experience, Education, Skills and Beyond work. Each has its heading in a narrow left column from 1024px, every role in full, and the Parkdean "around 25 or 30" TODO shown as a highlighted note under its bullet. It ends with the night contact block.
+- **Contact block** split out as `ContactDetails`: the homepage wraps it in the torch, About uses it plain (no torch, so About doesn't load it).
+- **404:** "Page not found", "This page doesn’t exist.", a link to the latest essay (most shared links are to essays, so a mistyped one most likely meant that), then Writing, Projects and Home buttons.
+- **`/projects`** was finished in Phase 7; the Ledger is gone.
+- **Command menu: skipped.** It's a stretch goal, and it would add JavaScript to every page while the site is already over the 150 KB budget.
+- Deleted `components/Stub.tsx` (no stubs left).

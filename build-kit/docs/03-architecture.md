@@ -9,7 +9,7 @@
 | `/writing/[slug]` | Essay | The most visited page (LinkedIn traffic lands here) |
 | `/projects` | All projects | Full grid, same cards as the homepage |
 | `/projects/[slug]` | Project case study | One per project, written up like a short essay |
-| `/ledger` | The Ledger | Every prediction, open and resolved, with a running record |
+| ~~`/ledger`~~ | ~~The Ledger~~ | Removed 2 November 2026 at Padraig's request |
 | `/about` | About | Longer bio, experience, education, skills, CV download |
 | `/cv.pdf` | CV | Static file in `public/` (`TODO(Padraig)`: supply PDF) |
 | `/rss.xml` | RSS feed | Essays only |
