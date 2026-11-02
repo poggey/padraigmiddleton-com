@@ -18,7 +18,7 @@ Writing rules from `CLAUDE.md` apply: British English, no em dashes, sentence ca
 - Email: padraigmiddleton@gmail.com
 - LinkedIn: https://www.linkedin.com/in/padraig-middleton
 - GitHub: https://github.com/poggey
-- CV: `/cv.pdf` (`TODO(Padraig)`: supply the current PDF)
+- CV: `/cv.pdf` (supplied 2 November 2026; Padraig is happy for it to include his phone number)
 
 Never publish his phone number or home address.
 
@@ -160,7 +160,7 @@ BSc (Econ) Economics and Finance, September 2025 to June 2028.
 
 - Raised over £2,000 across a year for a project in Zambia, then built houses and taught on site.
 - Black belt in martial arts. Competed, and led and taught classes.
-- Languages: English (native), Spanish (basic).
+- ~~Languages: English (native), Spanish (basic).~~ Left off the site at Padraig's request (2 November 2026).
 
 ---
 
@@ -256,7 +256,7 @@ Display order (homepage and `/projects`) and card sizes are given for each. "Gra
 - Case study: the maths worked, the inputs didn't. Only 20 books had hand-made profiles, automated classification produced flat or absurd ones, and every fix made the pool safer but smaller. The real fix is many users correcting profiles. Also, similarity captures what a book is about, not how it is paced.
 
 ### Coming next
-- FFT option pricing: `TODO(Padraig)`: confirm title, one line and status before it appears.
+- FFT option pricing: added as the project "Fourier Option Pricing" (2 November 2026), from Padraig's CV and the repo README.
 
 ### Do not show
 - Forked repositories (`Pandas-Data-Science-Tasks`, `Regression-Example`).

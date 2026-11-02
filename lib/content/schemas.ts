@@ -83,7 +83,6 @@ export const siteSchema = z.object({
     linkedin: z.url(),
     github: z.url(),
     cv: z.string().startsWith("/"),
-    cvTodo: z.string().optional(),
   }),
   hero: z.object({
     headline: z.string().min(1),
@@ -107,7 +106,6 @@ export const siteSchema = z.object({
   about: z.object({ bio: z.string(), ownWords: z.string(), headshot: z.string() }),
   skills: z.array(z.object({ label: z.string(), items: z.string() })),
   beyondWork: z.array(z.string()),
-  comingNext: z.array(z.object({ title: z.string(), todo: z.string().optional() })),
 });
 
 export type PostFrontmatter = z.infer<typeof postSchema>;

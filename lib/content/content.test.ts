@@ -81,22 +81,26 @@ describe("footnotes", () => {
 describe("projects", () => {
   const projects = getProjects();
 
-  it("loads all seven in display order", () => {
+  it("loads all eight in display order", () => {
     expect(projects.map((p) => p.slug)).toEqual([
       "risk-dashboard",
       "stirling",
       "the-slate",
       "portfolio-optimiser",
+      "fourier-option-pricing",
       "escape-velocity",
       "apex",
       "marginalia",
     ]);
   });
 
-  it("has two feature cards and five standard ones", () => {
+  // Four of each fill the three-column grid on /projects: a feature and a standard per row.
+  it("has four feature cards and four standard ones", () => {
     expect(projects.filter((p) => p.size === "feature").map((p) => p.slug)).toEqual([
       "risk-dashboard",
       "the-slate",
+      "fourier-option-pricing",
+      "marginalia",
     ]);
   });
 
@@ -142,7 +146,7 @@ describe("data files", () => {
   });
 
   it("publishes only email, LinkedIn and GitHub as contact details", () => {
-    expect(Object.keys(getSite().contact).sort()).toEqual(["cv", "cvTodo", "email", "github", "linkedin"]);
+    expect(Object.keys(getSite().contact).sort()).toEqual(["cv", "email", "github", "linkedin"]);
   });
 });
 

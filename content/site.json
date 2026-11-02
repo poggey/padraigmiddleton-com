@@ -7,8 +7,7 @@
     "email": "padraigmiddleton@gmail.com",
     "linkedin": "https://www.linkedin.com/in/padraig-middleton",
     "github": "https://github.com/poggey",
-    "cv": "/cv.pdf",
-    "cvTodo": "TODO(Padraig): supply the current CV as a PDF"
+    "cv": "/cv.pdf"
   },
   "hero": {
     "headline": "Economics and markets, argued in writing and tested in code.",
@@ -73,13 +72,6 @@
   ],
   "beyondWork": [
     "Raised over £2,000 across a year for a project in Zambia, then built houses and taught on site.",
-    "Black belt in martial arts. Competed, and led and taught classes.",
-    "Languages: English (native), Spanish (basic)."
-  ],
-  "comingNext": [
-    {
-      "title": "FFT option pricing",
-      "todo": "TODO(Padraig): confirm title, one line and status before it appears."
-    }
+    "Black belt in martial arts. Competed, and led and taught classes."
   ]
 }

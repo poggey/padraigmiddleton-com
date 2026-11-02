@@ -1,0 +1,42 @@
+---
+title: "Fourier Option Pricing"
+slug: "fourier-option-pricing"
+kind: "Quant finance"
+oneLine: "Pricing European options with the fast Fourier transform (Carr-Madan), built from first principles in Python and checked against Black-Scholes."
+group: "markets"
+status: "complete"
+year: 2026
+stack: ["Python", "NumPy", "SciPy"]
+links:
+  repo: "https://github.com/poggey/fourier-option-pricing"
+keyResult:
+  figure: "13"
+  label: "decimal places of agreement with Black-Scholes, at every grid strike from 50 to 200"
+graphic: "fourier-accuracy"
+size: "feature"
+order: 5
+homepage: false
+---
+
+## How it works
+
+An option’s price is the average payoff across every price the share could end at, weighted by how likely each one is. Realistic models rarely give those chances as a formula, but they usually give their fingerprint (the Fourier transform). The method only uses the fingerprint:
+
+1. **Fingerprint:** turn each possible outcome into an arrow and average them. This is the only part that depends on the model.
+2. **Damp:** multiply the call price by a power of the strike so that it dies away at both ends and can be transformed.
+3. **Wind up:** build the transform of the damped price straight from the fingerprint, without knowing any prices.
+4. **Unwind with the FFT:** transform back for every strike at once, then undo the damping.
+
+## Results
+
+Running example: share price 100, one year, 4% interest, 20% volatility, damping 1.5.
+
+One FFT pass prices 4,096 strikes in about 0.2 ms. At every grid strike from 50 to 200 it is within 6 × 10⁻¹⁴ of the exact Black-Scholes price. Pricing one strike at a time (`scipy.integrate.quad`) takes about 0.5 ms per strike, about 2 s for all 4,096, so the FFT is over 9,000 times faster for the full grid. Timings are from a laptop.
+
+The full write-up is [four pages, in plain English and mostly figures](https://github.com/poggey/fourier-option-pricing/blob/main/writeup.pdf).
+
+## Next steps
+
+Swap in a model with sudden price jumps (Merton). It only needs a new fingerprint. Running its prices back through Black-Scholes should show the volatility skew: options at low strikes imply higher volatility, as in real equity markets since the 1987 crash.
+
+I worked through the method by hand, step by step. AI tools helped with explanations and with drafting the layout of the write-up.

@@ -1,5 +1,6 @@
 import { ApexGraphic } from "@/components/project-graphics/ApexGraphic";
 import { EscapeGraphic } from "@/components/project-graphics/EscapeGraphic";
+import { FourierGraphic } from "@/components/project-graphics/FourierGraphic";
 import type { Variant } from "@/components/project-graphics/frame";
 import { MarginaliaGraphic } from "@/components/project-graphics/MarginaliaGraphic";
 import { OptimiserGraphic } from "@/components/project-graphics/OptimiserGraphic";
@@ -18,6 +19,7 @@ const graphics: Record<string, (props: { variant: Variant }) => React.ReactNode>
   "escape-price": EscapeGraphic,
   "apex-network": ApexGraphic,
   "marginalia-shortlist": MarginaliaGraphic,
+  "fourier-accuracy": FourierGraphic,
 };
 
 export const graphicKeys = Object.keys(graphics);
