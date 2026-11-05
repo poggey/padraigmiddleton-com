@@ -2,7 +2,7 @@
   "title": "Debt interest as a share of GDP, 2019–20 to 2031–32",
   "subtitle": "Central government debt interest, net of APF, % of GDP",
   "source": "OBR, Economic and fiscal outlook, October 2026, Chart 5.7. 2026–27 onwards are forecasts.",
-  "note": "Values recovered from Posts/debt-interest.svg (y = 336 − value × 46.4), accurate to about ±0.002.",
+  "note": "Values recovered from drafts/debt-interest.svg (y = 336 − value × 46.4), accurate to about ±0.002.",
   "firstForecast": "2026–27",
   "points": [
     {

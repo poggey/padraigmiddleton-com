@@ -5,10 +5,10 @@ Design decisions, rejected ideas and quirks, so later sessions do not repeat the
 ## Phase 0 decisions (1 November 2026)
 
 - **Kit location.** `build-kit/` unzipped from `files/build-kit.zip` into the project root; `CLAUDE.md` copied to the root.
-- **Essay source.** `Posts/budget-2026-linkers.md` is the canonical text of "The bill Britain keeps signing". Its body has been copied into `build-kit/content/posts/the-bill-britain-keeps-signing.mdx` with typography fixes only (curly quotes and apostrophes, en dashes in year ranges; URLs untouched). The kit's frontmatter is kept.
+- **Essay source.** `drafts/budget-2026-linkers.md` is the canonical text of "The bill Britain keeps signing". Its body has been copied into `build-kit/content/posts/the-bill-britain-keeps-signing.mdx` with typography fixes only (curly quotes and apostrophes, en dashes in year ranges; URLs untouched). The kit's frontmatter is kept.
   - No `<PullQuote>`: "Not tax adjustments…" stays a plain paragraph.
   - "Where could I be wrong?" stays a plain paragraph in Padraig's words. Any card styling must not add a heading that repeats it.
-  - The essay chart is the debt interest as a share of GDP line chart from `Posts/debt-interest.svg` (`<Chart id="debt-interest-gdp" />`), redrawn in the site's chart style from the same data. The £bn bar figures in `04-content.md` remain for the hero key-figure card.
+  - The essay chart is the debt interest as a share of GDP line chart from `drafts/debt-interest.svg` (`<Chart id="debt-interest-gdp" />`), redrawn in the site's chart style from the same data. The £bn bar figures in `04-content.md` remain for the hero key-figure card.
   - `<HeadroomSlider />` and `<Prediction id="001" />` are kept: they add no words to the essay.
 - **Dates are flexible.** The essay and prediction 001 are dated 3 November 2026 for now. The priority is a finished site as soon as possible. At launch, set the essay `date` and prediction `made` to the day the essay first goes public.
 - **How prediction 001 is judged** (decided by Claude at Padraig's request; publish this on the Ledger):
@@ -54,7 +54,7 @@ Design decisions, rejected ideas and quirks, so later sessions do not repeat the
 - **Essay card.** The glass key-figure chip first sat at the top right of the chart and hid the gold 2031–32 point and its label. It now spans the panel's top edge above the plot area, as a horizontal chip.
 - **Project card footer.** Status was a bordered chip beside a plain stack line. Cut to one sentence ("Live. Built with Python, Streamlit and Plotly.") as the "remove one accessory" fix. Slash and middle-dot separators were rejected as template chrome.
 - **Mobile nav** shows the name, "Download CV" and an icon-only menu button (labelled "Menu" for screen readers), so the CV stays one tap away on phones.
-- **Charts.** `LineChart` draws the line in SVG and puts dots and labels in HTML so text stays sharp at any width. It reveals with a clip-path wipe over `--dur-reveal` when 40% visible. The forecast is dashed. The essay chart data is in `content/charts/debt-interest-gdp.json`, recovered from `Posts/debt-interest.svg`.
+- **Charts.** `LineChart` draws the line in SVG and puts dots and labels in HTML so text stays sharp at any width. It reveals with a clip-path wipe over `--dur-reveal` when 40% visible. The forecast is dashed. The essay chart data is in `content/charts/debt-interest-gdp.json`, recovered from `drafts/debt-interest.svg`.
 - **Ranges.** `lib/typography.ts` keeps "2027–28" from breaking at the en dash. Phase 3 should apply it to all content automatically.
 - **Gold on light** is 2.4:1, below 3:1 for graphics. Every gold mark on light is paired with text: the progress bar says "x days to go", chart dots have value labels, status chips have words.
 - **Reading time** for essay No. 1 computes to 3 minutes (about 730 words at 230 per minute).
@@ -272,7 +272,7 @@ Padraig pointed to Stripe and to Oversight Supply's sections (supply.madebyovers
 
 ## Design prototypes on /reviews (2 November 2026)
 
-Padraig asked to keep the current site and see a few of the PROPOSITIONS.md directions built, then decide. Four are full homepages with the real content: A Intaglio, B Survey, C Trading day, E Axis. D (Folio) is not built: its best idea, the essay as a printed first page, is already on the live homepage.
+Padraig asked to keep the current site and see a few of the design propositions (PROPOSITIONS.md, in git at `3b1f67b`) built, then decide. Four are full homepages with the real content: A Intaglio, B Survey, C Trading day, E Axis. D (Folio) is not built: its best idea, the essay as a printed first page, is already on the live homepage.
 
 - **Separate from the live site:** `app/reviews/` sits outside the `(site)` group (no site nav, frame or footer), is `noindex, nofollow`, and is not in the sitemap. Each prototype re-points the site's colour variables inside its own wrapper (`app/reviews/reviews.css`), so nothing reaches `globals.css`. A small bar at the bottom moves between them.
 - **Shared data:** `lib/reviews.ts` (content and one key number per featured project) and `components/reviews/projectSeries.ts` (each project's exported data reduced to one drawable shape with one gold mark). Projects without a key result use a figure from their own data, labelled with what it is: the risk dashboard's largest drawdown (−19.6%), Stirling's edition count (120), Escape Velocity's first-day close against the IPO price (+19%, shown with a TODO because the figures are unconfirmed). Stirling's marks are all the same height: the data is a count, nothing more.

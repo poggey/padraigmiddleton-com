@@ -1,7 +1,7 @@
 import { test } from "@playwright/test";
 
-// Pages to capture. Override with PAGES="/,/lab" npm run screenshots
-const pages = (process.env.PAGES ?? "/,/lab").split(",");
+// Pages to capture. Override with PAGES="/,/writing,/projects,/about" npm run screenshots
+const pages = (process.env.PAGES ?? "/,/writing,/projects,/about").split(",");
 
 for (const path of pages) {
   test(`screenshot ${path}`, async ({ page }, testInfo) => {

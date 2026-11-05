@@ -1,10 +1,10 @@
 # padraigmiddleton.com
 
-Padraig Middleton's personal site: essays on economics and markets, project case studies and the prediction Ledger. The full specification is in `build-kit/`; `CLAUDE.md` holds the working rules.
+Padraig Middleton's personal site: essays on economics and markets, and project case studies. The full specification is in `build-kit/`; `CLAUDE.md` holds the working rules.
 
 ## Running it
 
-Needs Node 20.9 or later.
+Needs Node 22 or later.
 
 ```bash
 npm install
@@ -22,22 +22,20 @@ npm run dev          # http://localhost:3000
 | `npm run format`      | Prettier over the codebase                                |
 | `npm run screenshots` | Screenshots at 1440, 768 and 390 wide into `screenshots/` |
 
-Screenshots build the site and serve the production version on port 4310, so they work while `npm run dev` is running (Next.js allows one dev server per project). Choose pages with `PAGES`, for example `PAGES="/,/lab" npm run screenshots`. The first time, install the browser with `npx playwright install chromium`.
+Screenshots build the site and serve the production version on port 4310, so they work while `npm run dev` is running (Next.js allows one dev server per project). Choose pages with `PAGES`, for example `PAGES="/,/about" npm run screenshots`. The first time, install the browser with `npx playwright install chromium`.
 
 ## Where things live
 
-| Folder        | Contents                                                    |
-| ------------- | ----------------------------------------------------------- |
-| `app/`        | Routes. `app/globals.css` holds every design token.         |
-| `components/` | UI, one component per file                                  |
-| `lib/`        | Data loading and utilities                                  |
-| `content/`    | Essays and projects (MDX), predictions and site data (JSON) |
-| `scripts/`    | Data preparation (gilt curves, project graphics)            |
-| `public/`     | Static files, including `cv.pdf`                            |
-| `build-kit/`  | The specification. Read, never shipped.                     |
-| `Posts/`      | Padraig's original essay drafts                             |
-
-`/lab` shows the design system in one place. It is not indexed.
+| Folder        | Contents                                                   |
+| ------------- | ---------------------------------------------------------- |
+| `app/`        | Routes. `app/globals.css` holds every design token.        |
+| `components/` | UI, one component per file                                 |
+| `lib/`        | Data loading and utilities                                 |
+| `content/`    | Essays and projects (MDX), site data and chart data (JSON) |
+| `scripts/`    | Data preparation (gilt curves, project graphics)           |
+| `public/`     | Static files, including `cv.pdf`                           |
+| `build-kit/`  | The specification. Read, never shipped.                    |
+| `drafts/`     | Padraig's original essay drafts, not published             |
 
 ## Design tokens
 
@@ -58,13 +56,12 @@ The script merges the Bank's current-month file into the committed history and k
 
 Everything on the site comes from `content/`, checked against the schemas in `lib/content/schemas.ts` when the site builds. A missing or malformed field fails the build with the file name and the field.
 
-| File                       | What it holds                                          |
-| -------------------------- | ------------------------------------------------------ |
-| `content/posts/*.mdx`      | Essays. The file name is the URL.                      |
-| `content/projects/*.mdx`   | Project case studies. `slug` must match the file name. |
-| `content/predictions.json` | The Ledger. Never edit a `claim` after publishing.     |
-| `content/experience.json`  | Roles and education                                    |
-| `content/site.json`        | Contact details, homepage copy, About, skills          |
-| `content/charts/*.json`    | Data for essay charts                                  |
+| File                      | What it holds                                          |
+| ------------------------- | ------------------------------------------------------ |
+| `content/posts/*.mdx`     | Essays. The file name is the URL.                      |
+| `content/projects/*.mdx`  | Project case studies. `slug` must match the file name. |
+| `content/experience.json` | Roles and education                                    |
+| `content/site.json`       | Contact details, homepage copy, About, skills          |
+| `content/charts/*.json`   | Data for essay charts                                  |
 
 Footnotes (`[^id]` and `[^id]: source` on one line) become numbered sidenotes. Reading time is worked out at 230 words a minute. The RSS feed, sitemap and robots.txt are generated at build.
