@@ -308,7 +308,7 @@ Padraig: the projects section's "enormous graphs and charts… looks like you're
 
 ## Static export for any host (5 November 2026)
 
-Padraig's parents' software company offered to host the site, possibly on shared cPanel hosting, which serves files but cannot run Node. They had asked for WordPress or Go; neither is needed.
+The likely host is shared cPanel hosting, which serves files but cannot run Node. WordPress and Go were suggested; neither is needed.
 
 - **`output: "export"`** in `next.config.ts`: `npm run build` writes the whole site as plain files to `out/`. Upload the contents of `out/` to the web root and it works on cPanel, DigitalOcean, Netlify, Vercel or any static host.
 - **Cache Components and partial prefetching are off.** They cannot be combined with a static export, and nothing used them. Dynamic routes use `dynamicParams = false` instead of `instant = false`, so unknown slugs return a real 404.
