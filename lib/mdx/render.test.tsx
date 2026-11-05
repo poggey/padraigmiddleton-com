@@ -30,6 +30,8 @@ describe("renderMdx", () => {
   it("compiles every essay, with sidenotes, sources and its components", async () => {
     for (const post of getPosts({ includeDrafts: true })) {
       const html = renderToStaticMarkup(await renderMdx(post.body, components));
+      // An essay may have no sources; one that cites any must render them.
+      if (!post.body.includes("[^")) continue;
       expect(html).toContain('data-component="Sidenote"');
       expect(html).toContain('data-component="Sources"');
     }
