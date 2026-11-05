@@ -253,7 +253,7 @@ Padraig chose a light hero and asked for the ribbon to be prototyped before cont
 
 ## Before launch (2 November 2026)
 
-- **Favicon:** option A of four (`screenshots/favicon-options.png`): a night square with two concave yield curves, an earlier one in faint blue behind and today's in gold in front, the hero ribbon in miniature. Rejected: a curve traced from the real data (lumpy at 16px, read as a generic "stock going up" icon), a single curve, "PM" (cramped at 16px) and "P." (the most common favicon pattern there is). Files: `app/icon.svg`, `app/favicon.ico` (16, 32, 48) and `app/apple-icon.png` (180, square, since iOS rounds the corners).
+- **Favicon:** "PM" (Padraig, 5 November 2026), replacing the two yield curves. The letters are Schibsted Grotesk SemiBold outlines (not live text, so no font is needed), in `--night-text` on a `--night` square, with the letters spaced wider than the font's default so they stay apart at 16px. A gold rule under the letters was tried and cut: it cramped the 16px icon. Files: `app/icon.svg`, `app/favicon.ico` (16, 32, 48) and `app/apple-icon.png` (180, square, since iOS rounds the corners).
 - **Domain:** none yet. `NEXT_PUBLIC_SITE_URL` falls back to `padraigmiddleton.com` until it's set.
 - **CV:** published as supplied in `public/cv.pdf`. It has Padraig's mobile number in the header; he said that's fine for the CV (the site's own pages still never show it).
 
