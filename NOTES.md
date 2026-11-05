@@ -10,7 +10,7 @@ Design decisions, rejected ideas and quirks, so later sessions do not repeat the
   - "Where could I be wrong?" stays a plain paragraph in Padraig's words. Any card styling must not add a heading that repeats it.
   - The essay chart is the debt interest as a share of GDP line chart from `drafts/debt-interest.svg` (`<Chart id="debt-interest-gdp" />`), redrawn in the site's chart style from the same data. The £bn bar figures in `04-content.md` remain for the hero key-figure card.
   - `<HeadroomSlider />` and `<Prediction id="001" />` are kept: they add no words to the essay.
-- **Dates are flexible.** The essay and prediction 001 are dated 3 November 2026 for now. The priority is a finished site as soon as possible. At launch, set the essay `date` and prediction `made` to the day the essay first goes public.
+- **Essay dates are backdated** (Padraig, 5 November 2026). "The money you can’t flood" is No. 1, dated 20 October 2026. "The bill Britain keeps signing" is No. 2, dated 30 October 2026, two days after the 28 October Budget. Numbers follow the dates, and the homepage leads with the highest number.
 - **How prediction 001 is judged** (decided by Claude at Padraig's request; publish this on the Ledger):
   - Judged against the 2027–28 gilt remit as first published by the DMO, normally alongside the Spring Statement.
   - Measure: index-linked gilt sales as a share of total planned gilt sales, calculated the same way as the 9.3% quoted for 2026–27.

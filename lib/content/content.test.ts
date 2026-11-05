@@ -44,8 +44,8 @@ describe("schemas", () => {
 describe("essays", () => {
   const post = getPost("the-bill-britain-keeps-signing", { includeDrafts: true })!;
 
-  it("loads the first essay with its frontmatter", () => {
-    expect(post.number).toBe(1);
+  it("loads the budget essay with its frontmatter", () => {
+    expect(post.number).toBe(2);
     expect(post.title).toBe("The bill Britain keeps signing");
     expect(post.keyFigures).toHaveLength(3);
   });
