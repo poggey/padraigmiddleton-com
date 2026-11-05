@@ -2,6 +2,9 @@ import { getSite } from "@/lib/content";
 import { ogImage } from "@/lib/og";
 import { siteUrl } from "@/lib/site";
 
+// Written to a file at build time, because the site is a static export.
+export const dynamic = "force-static";
+
 // The default LinkedIn preview (the homepage and every page without its own): the name and the
 // hero headline. Served at a fixed address so lib/metadata.ts can point every page at it.
 export function GET() {

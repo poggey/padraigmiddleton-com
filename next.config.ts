@@ -3,8 +3,12 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // Hide the dev badge so it never appears in review screenshots.
   devIndicators: false,
-  cacheComponents: true,
-  partialPrefetching: true,
+  // The site builds to plain files in out/, so any host can serve it, shared cPanel hosting included.
+  // Each page is written as about/index.html, which every web server finds for /about/ by default.
+  output: "export",
+  trailingSlash: true,
+  // No server to resize images on request.
+  images: { unoptimized: true },
   turbopack: {
     rules: {
       "*.css": {

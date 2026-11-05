@@ -12,8 +12,8 @@ export function generateStaticParams() {
   return getPosts().map((post) => ({ slug: post.slug }));
 }
 
-// Every page here is prerendered from generateStaticParams, so waiting for params is fine.
-export const instant = false;
+// Only the slugs from generateStaticParams exist; any other address is a real 404.
+export const dynamicParams = false;
 
 export async function generateMetadata({ params }: PageProps<"/writing/[slug]">) {
   const post = getPost((await params).slug);
@@ -39,7 +39,7 @@ export default async function EssayPage({ params }: PageProps<"/writing/[slug]">
   return (
     <article className="pt-28 pb-(--section-y) md:pt-36">
       <div className="mx-auto w-full max-w-[calc(var(--measure-essay)+2*var(--gutter))] px-(--gutter)">
-        <EssayHeader post={post} url={`${siteUrl}/writing/${post.slug}`} />
+        <EssayHeader post={post} url={`${siteUrl}/writing/${post.slug}/`} />
         <div data-essay-body className="mt-14 md:mt-20">
           {await renderMdx(post.body, essayComponents)}
         </div>

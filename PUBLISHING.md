@@ -1,7 +1,7 @@
 # Publishing
 
 How to publish an essay, add a chart, and update a project. Everything is files in
-`content/`; pushing to `main` deploys.
+`content/`. `npm run build` writes the finished site to `out/`; see the README for hosting.
 
 ## Publish an essay
 
@@ -39,7 +39,7 @@ How to publish an essay, add a chart, and update a project. Everything is files 
 
 5. Check it locally: `npm run dev -- --port 4000`, then open the essay.
 6. Run `npm test` and `npm run build`. Both must pass; the build checks every essay and chart and names the file if something is wrong.
-7. Commit and push to `main`. Vercel deploys it, and the essay appears on the homepage, on
+7. Commit and push to `main`, then deploy (see the README). The essay appears on the homepage, on
    `/writing`, in the RSS feed and in the sitemap, with its own LinkedIn preview image.
 
 ## Components you can use in an essay
@@ -69,5 +69,5 @@ graphic comes from the export scripts in `scripts/project-graphics/` (see the RE
 ## Things that update themselves
 
 - **Gilt curves** in the hero: a GitHub Action refreshes them from the Bank of England every weekday
-  and commits the result, which redeploys the site.
+  and commits the result. It reaches the live site on the next deploy.
 - **Homepage**: always shows the newest essay (highest `number`).

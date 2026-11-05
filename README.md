@@ -14,8 +14,8 @@ npm run dev          # http://localhost:3000
 | Command               | What it does                                              |
 | --------------------- | --------------------------------------------------------- |
 | `npm run dev`         | Development server                                        |
-| `npm run build`       | Production build (static pages)                           |
-| `npm run start`       | Serve the production build                                |
+| `npm run build`       | Builds the whole site as static files in `out/`           |
+| `npm run start`       | Serve the built site from `out/` on port 3000             |
 | `npm test`            | Unit tests (content loaders, schemas, MDX)                |
 | `npm run lint`        | ESLint                                                    |
 | `npm run typecheck`   | Generates route types, then runs TypeScript               |
@@ -36,6 +36,12 @@ Screenshots build the site and serve the production version on port 4310, so the
 | `public/`     | Static files, including `cv.pdf`                           |
 | `build-kit/`  | The specification. Read, never shipped.                    |
 | `drafts/`     | Padraig's original essay drafts, not published             |
+
+## Hosting
+
+The site is a static export: `npm run build` writes every page, image and data file to `out/`. Upload the contents of `out/` to the web root of any host (shared cPanel hosting, DigitalOcean, Netlify, Vercel, GitHub Pages). No Node, PHP or database is needed on the server.
+
+On Apache (cPanel), `out/.htaccess` sets the 404 page, the type of the LinkedIn preview images and caching. Make sure hidden files are uploaded too.
 
 ## Design tokens
 

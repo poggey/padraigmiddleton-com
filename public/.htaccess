@@ -1,0 +1,15 @@
+# Read by Apache (cPanel hosting). Other hosts ignore this file.
+
+ErrorDocument 404 /404/index.html
+
+# LinkedIn preview images are written without a file extension.
+<FilesMatch "^opengraph-image">
+  ForceType image/png
+</FilesMatch>
+
+# Scripts and styles in _next/static have a hash in their name, so they never change.
+<IfModule mod_headers.c>
+  <If "%{REQUEST_URI} =~ m#^/_next/static/#">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </If>
+</IfModule>

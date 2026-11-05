@@ -31,7 +31,7 @@ Design decisions, rejected ideas and quirks, so later sessions do not repeat the
 ## Phase 1: setup (1 November 2026)
 
 - **Versions.** Next.js 16.4.3, React 19.3.0, Tailwind 4.3.3, TypeScript 5.9.3, Playwright 1.64.1, Prettier 3.9.10. All pinned exactly.
-- **Next.js 16 defaults kept:** `cacheComponents` and `partialPrefetching` are on (create-next-app default). The bundled docs in `node_modules/next/dist/docs/` are the reference for this version; read them before using an API from memory.
+- **Next.js 16 defaults kept:** `cacheComponents` and `partialPrefetching` are on (create-next-app default). (Both turned off on 5 November 2026 for the static export; see the end of this file.) The bundled docs in `node_modules/next/dist/docs/` are the reference for this version; read them before using an API from memory.
 - **Tailwind runs through `@tailwindcss/turbopack`** (the create-next-app default for this version), not PostCSS.
 - **Fonts.** Schibsted Grotesk supports tabular figures (`tnum`), but its default digits are proportional ("111" is 41px wide at 40px, "000" is 75px). Use `tabular-nums` wherever numbers line up. Source Serif 4 is loaded with its optical size axis and italics (for pull quotes).
 - **Type scale is fluid.** Sizes interpolate from the mobile value at 390px to the desktop value at 1440px with `clamp()`. Line heights switch from mobile to desktop values at 768px. Verified by measurement at 390 and 1440: exact match to the spec.
@@ -140,7 +140,7 @@ Padraig chose a light hero and asked for the ribbon to be prototyped before cont
 - **Mobile menu** is a native modal `<dialog>`: the browser traps focus, Esc closes it, focus returns to the menu button. It opens with `@starting-style` (`starting:` in Tailwind). The page behind is locked with `html:has(dialog[open])`. It closes on navigation because state stores the page it was opened on (no setState in an effect, which ESLint flags).
 - **No Lenis**, as decided in Phase 0: smooth scrolling hijacks native scroll and breaks anchor jumps to footnotes.
 - **Page transitions:** React `<ViewTransition>` with a 200ms cross-fade, header pinned, instant under reduced motion. Verified: `document.startViewTransition` fires on a link click.
-- **Cache Components and dynamic routes:** `dynamicParams` is not allowed. Unknown slugs call `notFound()`, but because the static shell has already started streaming, `/writing/nope` keeps status 200 with `<meta name="robots" content="noindex">` and the 404 content (documented Next behaviour). Unmatched paths such as `/nope` return a real 404.
+- **Cache Components and dynamic routes** (no longer applies: the static export uses `dynamicParams = false`, so unknown slugs are real 404s): `dynamicParams` is not allowed. Unknown slugs call `notFound()`, but because the static shell has already started streaming, `/writing/nope` keeps status 200 with `<meta name="robots" content="noindex">` and the 404 content (documented Next behaviour). Unmatched paths such as `/nope` return a real 404.
 - **Built-by badge: Padraig wants the real one.** `public/built-by.js` is a copy of github.com/poggey/built-by (reviewed: no network requests apart from the GitHub avatar, everything escaped, shadow DOM styles), loaded with `next/script` `lazyOnload` from `components/BuiltBy.tsx`. `data-site` is left out because the visitor is already on the portfolio. Update the copy if the badge changes. Prettier ignores it. The footer keeps everything on the left (with extra bottom padding on phones) so the fixed badge never covers it.
 - **Footer has no year.** `new Date()` cannot run during a static prerender, so it reads "© Padraig Middleton. London and Newcastle."
 - **Layout** is at least a screen tall (`min-h-svh` flex column), so the footer sits at the bottom of short pages.
@@ -148,7 +148,7 @@ Padraig chose a light hero and asked for the ribbon to be prototyped before cont
 
 ## Phase 5: hero (2 November 2026)
 
-- **Data** refreshed to the 30 October 2026 close. `.github/workflows/gilt-curves.yml` runs `scripts/gilt_curves.py` at 11:30 UTC Tuesday to Saturday and commits if the curves changed, which redeploys on Vercel. It only runs once the repo is on GitHub.
+- **Data** refreshed to the 30 October 2026 close. `.github/workflows/gilt-curves.yml` runs `scripts/gilt_curves.py` at 11:30 UTC Tuesday to Saturday and commits if the curves changed, which redeploys the site if the host deploys from GitHub. It only runs once the repo is on GitHub.
 - **Gold-curve tooltip:** hovering within 16px of the gold curve's visible part shows a glass label at the nearest real data point ("30 October 2026, 6-year 4.96%") with a gold dot. The gold curve is exempt from the cursor push, so it holds still while the other strands part. Keyboard: a visually hidden button ("Latest gilt yields", `aria-describedby` the tooltip) shows it at the 10-year point. It works under reduced motion. The tooltip is a fifth use of glass, the exception agreed in Phase 0.
 - **No JavaScript:** `GiltRibbonStatic` (every third day plus the latest close, SVG) inside `<noscript>`.
 - **Nav first-paint bug, fixed:** tone was detected only after hydration, so the bar was dark-on-dark over the hero on first paint and without JS. `SiteNav` now starts night-toned on pages listed in `darkTop` (the homepage).
@@ -305,3 +305,17 @@ Padraig: the projects section's "enormous graphs and charts… looks like you're
 - **Marginalia** keeps its graphic. **Writing intro** is now "Opinionated and sourced.": essays sometimes end with an opinion or prediction, not always. **Hero subline** stays as it is.
 - **Domain:** waiting on Padraig.
 - `export const instant = false` on the project and essay `[slug]` routes: Next 16.4 warned in dev that `params` is read outside `<Suspense>`. Every page is prerendered from `generateStaticParams`, so blocking costs nothing.
+
+## Static export for any host (5 November 2026)
+
+Padraig's parents' software company offered to host the site, possibly on shared cPanel hosting, which serves files but cannot run Node. They had asked for WordPress or Go; neither is needed.
+
+- **`output: "export"`** in `next.config.ts`: `npm run build` writes the whole site as plain files to `out/`. Upload the contents of `out/` to the web root and it works on cPanel, DigitalOcean, Netlify, Vercel or any static host.
+- **Cache Components and partial prefetching are off.** They cannot be combined with a static export, and nothing used them. Dynamic routes use `dynamicParams = false` instead of `instant = false`, so unknown slugs return a real 404.
+- **`trailingSlash: true`:** pages are written as `about/index.html`, which Apache serves for `/about/` with no rewrite rules (`/about` redirects to `/about/`). Hand-built URLs in the sitemap, RSS feed and essay share link end in `/` to match the canonical URLs.
+- **`public/.htaccess`** (Apache only; other hosts ignore it): the 404 page, `image/png` for the extensionless LinkedIn preview images, and a year's caching for the hashed files in `_next/static`.
+- **Metadata routes** (`robots.ts`, `sitemap.ts`, `rss.xml`, `social.png`) need `dynamic = "force-static"` under a static export.
+- **Images are unoptimised** (`images.unoptimized`): no server to resize them. Only `Figure` uses `next/image`, and no essay has a photo yet. Size any photo before adding it.
+- **`npm run start`** and the screenshot test serve `out/` with `python3 -m http.server`, because `next start` does not work with a static export.
+- **Checked with Apache 2.4** (the macOS built-in, `AllowOverride All`): every page, `/about` redirecting to `/about/`, real 404s for `/nope` and `/writing/nope/`, correct types for RSS, sitemap, robots, the CV, data files and preview images, and the cache header. Home, essay (slider, chart, sidenotes) and projects render with no console errors, including client-side navigation.
+- **Deploying on push is not set up yet.** Vercel and Netlify can still build from GitHub. For cPanel, a GitHub Action would build and upload `out/` over FTP or SSH; that needs the host's details. Until then the daily gilt data refresh only reaches the live site on the next upload.

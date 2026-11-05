@@ -1,6 +1,9 @@
 import { getPosts, getSite } from "@/lib/content";
 import { siteUrl } from "@/lib/site";
 
+// Written to a file at build time, because the site is a static export.
+export const dynamic = "force-static";
+
 // RSS feed of the essays, newest first. Prerendered at build time.
 
 const escape = (text: string) =>
@@ -12,7 +15,7 @@ export function GET() {
 
   const items = posts
     .map((post) => {
-      const url = `${siteUrl}/writing/${post.slug}`;
+      const url = `${siteUrl}/writing/${post.slug}/`;
       return `    <item>
       <title>${escape(post.title)}</title>
       <link>${url}</link>
@@ -27,7 +30,7 @@ export function GET() {
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>${escape(site.title)}</title>
-    <link>${siteUrl}</link>
+    <link>${siteUrl}/</link>
     <description>${escape(site.description)}</description>
     <language>en-gb</language>
     <atom:link href="${siteUrl}/rss.xml" rel="self" type="application/rss+xml" />
