@@ -30,6 +30,8 @@ export function EssayChart({ id }: { id: string }) {
         highlight={last}
         ariaLabel={chart.summary}
         unit={chart.unit}
+        decimals={chart.decimals}
+        baseline={chart.baseline}
       />
       <figcaption className="mt-4 text-small text-muted">Source: {keep(chart.source)}</figcaption>
     </figure>

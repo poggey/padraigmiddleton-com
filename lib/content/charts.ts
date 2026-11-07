@@ -12,9 +12,16 @@ export const chartSchema = z.object({
   /** The takeaway in a sentence, for screen readers. */
   summary: z.string().min(1),
   unit: z.string().default(""),
+  /** Decimal places on the point labels. */
+  decimals: z.number().int().min(0).max(3).default(1),
   note: z.string().optional(),
   firstForecast: z.string().optional(),
   points: z.array(z.object({ year: z.string(), value: z.number() })).min(2),
+  /** A second, quieter line to compare against, one value per point. */
+  baseline: z.object({ label: z.string().min(1), values: z.array(z.number()) }).optional(),
+}).refine((c) => !c.baseline || c.baseline.values.length === c.points.length, {
+  message: "baseline needs one value per point",
+  path: ["baseline"],
 });
 
 export type ChartData = z.infer<typeof chartSchema>;

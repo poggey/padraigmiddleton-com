@@ -1,0 +1,34 @@
+By 26 October, markets had already priced in a hike on 5 November at about 99%.[^1] So the Bank of England's decision on Thursday only confirmed what had already happened. If the market had already done the work, why does the Bank of England even need to vote, when it effectively already has the vote of the whole market?
+
+Swap rates and gilt yields are forecasts of where Bank Rate is going, so the rates in the market are really predictions of the vote itself. Without the vote, there's nothing to price in and nothing for rates to adjust to. The vote is an anchor, even when there are no surprises. The Bank steered the prediction too: in September, Bailey said that the longer energy prices stayed volatile, the more likely it was that the Bank would need to raise rates.[^2]
+
+But the effects of a hike arrived long before the hike itself. The average two-year fixed mortgage went from 4.83% on 26 February, just before the strikes on Iran, to 5.75% a month later, with Bank Rate unchanged.[^3] By the week of the vote it had reached 5.96%. The Bank counted this as tightening before it ever hiked, saying in September that higher mortgage rates and borrowing costs for firms were already making people more cautious about spending.[^2] For anyone taking out a mortgage this year, the rate rise happened in March. Thursday just made it official.
+
+[CHART: average two-year fix vs Bank Rate, January to November 2026]
+
+So the value of the vote isn't in confirming the rate. It's in the option to say no. A vote that always matches pricing carries no information, so whatever information it does carry is tied up in its ability to disagree. Even Thursday's 8-1 result had some: the one dissenting vote came from Catherine Mann, who wanted a bigger hike, when economists polled by Reuters had expected any dissent to come from someone wanting to hold.[^4] If the option to say no is what gives the vote its value, then the obvious question is what happens when the Bank actually uses it.
+
+When it has, the market has usually come out ahead. In 2021 the Bank held rates when markets were certain of a hike, judging that inflation would peak at around 5%. It reached 11.1%.[^5][^6] In 2022 it told markets that rates would peak lower than they were pricing, and they peaked right where markets said.[^7] The exception is the one that matters. In July 2023 markets priced Bank Rate to peak at 6.5%, and the Bank stopped at 5.25%.[^8] Following the market that month would have meant rates 1.25 percentage points higher than they ever needed to be, roughly £185 a month on a £250,000 mortgage, for nothing.
+
+So the market is right more often than the Bank, but not always, and when it's wrong it can be very wrong. That raises a better question than the one I started with. Not why the Bank has a vote, but why it should have one.
+
+The first answer is that predicting the Bank isn't the same as knowing the right rate. The market's job is to guess how the Bank will react to the data. When it called the 2023 peak in late 2022, it was forecasting a decision the Bank went on to make, not proving that 5.25% was correct. Its accuracy depends on the Bank being there to predict.
+
+The second answer is what happens if you take the Bank away. Imagine it promised to set rates at whatever the market expected. If markets expected 5%, the Bank would set 5%, and the market would be right. If they expected 6%, the Bank would set 6%, and the market would be right again. Every guess becomes correct, because the guess is what sets the rate. The forecast fulfils itself, so being right stops meaning anything: the price no longer tells you about inflation, only what the market thinks the market thinks. Bernanke and Woodford made this point formally in 1997: a central bank that mechanically follows private forecasts can leave the interest rate with nothing holding it in place.[^9]
+
+The third answer is that markets sometimes break. In September 2022, after the mini-budget, pension funds were forced to sell gilts so fast that the Bank had to step in and buy them to stop a collapse.[^10] Prices that week reflected a fire sale, not a view on inflation. A rule of following the market would have set interest rates from inside a crisis.
+
+None of this means the Bank was wrong on Thursday. With inflation forecast to reach about 5% by mid-2027, a hike looks pretty justified on its own terms.[^4] But that 5% is the same number the Bank was looking at in 2021, when it chose not to move and was punished for it. The worry isn't that the Bank followed the market this time. It's that after 2021, following the market has become the safe option, and a Bank that always takes the safe option has quietly handed over the anchor. That's exactly the situation that would have turned the 6.5% panic of 2023 into actual policy.
+
+The market is very good at predicting the Bank. That's exactly why it can't replace it.
+
+[^1]: Admiral Markets, "UK Gilt Yields Briefly Topped 6%", October 2026: https://admiralmarkets.com/analytics/traders-blog/uk-gilt-yields-sell-off-gbp
+[^2]: Bank of England, Monetary Policy Summary, September 2026: https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/september-2026
+[^3]: Moneyfacts data, via Mortgage Finance Gazette (27 March 2026) and Mortgage Strategy (4 November 2026): https://www.mortgagefinancegazette.com/banks/average-two-year-fix-hits-5-75-in-92bps-jump-since-iran-war-27-03-2026/ and https://www.mortgagestrategy.co.uk/news/mortgage-rates-hit-three-year-high-with-bank-rate-rise-expected-moneyfacts/
+[^4]: Bank of England, Monetary Policy Summary, November 2026: https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/november-2026; Reuters, 5 November 2026: https://www.aol.com/articles/instant-view-bank-england-delivers-121730000.html
+[^5]: Reuters, "Bank of England defies markets, keeps rates on hold", 4 November 2021: https://m.uk.investing.com/news/economy/bank-of-england-defies-markets-keeps-rates-on-hold-2502948
+[^6]: ONS, Consumer price inflation, October 2022. CHECK: link the ONS release directly.
+[^7]: Bank of England, Monetary Policy Summary, November 2022: https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2022/november-2022
+[^8]: Reuters, via Cyprus Mail, 28 July 2023: https://cyprus-mail.com/2023/07/28/bank-of-england-set-to-raise-rates-to-5-25-per-cent-as-high-inflation-persists
+[^9]: Bernanke, B. and Woodford, M. (1997), "Inflation Forecasts and Monetary Policy", Journal of Money, Credit and Banking. CHECK: read the paper and confirm the citation.
+[^10]: CHECK: link the Bank of England's announcement of its temporary gilt purchases, 28 September 2022.

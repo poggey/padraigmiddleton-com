@@ -1,0 +1,27 @@
+{
+  "title": "The average two-year fix against Bank Rate, January to November 2026",
+  "subtitle": "Start of each month, all LTVs. Bank Rate rose to 4% on 5 November.",
+  "source": "Moneyfacts UK Mortgage Trends Treasury Report; Bank of England.",
+  "note": "Moneyfacts start-of-month figures, read on Moneyfacts releases and trade press reproducing them (January to November 2026). Bank Rate from the Monetary Policy Summaries: 3.75% from 18 December 2025 to 4 November 2026.",
+  "caption": "Average two-year fixed mortgage rate, %. Source: Moneyfacts.",
+  "summary": "The average two-year fixed mortgage rate rises from 4.83% in January 2026 to 5.97% in November, most of it in March, while Bank Rate stays at 3.75%.",
+  "unit": "%",
+  "decimals": 2,
+  "points": [
+    { "year": "Jan", "value": 4.83 },
+    { "year": "Feb", "value": 4.85 },
+    { "year": "Mar", "value": 4.84 },
+    { "year": "Apr", "value": 5.84 },
+    { "year": "May", "value": 5.78 },
+    { "year": "Jun", "value": 5.68 },
+    { "year": "Jul", "value": 5.52 },
+    { "year": "Aug", "value": 5.63 },
+    { "year": "Sep", "value": 5.59 },
+    { "year": "Oct", "value": 5.93 },
+    { "year": "Nov", "value": 5.97 }
+  ],
+  "baseline": {
+    "label": "Bank Rate",
+    "values": [3.75, 3.75, 3.75, 3.75, 3.75, 3.75, 3.75, 3.75, 3.75, 3.75, 3.75]
+  }
+}

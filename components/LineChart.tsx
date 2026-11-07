@@ -6,7 +6,8 @@ export type Point = { label: string; value: number };
 /**
  * A line chart that draws in once when 40% visible (a left-to-right wipe, then the labels, via
  * Reveal and the data-reveal rules in globals.css). The line is SVG; dots and labels are
- * HTML on top so text stays sharp at any width. Forecast years are dashed.
+ * HTML on top so text stays sharp at any width. Forecast years are dashed. An optional baseline is
+ * a quieter grey line to compare against, named at its right end.
  */
 export function LineChart({
   points,
@@ -16,6 +17,8 @@ export function LineChart({
   highlight,
   ariaLabel,
   unit = "%",
+  decimals = 1,
+  baseline,
   className,
 }: {
   points: Point[];
@@ -28,15 +31,18 @@ export function LineChart({
   highlight?: number;
   ariaLabel: string;
   unit?: string;
+  decimals?: number;
+  /** One value per point. */
+  baseline?: { label: string; values: number[] };
   className?: string;
 }) {
   const x = (i: number) => (i / (points.length - 1)) * 100;
   const y = (v: number) => 100 - (v / yMax) * 100;
+  const line = (values: number[], from = 0) =>
+    values.map((v, i) => `${i === 0 ? "M" : "L"}${x(from + i)},${y(v)}`).join(" ");
   const path = (from: number, to: number) =>
-    points
-      .slice(from, to + 1)
-      .map((p, i) => `${i === 0 ? "M" : "L"}${x(from + i)},${y(p.value)}`)
-      .join(" ");
+    line(points.slice(from, to + 1).map((p) => p.value), from);
+  const format = (v: number) => `${v.toFixed(decimals)}${unit}`;
 
   const split = firstForecast === undefined ? points.length - 1 : firstForecast - 1;
 
@@ -60,6 +66,16 @@ export function LineChart({
                 className="stroke-line-strong"
                 vectorEffect="non-scaling-stroke"
               />
+              {baseline && (
+                <path
+                  d={line(baseline.values)}
+                  fill="none"
+                  className="stroke-muted"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                  vectorEffect="non-scaling-stroke"
+                />
+              )}
               <path
                 d={path(0, split)}
                 fill="none"
@@ -101,11 +117,20 @@ export function LineChart({
                     i === 0 ? "left-0" : i === points.length - 1 ? "right-0" : "-translate-x-1/2",
                   )}
                 >
-                  {points[i].value.toFixed(1)}
-                  {unit}
+                  {format(points[i].value)}
                 </span>
               </div>
             ))}
+            {baseline && (
+              <span
+                aria-hidden
+                data-fade
+                className="absolute right-0 mt-1 text-small text-muted"
+                style={{ top: `${y(baseline.values[baseline.values.length - 1])}%` }}
+              >
+                {baseline.label} {format(baseline.values[baseline.values.length - 1])}
+              </span>
+            )}
           </div>
           {/* The year under each labelled point, plus where the forecast starts. */}
           <div aria-hidden className="relative mt-2 h-5 text-small whitespace-nowrap text-muted">
